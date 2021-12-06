@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/youwin2152/Desktop/dfinity/hackthon_platform/target/wasm32-unknown-unknown/release/build/typenum-628699294d7d0d71/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/youwin2152/Desktop/dfinity/hackthon_platform/target/wasm32-unknown-unknown/release/build/typenum-628699294d7d0d71/out/op.rs

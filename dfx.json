@@ -2,9 +2,9 @@
   "canisters": {
     "hackthon_platform": {
       "build": "cargo build --target wasm32-unknown-unknown --package hackthon_platform --release",
-      "type": "custom",
       "candid": "src/hackthon_platform/src/hackthon_platform.did",
-      "wasm": "target/wasm32-unknown-unknown/release/rhackthon_platform.wasm"
+      "wasm": "target/wasm32-unknown-unknown/release/hackthon_platform.wasm",
+      "type": "custom"
     }
   },
 
