@@ -1,8 +1,9 @@
 type Hackthon_2 = record{
     "title" : text;
     "tags" : vec text;
-    "holding_time" : text;
+    "ddl" : text;
     "intro" : text;
+    "publish_time" : text;
 };
 
 type Hackthon = Hackthon_2;
