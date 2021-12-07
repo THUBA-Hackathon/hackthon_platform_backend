@@ -1,3 +1,13 @@
+type Hackthon_2 = record{
+    "title" : text;
+    "tags" : vec text;
+    "holding_time" : text;
+    "intro" : text;
+};
+
+type Hackthon = Hackthon_2;
+
 service : {
-    "print": () -> () query;
+    "listHackthon" : () -> (vec Hackthon_2) query;
+    "addHackthon" : (Hackthon_2) -> ();
 }
