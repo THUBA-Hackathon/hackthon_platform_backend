@@ -1,14 +1,40 @@
+type User_2 = record{
+    "name": text;
+    "tech": vec text;
+    "state": text;
+    "email": text;
+    "phone": text;
+    "wechat": text;
+};
+
+
+type Group_2 = record{
+    "name": text;
+    "number": text;
+    "intro": text;
+    "users": vec User_2;
+    "submit_link": text;
+};
+
 type Hackthon_2 = record{
     "title" : text;
     "tags" : vec text;
     "ddl" : text;
     "intro" : text;
     "publish_time" : text;
+    "groups" : vec Group_2;
 };
 
 type Hackthon = Hackthon_2;
+type User = User_2;
+type Group = Group_2;
+
 
 service : {
     "listHackthon" : () -> (vec Hackthon_2) query;
     "addHackthon" : (Hackthon_2) -> ();
+    "registerUser" : (User_2) -> ();
+    "joinGroup" : (text, text, User_2) -> (); 
+    "getUserInfo" : () -> (User_2) ;
+    "createGroup" : (text, Group_2) -> ();
 }

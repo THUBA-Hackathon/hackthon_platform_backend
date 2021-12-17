@@ -1,6 +1,8 @@
-use ic_cdk::export::{candid::{CandidType, Deserialize, Nat}};
+use ic_cdk::export::{candid::{CandidType, Deserialize, Principal}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
+use std::collections::HashMap;
+
 
 
 type HackthonStore = Vec<Hackthon>;
@@ -31,9 +33,10 @@ struct Group {
     pub number: String,
     pub intro: String,
     pub users: Vec<User>,
+    pub submit_link: String,
 }
 
-type UserStore = Vec<User>;
+type UserStore = HashMap<Principal, User>;
 
 
 #[update(name = addHackthon)]
@@ -45,16 +48,29 @@ fn add_hackthon(hackthon_info: Hackthon) {
 
 
 #[query(name = listHackthon)]
-fn list_hackthon_by_publish_time() -> &'static Vec<Hackthon>{
+fn list_hackthon() -> &'static Vec<Hackthon>{
     let hackthon_store = storage::get::<HackthonStore>();
     
     hackthon_store
 }
 
 #[update(name = registerUser)]
-fn add_user(user_info: User) {
+fn register_user(user_info: User) {
+    let id = ic_cdk::caller();
     let user_store = storage::get_mut::<UserStore>();
-    user_store.push(user_info);
+    user_store.insert(id, user_info);
+}
+
+
+
+#[update(name = createGroup)]
+fn create_group(hackthon_name: String, group_info: Group) {
+    let hackthon_store = storage::get_mut::<HackthonStore>();
+    for h in hackthon_store.iter_mut() {
+        if h.title.eq(&hackthon_name) {
+            h.groups.push(group_info.clone())
+        }
+    }
 }
 
 
@@ -74,6 +90,18 @@ fn join_group(hackthon_name: String, group_name: String, user_info: User) {
     }
 
 }
+
+#[update(name = getUserInfo)]
+fn get_user_info() ->  User {
+    let id = ic_cdk::caller();
+    let user_store = storage::get::<UserStore>();
+    user_store
+        .get(&id)
+        .cloned()
+        .unwrap_or_else(|| User::default())
+}
+
+
 
 
 
