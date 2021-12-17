@@ -1,9 +1,9 @@
-use ic_cdk::export::{candid::{CandidType, Deserialize, Principal, Nat}};
+use ic_cdk::{export::{candid::{CandidType, Deserialize, Principal, Nat}}, api::call::RejectionCode};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
 use ic_cdk::api;
 //use candid::Principal;
-use std::collections::HashMap;
+use std::{collections::HashMap, str::FromStr};
 
 
 struct Token(Principal);
@@ -14,6 +14,21 @@ impl Default for Token {
     }
 }
 type HackthonStore = Vec<Hackthon>;
+
+
+#[derive(CandidType, Debug, PartialEq)]
+pub enum TxError {
+    InsufficientBalance,
+    InsufficientAllowance,
+    Unauthorized,
+    LedgerTrap,
+    AmountTooSmall,
+    BlockUsed,
+    ErrorOperationStyle,
+    ErrorTo,
+    Other,
+}
+pub type TxReceipt = Result<Nat, TxError>;
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
 struct Hackthon {
@@ -49,19 +64,31 @@ struct Group {
 type UserStore = HashMap<Principal, User>;
 
 
+fn principal_from_string(s:String) -> Principal{
+    Principal::from_str(&s).unwrap()
+}
+
 #[update(name = init)]
-fn init(token_addr: Principal) {
+fn init(token_addr: String) {
+    let token_addr = principal_from_string(token_addr);
     let token_storage = storage::get_mut::<Token>();
     *token_storage = Token(token_addr);
 }
 
 #[update(name = addHackthon)]
-async fn add_hackthon(sponsor_addr:Principal, hackthon_info: Hackthon){
+async fn add_hackthon(sponsor_addr:String, hackthon_info: Hackthon) -> Nat{
+    let sponsor_addr = principal_from_string(sponsor_addr);
     let hackthon_store = storage::get_mut::<HackthonStore>();
     hackthon_store.push(hackthon_info);
+    
     let token_addr = storage::get::<Token>().0;
-    let result: Result<(Nat,),_> = api::call::call(token_addr, "transferFrom", (sponsor_addr, api::id(), 1000)).await;
-
+    
+    let result: Result<(Nat,),_>= api::call::call(token_addr, "transferFrom", (sponsor_addr, api::id(), 1000)).await;
+    // let result: Result<(Nat,),_>= api::call::call(token_addr, "balanceOf", (sponsor_addr,)).await;
+    match result {
+        Ok(x) => x.0,
+        Err(_) => Nat::from(5)
+    }
 }
 
 #[query(name = test)]
@@ -77,7 +104,8 @@ fn list_hackthon() -> &'static Vec<Hackthon>{
 }
 
 #[update(name = registerUser)]
-fn register_user(id:Principal, user_info: User) {
+fn register_user(id:String, user_info: User) {
+    let id = principal_from_string(id);
     let user_store = storage::get_mut::<UserStore>();
     user_store.insert(id, user_info);
 }
@@ -85,13 +113,14 @@ fn register_user(id:Principal, user_info: User) {
 
 
 #[update(name = createGroup)]
-fn create_group(id:Principal, hackthon_name: String, group_info: Group) {
+fn create_group(id:String, hackthon_name: String, group_info: Group) {
+    
     let hackthon_store = storage::get_mut::<HackthonStore>();
 
     for h in hackthon_store.iter_mut() {
         if h.title.eq(&hackthon_name) {
             let mut this_group = group_info.clone();
-            this_group.users.push(get_user_info(id));
+            this_group.users.push(get_user_info(id.clone()));
             h.groups.push(this_group);
         }
     }
@@ -99,7 +128,8 @@ fn create_group(id:Principal, hackthon_name: String, group_info: Group) {
 
 
 #[update(name = joinGroup)]
-fn join_group(id:Principal, hackthon_name: String, group_name: String) {
+fn join_group(id:String, hackthon_name: String, group_name: String) {
+    
     let user_info = get_user_info(id);
     let hackthon_store = storage::get_mut::<HackthonStore>();
     for h in hackthon_store.iter_mut() {
@@ -116,7 +146,8 @@ fn join_group(id:Principal, hackthon_name: String, group_name: String) {
 }
 
 #[update(name = getUserInfo)]
-fn get_user_info(id:Principal) ->  User {
+fn get_user_info(id:String) ->  User {
+    let id = principal_from_string(id);
     let user_store = storage::get::<UserStore>();
     user_store
         .get(&id)
