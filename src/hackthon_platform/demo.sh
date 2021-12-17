@@ -6,7 +6,7 @@ sudo dfx canister call hackthon_platform addHackthon '(record {title = "testHack
 sudo dfx canister call hackthon_platform listHackthon
 
 sudo dfx canister call token balanceOf '(principal "f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe")'
-sudo dfx canister call token allowance '(principal "f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe", principal "r7inp-6aaaa-aaaaa-aaabq-cai")'
+sudo dfx canister call token allowance '(principal "f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe", principal "rrkah-fqaaa-aaaaa-aaaaq-cai")'
 sudo dfx canister call hackthon_platform createGroup '("testHackthon",record {name = "a"; number = 1; intro = "shit"; users = vec{}; submit_link = ""})'
 sudo dfx canister call hackthon_platform listGroups
 sudo dfx canister call hackthon_platform submitWork '("a","4399.com")'
