@@ -1,10 +1,19 @@
-use ic_cdk::export::{candid::{CandidType, Deserialize, Principal}};
+use ic_cdk::export::{candid::{CandidType, Deserialize, Principal, Nat}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
+use ic_cdk::api;
+use ic_kit::candid::parser::token;
+//use candid::Principal;
 use std::collections::HashMap;
 
 
+struct Token(Principal);
 
+impl Default for Token {
+    fn default() -> Self {
+        Token(Principal::anonymous())
+    }
+}
 type HackthonStore = Vec<Hackthon>;
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
@@ -25,6 +34,7 @@ struct User {
     pub email: String,
     pub phone: String,
     pub wechat: String,
+    pub balance: Nat,
 }
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
@@ -38,6 +48,12 @@ struct Group {
 
 type UserStore = HashMap<Principal, User>;
 
+
+#[update(name = init)]
+fn init(token_addr: Principal) {
+    let token_storage = storage::get_mut::<Token>();
+    *token_storage = Token(token_addr);
+}
 
 #[update(name = addHackthon)]
 fn add_hackthon(hackthon_info: Hackthon) {
@@ -59,6 +75,7 @@ fn register_user(user_info: User) {
     let id = ic_cdk::caller();
     let user_store = storage::get_mut::<UserStore>();
     user_store.insert(id, user_info);
+    
 }
 
 
