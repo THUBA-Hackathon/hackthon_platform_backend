@@ -5,6 +5,7 @@ type User_2 = record{
     "email": text;
     "phone": text;
     "wechat": text;
+    "balance": nat;
 };
 
 
@@ -18,10 +19,10 @@ type Group_2 = record{
 
 type Hackthon_2 = record{
     "title" : text;
-    "tags" : vec text;
-    "ddl" : text;
+    "sponsor" : text;
     "intro" : text;
-    "publish_time" : text;
+    "start_time" : text;
+    "ddl" : text;
     "groups" : vec Group_2;
 };
 
@@ -37,4 +38,8 @@ service : {
     "joinGroup" : (text, text) -> (); 
     "getUserInfo" : () -> (User_2) ;
     "createGroup" : (text, Group_2) -> ();
+    "submitWork" : (text, text) -> ();
+    "listGroups" : () -> (vec Group_2);
+    "init" : (principal) -> ();
+    "test" : () -> (principal);
 }

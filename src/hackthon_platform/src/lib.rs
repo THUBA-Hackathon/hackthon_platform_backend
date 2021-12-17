@@ -2,7 +2,6 @@ use ic_cdk::export::{candid::{CandidType, Deserialize, Principal, Nat}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
 use ic_cdk::api;
-use ic_kit::candid::parser::token;
 //use candid::Principal;
 use std::collections::HashMap;
 
@@ -19,10 +18,11 @@ type HackthonStore = Vec<Hackthon>;
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
 struct Hackthon {
     pub title: String,
-    pub tags: Vec<String>,
-    pub ddl: String,
+    // pub tags: Vec<String>,
+    pub sponsor: String,
     pub intro: String,
-    pub publish_time: String,
+    pub start_time: String,
+    pub ddl: String,
     pub groups: Vec<Group>,
 }
 
@@ -56,17 +56,24 @@ fn init(token_addr: Principal) {
 }
 
 #[update(name = addHackthon)]
-fn add_hackthon(hackthon_info: Hackthon) {
+async fn add_hackthon(hackthon_info: Hackthon){
     let hackthon_store = storage::get_mut::<HackthonStore>();
     hackthon_store.push(hackthon_info);
+    let token_addr = storage::get::<Token>().0;
+    let sponsor_addr = ic_cdk::caller();
+    let result: Result<(Nat,),_> = api::call::call(token_addr, "transfer_from", (sponsor_addr, api::id(), 1000)).await;
+
 }
 
+#[query(name = test)]
+fn test_func() -> Principal {
+    api::id()
+}
 
 
 #[query(name = listHackthon)]
 fn list_hackthon() -> &'static Vec<Hackthon>{
     let hackthon_store = storage::get::<HackthonStore>();
-    
     hackthon_store
 }
 
@@ -75,7 +82,6 @@ fn register_user(user_info: User) {
     let id = ic_cdk::caller();
     let user_store = storage::get_mut::<UserStore>();
     user_store.insert(id, user_info);
-    
 }
 
 
@@ -83,9 +89,12 @@ fn register_user(user_info: User) {
 #[update(name = createGroup)]
 fn create_group(hackthon_name: String, group_info: Group) {
     let hackthon_store = storage::get_mut::<HackthonStore>();
+
     for h in hackthon_store.iter_mut() {
         if h.title.eq(&hackthon_name) {
-            h.groups.push(group_info.clone())
+            let mut this_group = group_info.clone();
+            this_group.users.push(get_user_info());
+            h.groups.push(this_group);
         }
     }
 }
@@ -100,10 +109,9 @@ fn join_group(hackthon_name: String, group_name: String) {
             for g in h.groups.iter_mut() {
                 if g.name.eq(&group_name) {
                     g.users.push(user_info);
-                    break;
+                    return;
                 }
             }
-            break;
         }
     }
 
@@ -119,8 +127,41 @@ fn get_user_info() ->  User {
         .unwrap_or_else(|| User::default())
 }
 
+#[update(name = submitWork)]
+fn submit_work(group_name:String, link: String) {
+    let hackthon_store = storage::get_mut::<HackthonStore>();
+    for h in hackthon_store.iter_mut() {
+            for g in h.groups.iter_mut() {
+                if g.name.eq(&group_name) {
+                    g.submit_link = link;
+                    send_award(&g.users[0]);
+                    return;
+                }
+            }
+    }
+}
 
 
+#[query(name = listGroups)]
+fn list_groups() -> Vec<Group>{
+    let hackthon_store = storage::get_mut::<HackthonStore>();
+    let mut return_group: Vec<Group> = Vec::new();
+    for h in hackthon_store.iter_mut() {
+        return_group.extend(h.groups.iter().cloned());
+    }
+    return_group
+}
+
+async fn send_award(user_info: &User) {
+    let user_store = storage::get::<UserStore>();
+    let token_addr = storage::get::<Token>().0;
+    for (id,info) in user_store {
+        if user_info.name.eq(&info.name) {
+            let result: Result<(Nat,),_> = api::call::call(token_addr, "transfer", (&id, 10)).await;
+            return;
+        }
+    }
+}
 
 
 // #[query(name = listHackthonByDDL)]
