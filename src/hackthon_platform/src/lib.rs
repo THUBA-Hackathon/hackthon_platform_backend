@@ -64,11 +64,20 @@ async fn add_hackthon(sponsor_addr:Principal, hackthon_info: Hackthon){
     let result: Result<(Nat,),_> = api::call::call(token_addr, "transferFrom", (sponsor_addr, api::id(), 1000)).await;
 }
 
-#[query(name = test)]
-fn test_func() -> Principal {
+#[query(name = testApi)]
+fn test_apiId() -> Principal {
     api::id()
 }
 
+#[query(name = testToken)]
+fn test_token() -> Principal {
+    token_addr
+}
+
+#[query(name = testSponsor)]
+fn test_sponsor() -> Principal {
+    sponsor_addr
+}
 
 #[query(name = listHackthon)]
 fn list_hackthon() -> &'static Vec<Hackthon>{
