@@ -40,7 +40,7 @@ struct User {
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
 struct Group {
     pub name: String,
-    pub number: String,
+    pub number: Nat,
     pub intro: String,
     pub users: Vec<User>,
     pub submit_link: String,

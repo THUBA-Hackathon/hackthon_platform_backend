@@ -11,7 +11,7 @@ type User_2 = record{
 
 type Group_2 = record{
     "name": text;
-    "number": text;
+    "number": nat;
     "intro": text;
     "users": vec User_2;
     "submit_link": text;
