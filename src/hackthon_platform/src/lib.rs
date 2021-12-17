@@ -61,7 +61,7 @@ async fn add_hackthon(hackthon_info: Hackthon){
     hackthon_store.push(hackthon_info);
     let token_addr = storage::get::<Token>().0;
     let sponsor_addr = ic_cdk::caller();
-    let result: Result<(Nat,),_> = api::call::call(token_addr, "transfer_from", (sponsor_addr, api::id(), 1000)).await;
+    let result: Result<(Nat,),_> = api::call::call(token_addr, "transferFrom", (sponsor_addr, api::id(), 1000)).await;
 
 }
 
