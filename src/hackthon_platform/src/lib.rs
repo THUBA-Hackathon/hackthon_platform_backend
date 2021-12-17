@@ -56,12 +56,11 @@ fn init(token_addr: Principal) {
 }
 
 #[update(name = addHackthon)]
-async fn add_hackthon(hackthon_info: Hackthon){
+async fn add_hackthon(sponsor_addr:Principal, hackthon_info: Hackthon){
     let hackthon_store = storage::get_mut::<HackthonStore>();
     hackthon_store.push(hackthon_info);
     let token_addr = storage::get::<Token>().0;
-    let sponsor_addr = ic_cdk::caller();
-    let result: Result<(Nat,),_> = api::call::call(token_addr, "transfer_from", (sponsor_addr, api::id(), 1000)).await;
+    let result: Result<(Nat,),_> = api::call::call(token_addr, "transferFrom", (sponsor_addr, api::id(), 1000)).await;
 
 }
 
@@ -78,8 +77,7 @@ fn list_hackthon() -> &'static Vec<Hackthon>{
 }
 
 #[update(name = registerUser)]
-fn register_user(user_info: User) {
-    let id = ic_cdk::caller();
+fn register_user(id:Principal, user_info: User) {
     let user_store = storage::get_mut::<UserStore>();
     user_store.insert(id, user_info);
 }
@@ -87,13 +85,13 @@ fn register_user(user_info: User) {
 
 
 #[update(name = createGroup)]
-fn create_group(hackthon_name: String, group_info: Group) {
+fn create_group(id:Principal, hackthon_name: String, group_info: Group) {
     let hackthon_store = storage::get_mut::<HackthonStore>();
 
     for h in hackthon_store.iter_mut() {
         if h.title.eq(&hackthon_name) {
             let mut this_group = group_info.clone();
-            this_group.users.push(get_user_info());
+            this_group.users.push(get_user_info(id));
             h.groups.push(this_group);
         }
     }
@@ -101,8 +99,8 @@ fn create_group(hackthon_name: String, group_info: Group) {
 
 
 #[update(name = joinGroup)]
-fn join_group(hackthon_name: String, group_name: String) {
-    let user_info = get_user_info();
+fn join_group(id:Principal, hackthon_name: String, group_name: String) {
+    let user_info = get_user_info(id);
     let hackthon_store = storage::get_mut::<HackthonStore>();
     for h in hackthon_store.iter_mut() {
         if h.title.eq(&hackthon_name) {
@@ -118,8 +116,7 @@ fn join_group(hackthon_name: String, group_name: String) {
 }
 
 #[update(name = getUserInfo)]
-fn get_user_info() ->  User {
-    let id = ic_cdk::caller();
+fn get_user_info(id:Principal) ->  User {
     let user_store = storage::get::<UserStore>();
     user_store
         .get(&id)
