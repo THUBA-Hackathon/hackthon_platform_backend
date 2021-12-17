@@ -75,7 +75,8 @@ fn create_group(hackthon_name: String, group_info: Group) {
 
 
 #[update(name = joinGroup)]
-fn join_group(hackthon_name: String, group_name: String, user_info: User) {
+fn join_group(hackthon_name: String, group_name: String) {
+    let user_info = get_user_info();
     let hackthon_store = storage::get_mut::<HackthonStore>();
     for h in hackthon_store.iter_mut() {
         if h.title.eq(&hackthon_name) {

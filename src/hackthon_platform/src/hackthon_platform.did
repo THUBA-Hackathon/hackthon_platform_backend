@@ -34,7 +34,7 @@ service : {
     "listHackthon" : () -> (vec Hackthon_2) query;
     "addHackthon" : (Hackthon_2) -> ();
     "registerUser" : (User_2) -> ();
-    "joinGroup" : (text, text, User_2) -> (); 
+    "joinGroup" : (text, text) -> (); 
     "getUserInfo" : () -> (User_2) ;
     "createGroup" : (text, Group_2) -> ();
 }
