@@ -17,9 +17,17 @@
         "entrypoint" : "src/hackthon_platform_assets/src/index.html"
       },
       "source" : [
-        "src/hackthon_platform_assets/assets"
+        "src/hackthon_platform_assets/assets",
+        "dist/hackthon_platform_assets/"
       ],
       "type" : "assets"
+    }
+  },
+  "dfx": "0.8.4",
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
     }
   },
 

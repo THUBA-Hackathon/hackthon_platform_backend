@@ -1,0 +1,21 @@
+// 队长信息展示
+import React from "react";
+import './team.css';
+
+
+
+// 传入的参数包括队伍名称，队长昵称，队长email
+class Captain extends React.Component{
+    render() {
+		return (
+            <div className="captain">
+                <div className="icon"><img src={require("../../assets/cap_icon.png").default} alt=""/></div>
+                <div className="team_name">{this.props.team_name}</div>
+                <div className="cap_name">队长:{this.props.cap_name}</div>
+                <div className="cap_email">Email:{this.props.email}</div>
+            </div>
+		);
+	}
+}
+
+export default Captain;

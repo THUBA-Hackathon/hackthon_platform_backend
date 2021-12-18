@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f1a8e05c.chunk.css",
+    "main.js": "/static/js/main.b5c0e771.chunk.js",
+    "main.js.map": "/static/js/main.b5c0e771.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e8c20322.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e8c20322.js.map",
+    "static/js/2.999ab9cc.chunk.js": "/static/js/2.999ab9cc.chunk.js",
+    "static/js/2.999ab9cc.chunk.js.map": "/static/js/2.999ab9cc.chunk.js.map",
+    "static/js/3.8e4b29c9.chunk.js": "/static/js/3.8e4b29c9.chunk.js",
+    "static/js/3.8e4b29c9.chunk.js.map": "/static/js/3.8e4b29c9.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.f1a8e05c.chunk.css.map": "/static/css/main.f1a8e05c.chunk.css.map",
+    "static/js/2.999ab9cc.chunk.js.LICENSE.txt": "/static/js/2.999ab9cc.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/Poppins-Regular.4603832f.ttf",
+    "static/media/arrow.svg": "/static/media/arrow.f006ce9b.svg",
+    "static/media/example-hackathon.png": "/static/media/example-hackathon.165b4db7.png",
+    "static/media/hackathon_1.png": "/static/media/hackathon_1.3e989e0a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e8c20322.js",
+    "static/js/2.999ab9cc.chunk.js",
+    "static/css/main.f1a8e05c.chunk.css",
+    "static/js/main.b5c0e771.chunk.js"
+  ]
+}

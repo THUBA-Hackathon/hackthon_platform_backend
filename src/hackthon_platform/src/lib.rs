@@ -81,8 +81,6 @@ fn register_user(id:Principal, user_info: User) {
     user_store.insert(id, user_info);
 }
 
-
-
 #[update(name = createGroup)]
 fn create_group(id:Principal, hackthon_name: String, group_info: Group) {
     let hackthon_store = storage::get_mut::<HackthonStore>();
@@ -95,7 +93,6 @@ fn create_group(id:Principal, hackthon_name: String, group_info: Group) {
         }
     }
 }
-
 
 #[update(name = joinGroup)]
 fn join_group(id:Principal, hackthon_name: String, group_name: String) {
@@ -136,7 +133,6 @@ fn submit_work(group_name:String, link: String) {
             }
     }
 }
-
 
 #[query(name = listGroups)]
 fn list_groups() -> Vec<Group>{

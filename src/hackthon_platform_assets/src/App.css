@@ -1,0 +1,199 @@
+.App {
+  text-align: center;
+  position: absolute;
+  left:0px;
+  top:0px;
+  /* display: flex; */
+}
+
+.footer{
+  position: relative;
+  width: 315px;
+  height: 26px;
+  left: 209.5px;
+  top: 71px;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #2D2E36;
+
+}
+
+.nav{
+  position: absolute;
+  width: 1437px;
+  height: 88px;
+  left: 0px;
+  top: 16px;
+  display:'flex';
+  justify-content: space-around;
+}
+
+.nav_logo_img {
+  position: absolute;
+  height: 63px;
+  width: 63px;
+  left: 30px;
+  top: 16px;
+  border-radius: 0px;
+  z-index: 1;
+}
+
+.nav_logo{
+  position: absolute;
+  width: 158px;
+  height: 36px;
+  left: 93px;
+  top: 34px;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 33px;
+
+  /* Black/1 */
+
+  color: #2D2E36;
+}
+.nav_hackathon{
+  position: absolute;
+  width: 79px;
+  height: 30px;
+  left: 351px;
+  top: 37px;
+
+  font-family: DQHT;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 30px;
+  /* identical to box height, or 120% */
+
+  /* display: flex;
+  align-items: center;
+  text-align: right; */
+
+  color: #0057FE;
+}
+.nav_projects{
+  position: absolute;
+  width: 103px;
+  height: 30px;
+  left: 487px;
+  top: 37px;
+
+  font-family: DQHT;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 30px;
+  /* identical to box height, or 120% */
+
+  /* display: flex;
+  align-items: center;
+  text-align: right; */
+
+  color: #999999;
+}
+.nav_search{
+  /* Auto Layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 7px 19px 7px 15px;
+
+  position: absolute;
+  width: 400px;
+  height: 40px;
+  left: 719px;
+  top: 30px;
+
+  /* White */
+
+  background: #FFFFFF;
+  /* Grey/Gray/1 */
+
+  border: 1px solid #E3E1E3;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.nav_address{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 9px 30px;
+
+  position: absolute;
+  width: 132px;
+  height: 41px;
+  left: 1163px;
+  top: 30px;
+
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+}
+.nav_img_mine{
+  position: absolute;
+  left: 1318px;
+  top: 36px;
+  width: 24px;
+  height: 24px;
+
+}
+.nav_mine{
+  position: absolute;
+  height: 24px;
+  left: 94.44%;
+  right: 0.95%;
+  top: 37px;
+
+  font-family: DQHT;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+  /* identical to box height, or 200% */
+
+  letter-spacing: -0.01px;
+
+  color: #000000;
+  
+}
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+} */
+
+/* .App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
