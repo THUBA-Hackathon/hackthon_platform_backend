@@ -69,16 +69,6 @@ fn test_apiId() -> Principal {
     api::id()
 }
 
-#[query(name = testToken)]
-fn test_token() -> Principal {
-    token_addr
-}
-
-#[query(name = testSponsor)]
-fn test_sponsor() -> Principal {
-    sponsor_addr
-}
-
 #[query(name = listHackthon)]
 fn list_hackthon() -> &'static Vec<Hackthon>{
     let hackthon_store = storage::get::<HackthonStore>();
