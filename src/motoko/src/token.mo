@@ -217,9 +217,9 @@ shared(msg) actor class Token(
         return #ok(txid);
     };
 
-    public query func test111() : async Principal {
+    public shared(msg) func test111() : async Principal {
         return msg.caller;
-    }
+    };
 
 
     public query func logo() : async Text {

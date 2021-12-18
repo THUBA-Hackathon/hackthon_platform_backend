@@ -8,6 +8,15 @@ type User_2 = record{
     "balance": nat;
 };
 
+type TxReceipt_2 = 
+ variant {
+   err: variant {
+          InsufficientAllowance;
+          InsufficientBalance;
+          Unauthorized;
+        };
+   ok: nat;
+ };
 
 type Group_2 = record{
     "name": text;
@@ -29,17 +38,17 @@ type Hackthon_2 = record{
 type Hackthon = Hackthon_2;
 type User = User_2;
 type Group = Group_2;
-
+type TxReceipt = TxReceipt_2;
 
 service : {
     "listHackthon" : () -> (vec Hackthon_2) query;
-    "addHackthon" : (text, Hackthon_2) -> (nat);
-    "registerUser" : (text, User_2) -> ();
-    "joinGroup" : (text, text, text) -> (); 
-    "getUserInfo" : (text) -> (User_2) ;
-    "createGroup" : (text, text, Group_2) -> ();
+    "addHackthon" : (Hackthon_2) -> ();
+    "registerUser" : (principal, User_2) -> ();
+    "joinGroup" : (principal, text, text) -> (); 
+    "getUserInfo" : (principal) -> (User_2) ;
+    "createGroup" : (principal, text, Group_2) -> ();
     "submitWork" : (text, text) -> ();
     "listGroups" : () -> (vec Group_2);
-    "init" : (text) -> ();
+    "init" : (principal) -> ();
     "test" : () -> (principal);
 }
