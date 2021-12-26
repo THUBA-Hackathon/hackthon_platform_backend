@@ -1,24 +1,21 @@
 import React from "react"
-import TabsControl from "./tabControl"
+import Nav from "../nav";
+import MineTabs from "./mineTab";
+import './mine.css'
+
 
 class Mine extends React.Component{
+    
     render(){
         return(
-            <div className="container">
-                <TabsControl>
-                    <div name = "first">
-                        第一帧
-                    </div>
-                    <div name = "second">
-                        第二帧
-                    </div>
-                    <div name = "third">
-                        第三帧
-                    </div>
-                </TabsControl>
+            <div >
+                <Nav />
+                <div className="container">
+                    <MineTabs applyMessageList={this.props.applyMessageList} accountInfoData={this.props.accountInfoData} teamList={this.props.teamList}/>
+                </div>
             </div>
         )
     }
 }
-
+  
 export default Mine;

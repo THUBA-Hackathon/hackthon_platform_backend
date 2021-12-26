@@ -6,11 +6,13 @@ import './team.css';
 
 // 传入的参数包括姓名，email
 class People extends React.Component{
+
     render() {
+        console.log(this.props.people_name)
 		return (
             <div className="people">
-                <div className="icon"><img src={require("../../assets/cap_icon.png").default} alt=""/></div>
-                <div className="people_name">{this.props.people_name}</div>
+                <div className="icon1"><img src={require("../../assets/cap_icon.png").default} alt=""/></div>
+                <div className="people_name">姓名:{this.props.people_name}</div>
                 <div className="people_email">Email:{this.props.email}</div>
             </div>
 		);

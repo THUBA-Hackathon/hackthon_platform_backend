@@ -8,14 +8,14 @@ import OneTech from "./tech";
 class TechStack extends React.Component{
     render() {
         let dataList = this.props.techList.map((item, index) => {
-            return (<OneTech key={index} {...item} />);
+            return (<OneTech key={index} tech={item} />);
         })
-		return (
+        return (
             <div className="tech_stack">
                 所需技术栈:{dataList}
             </div>
 		);
-	    
+
     }
 }
 

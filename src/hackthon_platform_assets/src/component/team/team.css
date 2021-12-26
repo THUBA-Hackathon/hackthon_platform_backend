@@ -2,14 +2,334 @@
     position: absolute;
     width: 90px;
     height: 90px;
-    left: 55px;
+    left: 80px;
     top: 148px;
+}
+.icon1 {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    left: 50px;
+    top: 20px;
+
 }
 
 .join_btn {
     position: absolute;
+    width: 98px;
+    height: 23px;
+    left: 46px;
+    top: 19px;
+    cursor: pointer;
+
+    font-family: DQHT Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+/* or 92% */
+
+
+    color: #FFFFFF;
+    cursor: pointer;
+
+    /* border: 1px solid #FFFFFF;
+    box-sizing: border-box; */
+}
+
+.join_team_button {
+    position: absolute;
     width: 190px;
     height: 60.32px;
     left: 944px;
-    top: 193px;
+    top: 131px;
+
+    background: #06E1FF;
+    border-radius: 30px;
+}
+
+.team_name{
+    position: relative;
+    width: 284px;
+    height: 24px;
+    left: 190px;
+    margin-top: 60px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    /* identical to box height, or 100% */
+    /* Neutral / 900 */
+
+    color: #0E1735;
+    /* or 146% */
+
+
+    color: #0057FE;
+}
+
+.cap_name{
+    position: relative;
+    width: 346px;
+    height: 56px;
+    left: 190px;
+    margin-top: 20px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+    color: #666666;
+
+}
+
+.cap_email{
+    position: relative;
+    width: 346px;
+    height: 56px;
+    left: 190px;
+    margin-top: 0px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+    color: #666666;
+
+}
+
+.team_card{
+    position: relative;
+    width: 1208px;
+    height: 350px;
+    left: 115px;
+    margin-top:10px;
+    /*background: rgba(0, 87, 254, 0.08);*/
+}
+
+.project_intro{
+    text-align: center;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 35px;
+
+    color: #0057FE;
+}
+
+.project_intro_btn{
+    position: relative;
+    width: 1208px;
+    height:80px;
+    line-height: 80px;
+    left: 50px;
+    margin-top: 40px;
+    text-align: center;
+    background: rgba(0, 87, 254, 0.08);
+    cursor: pointer;
+    
+}
+
+.intro_font {
+    display: inline-block;
+    /* position: absolute;
+    left:461px;
+    top:28px; */
+    text-align: center;
+    vertical-align: middle;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 35px;
+    color: #0057FE;
+}
+
+.tech_stack{
+    position: relative;
+    width: 650px;
+    height: 24px;
+    left: 100px;
+    margin-top: 0px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height, or 120% */
+    color: #000000;
+}
+
+.one_tech{
+    position: relative;
+    float: right;
+    margin-left: 20px;
+    right: 20px;
+    top: 0px;
+    bottom: 20px;
+    width: 100px;
+    text-align: center;
+
+    background: rgba(187, 196, 253, 0.2);
+    border: 1px solid #0057FE;
+    border-radius: 19.5px;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 22px;
+    /* identical to box height, or 110% */
+
+
+    color: #0057FE;
+}
+
+.team_declaration{
+    position: relative;
+    width: 1208px;
+    height: 81px;
+    left: 50px;
+    margin-top: 40px;
+    /*background: rgba(0, 87, 254, 0.08);*/
+
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 60px;
+    /* or 120% */
+    color: #0057FE;
+}
+
+.details_project_intro {
+    position: absolute;
+    width: 1242px;
+    height: 840px;
+    left: 50px;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 40px;
+    /* or 167% */
+
+
+    color: #000000;
+}
+
+.divider{
+    position: relative;
+    width: 109px;
+    height: 60px;
+    left: 50px;
+    margin-top:20px;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 60px;
+    /* identical to box height, or 240% */
+
+
+    color: #06E1FF;
+
+    border: 1px solid #06E1FF;
+    box-sizing: border-box;
+}
+
+
+.divider1{
+    position: relative;
+    width: 109px;
+    height: 60px;
+    left: 50px;
+    margin-top:230px;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 60px;
+    /* identical to box height, or 240% */
+
+
+    color: #06E1FF;
+
+    border: 1px solid #06E1FF;
+    box-sizing: border-box;
+}
+
+.people_name {
+    position: relative;
+    width: 346px;
+    height: 56px;
+    left: 45px;
+    margin-top: 50px;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+
+
+    color: #000000;
+}
+.people{
+    position: relative;
+    margin-left: 00px;
+    float: left;
+}
+.people_email{
+    position: relative;
+    width: 346px;
+    height: 56px;
+    left: 45px;
+    margin-top: 00px;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+
+
+    color: #000000;
+}
+.team_details {
+    position: relative;
+    left: 0px;
+    top: 104px;
+}
+.submit_btn{
+    position: relative;
+    width: 109px;
+    height: 60px;
+    left: 50px;
+    margin-top:280px;
+    cursor: pointer;
+
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 60px;
+    vertical-align: middle;
+    /* identical to box height, or 240% */
+
+
+    color: #06E1FF;
+
+    border: 1px solid #06E1FF;
+    box-sizing: border-box;
 }

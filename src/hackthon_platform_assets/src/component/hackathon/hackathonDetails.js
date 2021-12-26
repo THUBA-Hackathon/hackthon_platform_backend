@@ -13,20 +13,23 @@ let list = [
         cap_name: '马克',
         email: '2568198278@qq.com',
         techList: ["Rust", "Mokoto", "数据结构", "前端设计"],
+        showJoin: true,
     },
     {
-        intro: "一个Web 3.0下的社区项目",
+        intro: "Web 3.0下的学校项目",
         team_name: 'NFit',
-        cap_name: '马克',
-        email: '2568198278@qq.com',
-        techList: ["Rust", "Mokoto", "数据结构", "前端设计"],
+        cap_name: '皮特',
+        email: '2583026353@qq.com',
+        techList: ["Vue", "Typescript", "数据结构", "网络"],
+        showJoin: true,
     },
     {
-        intro: "一个Web 3.0下的社区项目",
+        intro: "NFT项目",
         team_name: 'NFit',
-        cap_name: '马克',
+        cap_name: '华飞',
         email: '2568198278@qq.com',
         techList: ["Rust", "Mokoto", "数据结构", "前端设计"],
+        showJoin: true,
     },
 ]
 // 传入的参数包括黑客松的海报图片url,赛事介绍详细内容words
@@ -35,7 +38,7 @@ class HackathonDetails extends React.Component{
 		return (
             <Tabs className="tabs" activeKey="1" type="line">
                     <Tabs.Pane label="赛事详情" key="1">
-                        <div className="hackathon_details_words"> 
+                        <div className="hackathon_details_words">
                             <div className="hackathon_date">{this.props.startdate} - {this.props.enddate}</div>
                             <div className="hackathon_words">{this.props.words}</div>
                         </div>
