@@ -1,9 +1,11 @@
-use ic_cdk::export::{candid::{CandidType, Deserialize, Principal, Nat}};
+use std::collections::HashMap;
+
+use ic_cdk::export::{candid::{CandidType, Deserialize, Principal}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
 use ic_cdk::api;
+
 //use candid::Principal;
-use std::collections::HashMap;
 
 
 struct Token(Principal);
@@ -13,106 +15,143 @@ impl Default for Token {
         Token(Principal::anonymous())
     }
 }
-type HackthonStore = Vec<Hackthon>;
+
+type HackathonStore = HashMap<String, Hackathon>;
+type MessageStore = HashMap<String, Message>;
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
-struct Hackthon {
-    pub title: String,
-    // pub tags: Vec<String>,
-    pub sponsor: String,
+struct Hackathon {
+    pub id: String,
+    pub name: String,
     pub intro: String,
-    pub start_time: String,
-    pub ddl: String,
-    pub groups: Vec<Group>,
+    pub sponsor: String,
+    pub startdate: String,
+    pub enddate: String,
+    pub teams: Vec<String>,
+}
+
+#[derive(Clone, Default, CandidType, Debug, Deserialize)]
+struct Message {
+    pub id: String,
+    pub user_id: String,
+    pub sender_id: String,
+    pub user_info: User,
+    pub team_id: String,
 }
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
 struct User {
+    pub id: String,
     pub name: String,
-    pub tech: Vec<String>,
-    pub state: String,
-    pub email: String,
+    pub area: String,
     pub phone: String,
-    pub wechat: String,
-    pub balance: Nat,
+    pub email: String,
+    pub school: String,
+    pub skills: Vec<String>,
 }
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
-struct Group {
+struct Team {
+    pub id: String,
+    pub hackathon_id: String,
     pub name: String,
-    pub number: Nat,
     pub intro: String,
-    pub users: Vec<User>,
-    pub submit_link: String,
+    pub members: Vec<String>,
+    pub skills_needed: Vec<String>,
+    pub code_link: String,
+    pub video_link: String,
 }
 
-type UserStore = HashMap<Principal, User>;
+type UserStore = HashMap<String, User>;
+type TeamStore = HashMap<String, Team>;
 
 
-#[update(name = init)]
-fn init(token_addr: Principal) {
-    let token_storage = storage::get_mut::<Token>();
-    *token_storage = Token(token_addr);
-}
 
-#[update(name = addHackthon)]
-async fn add_hackthon(sponsor_addr:Principal, hackthon_info: Hackthon){
-    let hackthon_store = storage::get_mut::<HackthonStore>();
-    hackthon_store.push(hackthon_info);
-    let token_addr = storage::get::<Token>().0;
-    let sponsor_addr = ic_cdk::caller();
-    let result: Result<(Nat,),_> = api::call::call(token_addr, "transferFrom", (sponsor_addr, api::id(), 1000)).await;
+#[update(name = createHackathon)]
+async fn add_hackathon(hackathon_info: Hackathon){
+    let hackathon_store = storage::get_mut::<HackathonStore>();
+    hackathon_store.insert(hackathon_info.id.clone(), hackathon_info);
+    
 }
 
 #[query(name = testApi)]
-fn test_apiId() -> Principal {
+fn test_api_id() -> Principal {
     api::id()
 }
 
-#[query(name = listHackthon)]
-fn list_hackthon() -> &'static Vec<Hackthon>{
-    let hackthon_store = storage::get::<HackthonStore>();
-    hackthon_store
+#[query(name = getHackathonList)]
+fn list_hackathon() -> Vec<Hackathon>{
+    let hackathon_store = storage::get::<HackathonStore>();
+    hackathon_store.values().cloned().collect()
 }
 
-#[update(name = registerUser)]
-fn register_user(id:Principal, user_info: User) {
+#[update(name = createUserInfo)]
+fn register_user(user_info: User) {
     let user_store = storage::get_mut::<UserStore>();
-    user_store.insert(id, user_info);
+    user_store.insert(user_info.id.clone(),user_info);
 }
 
-#[update(name = createGroup)]
-fn create_group(id:Principal, hackthon_name: String, group_info: Group) {
-    let hackthon_store = storage::get_mut::<HackthonStore>();
-
-    for h in hackthon_store.iter_mut() {
-        if h.title.eq(&hackthon_name) {
-            let mut this_group = group_info.clone();
-            this_group.users.push(get_user_info(id));
-            h.groups.push(this_group);
-        }
-    }
+#[update(name = createTeam)]
+fn create_group(team_info: Team) {
+    let hackathon_store = storage::get_mut::<HackathonStore>();
+    let mut hackathon = hackathon_store
+            .get_mut(&team_info.hackathon_id)
+            .cloned()
+            .unwrap_or_else(||(Hackathon::default()));
+    hackathon.teams.push(team_info.id.clone());
+    let team_store = storage::get_mut::<TeamStore>();
+    team_store.insert(team_info.id.clone(), team_info);
+    
 }
 
-#[update(name = joinGroup)]
-fn join_group(id:Principal, hackthon_name: String, group_name: String) {
-    let user_info = get_user_info(id);
-    let hackthon_store = storage::get_mut::<HackthonStore>();
-    for h in hackthon_store.iter_mut() {
-        if h.title.eq(&hackthon_name) {
-            for g in h.groups.iter_mut() {
-                if g.name.eq(&group_name) {
-                    g.users.push(user_info);
-                    return;
-                }
-            }
-        }
-    }
+#[update(name = joinTeam)]
+fn join_group(user_id: String, team_id: String) {
+    let team_store = storage::get_mut::<TeamStore>();
+    let mut team_info = team_store
+            .get_mut(&team_id)
+            .cloned()
+            .unwrap_or_else(||(Team::default()));
+    team_info.members.push(user_id);
+}
 
+#[query(name = getTeamList)]
+fn get_team_list(hackathon_id: String) ->  Vec<Team>{
+    let hackathon_store = storage::get::<HackathonStore>();
+    let team_store = storage::get::<TeamStore>();
+    let hackathon = hackathon_store
+            .get(&hackathon_id)
+            .cloned()
+            .unwrap_or_else(||(Hackathon::default()));
+    let mut team_list: Vec<Team> = Vec::new();
+    for team_id in hackathon.teams.iter() {
+        team_list.push(team_store
+            .get(team_id)
+            .cloned()
+            .unwrap_or_else(||(Team::default())));
+    }
+    team_list
+}
+
+#[query(name = getTeamMembers)]
+fn get_team_members(team_id: String) -> Vec<User> {
+    let team_store = storage::get::<TeamStore>();
+    let user_store = storage::get::<UserStore>();
+    let team = team_store
+            .get(&team_id)
+            .cloned()
+            .unwrap_or_else(||(Team::default()));
+    let mut user_list: Vec<User> = Vec::new();
+    for user_id in team.members.iter() {
+        user_list.push(user_store
+            .get(user_id)
+            .cloned()
+            .unwrap_or_else(||(User::default())));
+    }
+    user_list
 }
 
 #[update(name = getUserInfo)]
-fn get_user_info(id:Principal) ->  User {
+fn get_user_info(id: String) ->  User {
     let user_store = storage::get::<UserStore>();
     user_store
         .get(&id)
@@ -120,63 +159,54 @@ fn get_user_info(id:Principal) ->  User {
         .unwrap_or_else(|| User::default())
 }
 
-#[update(name = submitWork)]
-fn submit_work(group_name:String, link: String) {
-    let hackthon_store = storage::get_mut::<HackthonStore>();
-    for h in hackthon_store.iter_mut() {
-            for g in h.groups.iter_mut() {
-                if g.name.eq(&group_name) {
-                    g.submit_link = link;
-                    send_award(&g.users[0]);
-                    return;
-                }
-            }
-    }
-}
-
-#[query(name = listGroups)]
-fn list_groups() -> Vec<Group>{
-    let hackthon_store = storage::get_mut::<HackthonStore>();
-    let mut return_group: Vec<Group> = Vec::new();
-    for h in hackthon_store.iter_mut() {
-        return_group.extend(h.groups.iter().cloned());
-    }
-    return_group
-}
-
-async fn send_award(user_info: &User) {
-    let user_store = storage::get::<UserStore>();
-    let token_addr = storage::get::<Token>().0;
-    for (id,info) in user_store {
-        if user_info.name.eq(&info.name) {
-            let result: Result<(Nat,),_> = api::call::call(token_addr, "transfer", (&id, 10)).await;
-            return;
-        }
-    }
-}
+// #[update(name = submitWork)]
+// fn submit_work(group_name:String, link: String) {
+//     let Hackathon_store = storage::get_mut::<HackathonStore>();
+//     for h in Hackathon_store.iter_mut() {
+//             for g in h.groups.iter_mut() {
+//                 if g.name.eq(&group_name) {
+//                     g.submit_link = link;
+//                     send_award(&g.users[0]);
+//                     return;
+//                 }
+//             }
+//     }
+// }
 
 
-// #[query(name = listHackthonByDDL)]
-// fn list_hackthon_by_ddl() -> &'static Vec<Hackthon> {
-//     let hackthon_store = storage::get_mut::<HackthonStore>();
-//     hackthon_store.sort_by(|a, b| 
+// async fn send_award(user_info: &User) {
+//     let user_store = storage::get::<UserStore>();
+//     let token_addr = storage::get::<Token>().0;
+//     for (id,info) in user_store {
+//         if user_info.name.eq(&info.name) {
+//             let result: Result<(Nat,),_> = api::call::call(token_addr, "transfer", (&id, 10)).await;
+//             return;
+//         }
+//     }
+// }
+
+
+// #[query(name = listHackathonByDDL)]
+// fn list_Hackathon_by_ddl() -> &'static Vec<Hackathon> {
+//     let Hackathon_store = storage::get_mut::<HackathonStore>();
+//     Hackathon_store.sort_by(|a, b| 
 //         b.ddl.cmp(&a.ddl));
-//     hackthon_store
+//     Hackathon_store
 // }
 
-// #[query(name = listHackthonByTag)]
-// fn list_hackthon_by_tag() -> &'static Vec<Hackthon> {
-//     let hackthon_store = storage::get_mut::<HackthonStore>();
-//     hackthon_store.sort_by(|a, b| 
+// #[query(name = listHackathonByTag)]
+// fn list_Hackathon_by_tag() -> &'static Vec<Hackathon> {
+//     let Hackathon_store = storage::get_mut::<HackathonStore>();
+//     Hackathon_store.sort_by(|a, b| 
 //         b.tags.cmp(&a.tags));
-//     hackthon_store
+//     Hackathon_store
 // }
 
-// #[query(name = searchHackthonByTag)]
-// fn search_hackthon_by_tag(tag: String) -> Vec<Hackthon>  {
-//     let hackthon_store = storage::get::<HackthonStore>();
+// #[query(name = searchHackathonByTag)]
+// fn search_Hackathon_by_tag(tag: String) -> Vec<Hackathon>  {
+//     let Hackathon_store = storage::get::<HackathonStore>();
 //     let mut search_result = Vec::new();
-//     for h in hackthon_store.iter() {
+//     for h in Hackathon_store.iter() {
 //         if h.tags.contains(&tag) {
 //             search_result.push(h.clone());
 //         }
