@@ -161,11 +161,11 @@ render(
   <HashRouter>
     <Routes>
       <Route path={"" + "/"} element={<App />}/>
-      <Route path={"" + "/details"} element={<PageDetails  />}/>
+      <Route path={"" + "/details/:id"} element={<PageDetails  />}/>
       <Route path={"" + "/cap"} element={<PageTeam teamList={list}/>}></Route>
       <Route path={"" + "/add"} element={<AddTeam />}></Route>
       <Route path={"" + "/mine"} element={<Mine applyMessageList={list1} accountInfoData={data1} teamList={list2}/>}></Route>
-       <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route>
+       {/* <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route> */}
     </Routes>
   </HashRouter>,
   rootElement

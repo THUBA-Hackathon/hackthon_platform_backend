@@ -24,14 +24,26 @@ export default function AddDialog() {
     setOpen(true);
   };
 
-  const handleClose = async () => {
+  const handleCommit = async () => {
       // 提交表单
     console.log('submit1');
-    const add_hackthon = await hackthon_platform.addHackthon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{title : name, start_time: start_date, sponsor :  sponsor, ddl : end_date, intro : intro, groups: []});
+    var uuid = "hackathonid"+guid();
+    // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
+    const add_hackthon = await hackthon_platform.createHackathon({id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
     // console.log(name + sponsor + intro + start_date + end_date)
     console.log('submit2');
     setOpen(false);
   };
+  const handleClose = async () => {
+    setOpen(false);
+};
+  //用于生成uuid
+  function S4() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  }
+  function guid() {
+      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  }
 
 
   return (
@@ -96,7 +108,7 @@ export default function AddDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>取消</Button>
-          <Button onClick={handleClose}>提交</Button>
+          <Button onClick={handleCommit}>提交</Button>
         </DialogActions>
       </Dialog>
     </div>

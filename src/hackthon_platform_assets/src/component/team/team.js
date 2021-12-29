@@ -19,8 +19,9 @@ class TeamCard extends React.Component{
 		return (
             <div className="team_card">
                 <div className="project_intro_btn" onClick={handleOnClick}>{this.props.intro}</div>
-                <Captain team_name={this.props.team_name} cap_name={this.props.cap_name} email={this.props.email}/>
-                <TechStack techList={this.props.techList}/>
+                <Captain team_name={this.props.name} cap_name={this.props.members[0]} />
+                {/* email={this.props.email} */}
+                <TechStack techList={this.props.skills_needed}/>
                 {this.props.showJoin? <JoinTeamDialog />: ''}
             </div>
 		);

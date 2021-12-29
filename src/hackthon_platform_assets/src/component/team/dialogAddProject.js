@@ -10,22 +10,61 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddTeam from './newTeam';
 import moment from 'moment'
 import './team.css'
+import { hackthon_platform } from "../../../../declarations/hackthon_platform";
+import { createBrowserHistory } from 'history'
+const history = createBrowserHistory()
 
-export default function AddProjectDialog() {
+export default function AddProjectDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [intro, setIntro] = React.useState('');
+  const [slogan, setSlogan] = React.useState('');
+  const [stack, setStack] = React.useState('');
 
-  const handleClickOpen = () => {
+
+  const handleClickOpen = async () => {
     setOpen(true);
+    //检查用户是否填写过个人信息，没有的话先填写个人信息
+    // var user = await hackthon_platform.getUserInfo({id : props.userId});
+    // if(user)
+    //   setOpen(true);
+    // else
+    //   {
+    //     alert('Please fill your info first!')
+    //     history.push('/#/mine/')
+    //     window.location.reload()
+    //   }
   };
 
-  const handleClose = () => {
+  const handleSubmit = async () => {
       // 提交表单
+    console.log('submit1');
+    var uuid = "teamid" + guid();
+    var hackathon_id = props.hackathonId;
+    console.log(name + intro + stack)
+    // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
+    await hackthon_platform.createTeam({id : uuid, name : name, intro: intro, members: ['this user'], skills_needed:[stack], hackathon_id:hackathon_id, video_link:'', code_link:''});
+    // console.log(name + sponsor + intro + start_date + end_date)
+    console.log('submit2');
+    setOpen(false);
     setOpen(false);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  //用于生成uuid
+  function S4() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+  }
+  function guid() {
+      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  }
+
   return (
     <div>
-        <div className='add_button' onClick={handleClickOpen}>
+        <div className='team_add_button' onClick={handleClickOpen}>
             <AddTeam />
         </div>
         <Dialog open={open} onClose={handleClose}>
@@ -38,14 +77,16 @@ export default function AddProjectDialog() {
             label="队伍名称"
             fullWidth
             variant="outlined"
+            onChange={(nameValue) => {setName(nameValue.target.value)}}
           />
-          <TextField
+          {/* <TextField
             margin="dense"
             id="slogan"
             label="队伍口号"
             fullWidth
             variant="outlined"
-          />
+            onChange={(sloganValue) => {setSlogan(sloganValue.target.value)}}
+          /> */}
           <TextField
             margin="dense"
             id="intro"
@@ -53,6 +94,7 @@ export default function AddProjectDialog() {
             fullWidth
             variant="outlined"
             multiline
+            onChange={(introValue) => {setIntro(introValue.target.value)}}
           />
           <TextField
             margin="dense"
@@ -60,12 +102,13 @@ export default function AddProjectDialog() {
             label="所需技术栈"
             variant="outlined"
             fullWidth
+            onChange={(stackValue) => {setStack(stackValue.target.value)}}
           />
           
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>取消</Button>
-          <Button onClick={handleClose}>提交</Button>
+          <Button onClick={handleSubmit}>提交</Button>
         </DialogActions>
       </Dialog>
     </div>

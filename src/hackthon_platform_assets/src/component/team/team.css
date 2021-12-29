@@ -333,3 +333,8 @@
     border: 1px solid #06E1FF;
     box-sizing: border-box;
 }
+
+.team_add_button {
+    width: 1208px;
+    cursor: pointer;
+}
