@@ -11,13 +11,13 @@ type User_2 = record{
 
 type Team_2 = record{
     "id" : text;
-    "hackathonId" : text;
+    "hackathon_id" : text;
     "name": text;
-    "intro": nat;
+    "intro": text;
     "members": vec text;
-    "skillsNeeded": vec text;
-    "codeLink": text;
-    "videoLink" : text;
+    "skills_needed": vec text;
+    "code_link": text;
+    "video_link" : text;
 };
 
 type Hackathon_2 = record{

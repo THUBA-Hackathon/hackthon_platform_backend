@@ -1,13 +1,11 @@
 sudo dfx deploy
-sudo dfx canister install token --argument="(\"\", \"Hacker Valley Coin\", \"HVC\", 8, 10000000000000000, principal \"f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe\", 10000)"
-sudo dfx canister call token approve '(principal "rrkah-fqaaa-aaaaa-aaaaq-cai",10000)'
 
-sudo dfx canister call hackthon_platform addHackthon '(record {title = "testHackthon"; sponsor: "Boy"; intro:"Ahahhh"; start_time:"2021"; ddl:"2022"; groups: vec{}})'
-sudo dfx canister call hackthon_platform listHackthon
-
-sudo dfx canister call token balanceOf '(principal "f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe")'
-sudo dfx canister call token allowance '(principal "f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe", principal "rrkah-fqaaa-aaaaa-aaaaq-cai")'
-sudo dfx canister call hackthon_platform createGroup '("testHackthon",record {name = "a"; number = 1; intro = "shit"; users = vec{}; submit_link = ""})'
-sudo dfx canister call hackthon_platform listGroups
-sudo dfx canister call hackthon_platform submitWork '("a","4399.com")'
-sudo dfx canister call hackthon_platform listGroups
+sudo dfx canister  call hackthon_platform createUserInfo  '(record {id = "aa"; name = "alice"; area = "china"; phone = "110"; email = "alice@gmail.com"; school = "pku"; skills = vec {"js"}})'
+sudo dfx canister  call hackthon_platform getUserInfo '("aa")'
+sudo dfx canister call hackthon_platform createHackathon '(record {id = "bb"; name = "testHackathon"; intro="Ahahhh"; sponsor= "Boy"; startdate="2021"; enddate="2022"; teams= vec{"none"}})'
+sudo dfx canister call hackthon_platform getHackathonList
+sudo dfx canister call hackthon_platform createTeam '(record {id = "cc"; hackathon_id = "bb"; name = "testTeam"; intro = "shit"; members = vec{"aa"}; skills_needed = vec{"Rust";"Frontend"}; code_link = ""; video_link = ""})'
+sudo dfx canister call hackthon_platform getHackathonList
+sudo dfx canister call hackthon_platform getTeamMembers '("cc")'
+sudo dfx canister  call hackthon_platform createUserInfo  '(record {id = "dd"; name = "bob"; area = "china"; phone = "110"; email = "alice@gmail.com"; school = "pku"; skills = vec {"rust"}})'
+sudo dfx canister  call hackthon_platform joinTeam '("dd", "cc")'

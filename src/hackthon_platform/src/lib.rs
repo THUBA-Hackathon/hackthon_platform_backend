@@ -94,10 +94,10 @@ fn register_user(user_info: User) {
 #[update(name = createTeam)]
 fn create_group(team_info: Team) {
     let hackathon_store = storage::get_mut::<HackathonStore>();
-    let mut hackathon = hackathon_store
+    let mut temp_hackathon = Hackathon::default();
+    let hackathon = hackathon_store
             .get_mut(&team_info.hackathon_id)
-            .cloned()
-            .unwrap_or_else(||(Hackathon::default()));
+            .unwrap_or_else(||(&mut temp_hackathon));
     hackathon.teams.push(team_info.id.clone());
     let team_store = storage::get_mut::<TeamStore>();
     team_store.insert(team_info.id.clone(), team_info);
@@ -107,10 +107,10 @@ fn create_group(team_info: Team) {
 #[update(name = joinTeam)]
 fn join_group(user_id: String, team_id: String) {
     let team_store = storage::get_mut::<TeamStore>();
-    let mut team_info = team_store
+    let mut temp_team = Team::default();
+    let team_info = team_store
             .get_mut(&team_id)
-            .cloned()
-            .unwrap_or_else(||(Team::default()));
+            .unwrap_or_else(||(&mut temp_team));
     team_info.members.push(user_id);
 }
 
