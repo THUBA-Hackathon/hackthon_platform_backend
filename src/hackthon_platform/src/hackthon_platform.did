@@ -30,18 +30,31 @@ type Hackathon_2 = record{
     "teams" : vec text;
 };
 
+type Message_2 = record{
+    "id" : text;
+    "user_id" : text;
+    "sender_id" : text;
+    "user_info" : User_2;
+    "team_id" : text;
+    "finished" : bool;
+};
+
 type Hackathon = Hackathon_2;
 type User = User_2;
 type Team = Team_2;
+type Message = Message_2;
 
 
 service : {
     "getHackathonList" : () -> (vec Hackathon_2) query;
-    "createHacktahon" : (Hackathon_2) -> ();
+    "createHackathon" : (Hackathon_2) -> ();
     "createUserInfo" : (User_2) -> ();
     "joinTeam" : (text, text) -> (); 
     "createTeam" : (Team_2) -> ();
     "getTeamList" : (text) -> (vec Team_2);
     "getTeamMembers" : (text) -> (vec User_2);
     "getUserInfo" : (text) -> (User_2);
+    "getMessage" : (text) -> (vec Message_2);
+    "applyMessage" : (text, bool) -> ();
+    "getAllMessage" : () -> (vec Message_2);
 }

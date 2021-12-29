@@ -37,6 +37,7 @@ struct Message {
     pub sender_id: String,
     pub user_info: User,
     pub team_id: String,
+    pub finished: bool,
 }
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
@@ -106,12 +107,24 @@ fn create_group(team_info: Team) {
 
 #[update(name = joinTeam)]
 fn join_group(user_id: String, team_id: String) {
-    let team_store = storage::get_mut::<TeamStore>();
-    let mut temp_team = Team::default();
+    let team_store = storage::get::<TeamStore>();
+    let message_store = storage::get_mut::<MessageStore>();
+    let temp_team = Team::default();
     let team_info = team_store
-            .get_mut(&team_id)
-            .unwrap_or_else(||(&mut temp_team));
-    team_info.members.push(user_id);
+            .get(&team_id)
+            .unwrap_or_else(||(&temp_team));
+    let team_leader = team_info.members[0].clone();
+    println!("{}",team_leader);
+    let message = Message {
+        id: message_store.keys().len().to_string(),
+        sender_id : user_id.clone(),
+        user_id : team_leader,
+        team_id : team_id.clone(),
+        user_info : get_user_info(user_id),
+        finished : false
+    };
+    send_message(message);
+    // team_info.members.push(user_id);
 }
 
 #[query(name = getTeamList)]
@@ -158,6 +171,50 @@ fn get_user_info(id: String) ->  User {
         .cloned()
         .unwrap_or_else(|| User::default())
 }
+
+
+fn send_message(message_info: Message) {
+    let message_store = storage::get_mut::<MessageStore>();
+    message_store.insert(message_info.id.clone(), message_info);
+}
+
+#[query(name = getAllMessage)]
+fn get_all_message() -> Vec<Message> {
+    let message_store = storage::get::<MessageStore>();
+    message_store.values().cloned().collect()
+}
+
+#[query(name = getMessage)]
+fn get_message(user_id: String) -> Vec<Message> {
+    let message_store = storage::get::<MessageStore>();
+    let mut message_list: Vec<Message> = Vec::new();
+    for message in message_store.values() {
+        if message.user_id.eq(&user_id) && message.finished == false{
+            message_list.push(message.clone());
+        }
+    }
+    message_list
+}
+
+#[update(name = applyMessage)]
+fn apply_message(message_id: String, ans: bool) {
+    let message_store = storage::get_mut::<MessageStore>();
+    let mut temp_message = Message::default();
+    let message = message_store
+            .get_mut(&message_id)
+            .unwrap_or_else(||&mut temp_message);
+    message.finished = true;
+    if ans == true {
+        let team_store = storage::get_mut::<TeamStore>();
+        let mut temp_team = Team::default();
+        let team_info = team_store
+                .get_mut(&message.team_id)
+                .unwrap_or_else(||(&mut temp_team));
+        team_info.members.push(message.sender_id.clone());
+
+    }
+}   
+
 
 // #[update(name = submitWork)]
 // fn submit_work(group_name:String, link: String) {

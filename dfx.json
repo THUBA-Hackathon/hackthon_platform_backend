@@ -1,8 +1,5 @@
 {
   "canisters": {
-    "token": {
-      "main": "src/motoko/src/token.mo"
-    },
     "hackthon_platform": {
       "build": "cargo build --target wasm32-unknown-unknown --package hackthon_platform --release",
       "candid": "src/hackthon_platform/src/hackthon_platform.did",
