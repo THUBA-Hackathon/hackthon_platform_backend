@@ -30,7 +30,7 @@ type Hackathon_2 = record{
     "teams" : vec text;
 };
 
-type Hackathon = Hacakthon_2;
+type Hackathon = Hackathon_2;
 type User = User_2;
 type Team = Team_2;
 
