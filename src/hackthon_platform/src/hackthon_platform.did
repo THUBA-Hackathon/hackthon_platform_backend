@@ -1,45 +1,47 @@
 type User_2 = record{
+    "id" : text;
     "name": text;
-    "tech": vec text;
-    "state": text;
-    "email": text;
+    "area": text;
     "phone": text;
-    "wechat": text;
-    "balance": nat;
+    "email": text;
+    "school": text;
+    "skills": vec text;
 };
 
 
-type Group_2 = record{
+type Team_2 = record{
+    "id" : text;
+    "hackathonId" : text;
     "name": text;
-    "number": nat;
-    "intro": text;
-    "users": vec User_2;
-    "submit_link": text;
+    "intro": nat;
+    "members": vec text;
+    "skillsNeeded": vec text;
+    "codeLink": text;
+    "videoLink" : text;
 };
 
-type Hackthon_2 = record{
-    "title" : text;
-    "sponsor" : text;
+type Hackathon_2 = record{
+    "id" : text;
+    "name" : text;
     "intro" : text;
-    "start_time" : text;
-    "ddl" : text;
-    "groups" : vec Group_2;
+    "sponsor" : text;
+    "startdate" : text;
+    "enddate" : text;
+    "teams" : vec text;
 };
 
-type Hackthon = Hackthon_2;
+type Hackathon = Hacakthon_2;
 type User = User_2;
-type Group = Group_2;
+type Team = Team_2;
 
 
 service : {
-    "listHackthon" : () -> (vec Hackthon_2) query;
-    "addHackthon" : (principal, Hackthon_2) -> ();
-    "createUserInfo" : (principal, User_2) -> ();
-    "joinGroup" : (principal, text, text) -> (); 
-    "getUserInfo" : (principal) -> (User_2) ;
-    "createGroup" : (principal, text, Group_2) -> ();
-    "submitWork" : (text, text) -> ();
-    "listGroups" : () -> (vec Group_2);
-    "init" : (principal) -> ();
-    "test" : () -> (principal);
+    "getHackathonList" : () -> (vec Hackathon_2) query;
+    "createHacktahon" : (Hackathon_2) -> ();
+    "createUserInfo" : (User_2) -> ();
+    "joinTeam" : (text, text) -> (); 
+    "createTeam" : (Team_2) -> ();
+    "getTeamList" : (text) -> (vec Team_2);
+    "getTeamMembers" : (text) -> (vec User_2);
+    "getUserInfo" : (text) -> (User_2);
 }
