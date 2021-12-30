@@ -25,7 +25,7 @@ class Hackathon extends React.Component{
         this.state={hackathon_list:[]}
     }
     async componentDidMount() {
-        var list_hackathon = await hackthon_platform.listHackthon();
+        var list_hackathon = await hackthon_platform.getHackathonList();
         this.setState({hackathon_list:list_hackathon});
         console.log(list_hackathon);
     }
