@@ -216,19 +216,16 @@ fn apply_message(message_id: String, ans: bool) {
 }   
 
 
-// #[update(name = submitWork)]
-// fn submit_work(group_name:String, link: String) {
-//     let Hackathon_store = storage::get_mut::<HackathonStore>();
-//     for h in Hackathon_store.iter_mut() {
-//             for g in h.groups.iter_mut() {
-//                 if g.name.eq(&group_name) {
-//                     g.submit_link = link;
-//                     send_award(&g.users[0]);
-//                     return;
-//                 }
-//             }
-//     }
-// }
+#[update(name = submit)]
+fn submit_work(team_id: String, code_link: String, video_link: String) {
+    let team_store = storage::get_mut::<TeamStore>();
+    let mut temp_team = Team::default();
+    let team_info = team_store
+            .get_mut(&team_id)
+            .unwrap_or_else(||(&mut temp_team));
+    team_info.code_link = code_link;
+    team_info.video_link = video_link;
+}
 
 
 // async fn send_award(user_info: &User) {

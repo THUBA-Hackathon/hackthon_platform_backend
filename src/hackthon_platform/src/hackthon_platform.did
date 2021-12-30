@@ -57,4 +57,5 @@ service : {
     "getMessage" : (text) -> (vec Message_2);
     "applyMessage" : (text, bool) -> ();
     "getAllMessage" : () -> (vec Message_2);
+    "submit" : (text, text, text) -> ();
 }
