@@ -2,8 +2,13 @@
 import React from "react";
 import '../App.css';
 import { createBrowserHistory } from 'history'
+import { AuthClient } from "@dfinity/auth-client";
+
 const history = createBrowserHistory()
 
+const init = async () => {
+  const authClient = await AuthClient.create();
+}
 
 class Nav extends React.Component{
     render() {
