@@ -12,7 +12,7 @@ class PageDetails extends React.Component{
             <div>
                 <Nav />
                 <div className="details_line"></div>
-                <img className="hackathon_poster_img" src={require("../../assets/header_poster.png").default} alt=""/>
+                <img className="hackathon_poster_img" src={require("../../../assets/header_poster.png").default} alt=""/>
                 <HackathonDetails url={this.props.url} intro={this.props.intro} startdate={this.props.startdate} enddate={this.props.enddate}/>
             </div>
 

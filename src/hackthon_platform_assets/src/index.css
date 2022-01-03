@@ -12,15 +12,15 @@ code {
 
 @font-face {
   font-family: 'Avenir-Roman'; 
-  src: url(./assets/Avenir-Roman.otf) 
+  src: url(../assets/Avenir-Roman.otf) 
 }
 
 @font-face {
   font-family: 'Poppins'; 
-  src: url(./assets/Poppins-Regular.ttf) 
+  src: url(../assets/Poppins-Regular.ttf) 
 }
 
 @font-face {
   font-family: 'DQHT'; 
-  src: url(./assets/DongQingHeiTi-1.otf) 
+  src: url(../assets/DongQingHeiTi-1.otf) 
 }
