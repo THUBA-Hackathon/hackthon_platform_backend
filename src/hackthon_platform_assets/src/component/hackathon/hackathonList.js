@@ -11,7 +11,7 @@ class HackathonList extends React.Component{
     }
     render() {
         let dataList = this.props.hackathonList.map((item, index) => {
-            return (<HackathonInfo key={index}  id={item.id} url={require("../../../assets/example-hackathon.png").default} name={item.name} sponsor={item.sponsor} startdate={item.startdate} enddate={item.enddate}/>)
+            return (<HackathonInfo key={index}  id={item.id} url="example-hackathon.png" name={item.name} sponsor={item.sponsor} startdate={item.startdate} enddate={item.enddate}/>)
             // {...item}相当于下面的5句代码 es6的扩展运算符
             // url={item.url}
             // name={item.name}

@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
+const LOCAL_II_CANISTER =
+  "http://rkp4c-7iaaa-aaaaa-aaaca-cai.localhost:8000/#authorize";
+
 function initCanisterEnv() {
   let localCanisters, prodCanisters;
   try {
@@ -97,6 +100,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
+      LOCAL_II_CANISTER,
       ...canisterEnvVariables,
     }),
     new webpack.ProvidePlugin({
