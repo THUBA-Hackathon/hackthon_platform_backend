@@ -13,7 +13,7 @@ class AddTeam extends React.Component{
                         创建团队
                     </div>
                 </div>
-                <div className="add_icon"><img src={require("../../assets/add_icon.png").default} alt=""/></div>
+                <div className="add_icon"><img src={require("../../../assets/add_icon.png").default} alt=""/></div>
             </div>
 		);
 	}
