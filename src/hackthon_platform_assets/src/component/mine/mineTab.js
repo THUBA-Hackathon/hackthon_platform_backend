@@ -63,18 +63,21 @@ export default function MineTabs(props) {
         aria-label="Vertical tabs example"
         // sx={{ borderRight: 1, borderColor: 'divider' }}
       >
-        <Tab label="消息中心" {...a11yProps(0)} />
-        <Tab label="帐号信息" {...a11yProps(1)} />
+        <Tab label="帐号信息" {...a11yProps(0)} />
+        <Tab label="消息中心" {...a11yProps(1)} />
         <Tab label="我的团队" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <MessageCenter applyMessageList={props.applyMessageList}/>
+        {/* <AccountInfo accountInfoData={props.accountInfoData}/> */}
+        <AccountInfo />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <AccountInfo accountInfoData={props.accountInfoData}/>
+        {/* <MessageCenter applyMessageList={props.applyMessageList}/> */}
+        <MessageCenter />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <MineTeam teamList={props.teamList}/>
+        {/* <MineTeam teamList={props.teamList}/> */}
+        <MineTeam />
       </TabPanel>
     </Box>
   );

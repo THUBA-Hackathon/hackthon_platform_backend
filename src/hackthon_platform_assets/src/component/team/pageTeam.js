@@ -17,7 +17,7 @@ class PageTeam extends React.Component{
 		return (
             <div className="page_team">
                 {this.props.teamList.length > 0? dataList: ''}
-                <AddProjectDialog hackathonId={this.props.hackathonId} userId={this.props.userid}/>
+                <AddProjectDialog hackathonId={this.props.hackathonId} userId={this.props.userid} setTeamList={this.props.setTeamList}/>
             </div>
 		);
 	}

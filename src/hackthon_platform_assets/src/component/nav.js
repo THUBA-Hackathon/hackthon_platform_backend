@@ -7,7 +7,7 @@ import { AuthClient } from "@dfinity/auth-client";
 
 async function handleAuthenticated(authClient) {
     const identity = await authClient.getIdentity();
-    localStorage.setItem("id", identity.getPrincipal().toString());
+    window.localStorage.setItem("id", identity.getPrincipal().toString());
 }
 
 const days = BigInt(1);
@@ -26,10 +26,7 @@ export default function Nav() {
                 // authClient now has an identity
                 handleAuthenticated(authClient);
             },
-            identityProvider:
-                process.env.DFX_NETWORK === "ic"
-                    ? "https://identity.ic0.app/#authorize"
-                    : process.env.LOCAL_II_CANISTER,
+            identityProvider:"https://identity.ic0.app/#authorize",
             // Maximum authorization expiration is 8 days
             maxTimeToLive: days * hours * nanoseconds,
         });

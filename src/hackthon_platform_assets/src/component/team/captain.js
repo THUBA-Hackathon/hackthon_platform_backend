@@ -13,7 +13,7 @@ class Captain extends React.Component{
                 {/*    <Content>Content</Content>*/}
                 {/*    <Footer>Footer</Footer>*/}
                 {/*</Layout>*/}
-                <div className="icon"><img src={require("../../../assets/cap_icon.png").default} alt=""/></div>
+                <div className="icon"><img src="cap_icon.png" alt=""/></div>
                 <div className="team_name">{this.props.team_name}</div>
                 <div className="cap_name">队长:{this.props.cap_name}</div>
                 <div className="cap_email">Email:{this.props.email}</div>

@@ -145,6 +145,8 @@
   box-sizing: border-box;
   border-radius: 10px;
 
+  cursor: pointer;
+
 }
 .nav_img_mine{
   position: absolute;

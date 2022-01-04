@@ -64,7 +64,7 @@ export default function HackathonDetails(props) {
                 </div>
             </Tabs.Pane>
             <Tabs.Pane label="我要参赛" key="2">
-                <PageTeam teamList={teamlist} hackathonId={id} userid='test'/>
+                <PageTeam teamList={teamlist} setTeamList={setTeamList} hackathonId={id} userid='test'/>
             </Tabs.Pane>
         </Tabs>
 	);

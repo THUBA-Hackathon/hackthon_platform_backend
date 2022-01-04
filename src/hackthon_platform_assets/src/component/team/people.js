@@ -11,7 +11,7 @@ class People extends React.Component{
         console.log(this.props.people_name)
 		return (
             <div className="people">
-                <div className="icon1"><img src={require("../../../assets/cap_icon.png").default} alt=""/></div>
+                <div className="icon1"><img src="cap_icon.png" alt=""/></div>
                 <div className="people_name">姓名:{this.props.people_name}</div>
                 <div className="people_email">Email:{this.props.email}</div>
             </div>
