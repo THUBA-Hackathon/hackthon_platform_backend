@@ -4,10 +4,26 @@ import '../App.css';
 import { createBrowserHistory } from 'history'
 const history = createBrowserHistory()
 import { AuthClient } from "@dfinity/auth-client";
+import { createActor, canisterId } from "../../../declarations/hackthon_platform"
 
 async function handleAuthenticated(authClient) {
+    // const {user, setUser} = this.context;
+    // Create an actor to interact with the NNS Canister
+    // we pass the NNS Canister id and the interface factory
+    const backendActor = await createActor({
+        canisterId,
+        agentOptions: {
+            identity,
+        },
+    });
+    console.log("backendActor:", backendActor);
     const identity = await authClient.getIdentity();
-    window.localStorage.setItem("id", identity.getPrincipal().toString());
+    localStorage.setItem("id", identity.getPrincipal().toString());
+    setUser((prevUser) => ({
+        ...prevUser,
+        backendActor: backendActor,
+        identity: identity
+    }));
 }
 
 const days = BigInt(1);
