@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-
+use ic_kit::ic;
 use ic_cdk::export::{candid::{CandidType, Deserialize, Principal}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
@@ -88,8 +88,10 @@ fn list_hackathon() -> Vec<Hackathon>{
 
 #[update(name = createUserInfo)]
 fn register_user(user_info: User) {
+    let mut new_info = user_info.clone();
+    new_info.id = ic::caller().to_string();
     let user_store = storage::get_mut::<UserStore>();
-    user_store.insert(user_info.id.clone(),user_info);
+    user_store.insert(new_info.id.clone(),new_info);
 }
 
 #[update(name = createTeam)]
@@ -172,6 +174,15 @@ fn get_user_info(id: String) ->  User {
         .unwrap_or_else(|| User::default())
 }
 
+#[update(name = getSelfUserInfo)]
+fn get_self_user_info() ->  User {
+    let id = ic::caller().to_string();
+    let user_store = storage::get::<UserStore>();
+    user_store
+        .get(&id)
+        .cloned()
+        .unwrap_or_else(|| User::default())
+}
 
 fn send_message(message_info: Message) {
     let message_store = storage::get_mut::<MessageStore>();

@@ -58,4 +58,5 @@ service : {
     "applyMessage" : (text, bool) -> ();
     "getAllMessage" : () -> (vec Message_2);
     "submit" : (text, text, text) -> ();
+    "getSelfUsereInfo" : () -> (User_2);
 }
