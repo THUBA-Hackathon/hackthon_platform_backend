@@ -1,5 +1,4 @@
 type User_2 = record{
-    "id" : text;
     "name": text;
     "area": text;
     "phone": text;
@@ -49,12 +48,12 @@ service : {
     "getHackathonList" : () -> (vec Hackathon_2) query;
     "createHackathon" : (Hackathon_2) -> ();
     "createUserInfo" : (User_2) -> ();
-    "joinTeam" : (text, text) -> (); 
+    "joinTeam" : (text) -> (); 
     "createTeam" : (Team_2) -> ();
     "getTeamList" : (text) -> (vec Team_2);
     "getTeamMembers" : (text) -> (vec User_2);
     "getUserInfo" : (text) -> (User_2);
-    "getMessage" : (text) -> (vec Message_2);
+    "getMessage" : () -> (vec Message_2);
     "applyMessage" : (text, bool) -> ();
     "getAllMessage" : () -> (vec Message_2);
     "submit" : (text, text, text) -> ();
