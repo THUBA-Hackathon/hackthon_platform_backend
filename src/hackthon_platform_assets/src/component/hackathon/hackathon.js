@@ -8,6 +8,7 @@ import Phase from "./phase"
 import AddDialog from "./dialogAddHackathon"
 import { hackthon_platform } from "../../../../declarations/hackthon_platform";
 import { init } from "../../../../declarations/hackthon_platform_assets/hackthon_platform_assets.did";
+import UserContext from "../../context/user-context";
 
 // 黑客松信息的结构
 // {
@@ -36,7 +37,10 @@ class Hackathon extends React.Component{
                 <Nav />
                 <Swipper />
                 <Phase />
-                <AddDialog />
+                {/* <AddDialog /> */}
+                <UserContext.Consumer>
+                    {value => <AddDialog props={value} />}
+                </UserContext.Consumer>
                 <HackathonList hackathonList={this.state.hackathon_list} />
             </div>
         )

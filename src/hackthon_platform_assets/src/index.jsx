@@ -18,6 +18,7 @@ import TeamDetails from "./component/team/teamDetails";
 import MineTabs from './component/mine/mineTab';
 import VerticalTabs from './component/mine/mineTab'
 import PageTeamDetails from './component/team/pageTeamDetails';
+import UserContext from "./context/user-context";
 
 
 // let list = [
@@ -159,17 +160,18 @@ let teamDetail = {
 const rootElement = document.getElementById("root");
 
 render(
-    <HashRouter>
-      <Routes>
-        <Route path={"" + "/"} element={<App />} />
-        <Route path={"" + "/details/:id"} element={<PageDetails />} />
-        <Route path={"" + "/cap"} element={<PageTeam teamList={list} />}></Route>
-        <Route path={"" + "/add"} element={<AddTeam />}></Route>
-        <Route path={"" + "/mine"} element={<Mine applyMessageList={list1} accountInfoData={data1} teamList={list2} />}></Route>
-        {/* <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route> */}
-      </Routes>
-    </HashRouter>,
-    rootElement
+    // <HashRouter>
+    //   <Routes>
+    //     <Route path={"" + "/"} element={<App />} />
+    //     <Route path={"" + "/details/:id"} element={<PageDetails />} />
+    //     <Route path={"" + "/cap"} element={<PageTeam teamList={list} />}></Route>
+    //     <Route path={"" + "/add"} element={<AddTeam />}></Route>
+    //     <Route path={"" + "/mine"} element={<Mine applyMessageList={list1} accountInfoData={data1} teamList={list2} />}></Route>
+    //     {/* <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route> */}
+    //   </Routes>
+    // </HashRouter>,
+    <App />,
+  rootElement
 );
 
 // If you want to start measuring performance in your app, pass a function
