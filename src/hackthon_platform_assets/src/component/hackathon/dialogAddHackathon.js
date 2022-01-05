@@ -9,8 +9,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddHackathon from './addHackathon';
 import moment from 'moment';
-import { hackthon_platform } from "../../../../declarations/hackthon_platform";
-import { Principal } from '@dfinity/principal';
 
 export default function AddDialog() {
   const [open, setOpen] = React.useState(false);
@@ -25,33 +23,32 @@ export default function AddDialog() {
   };
 
   const handleCommit = async () => {
-      // 提交表单
-    console.log('submit1');
-    var uuid = "hackathonid"+guid();
+    // 提交表单
+    var uuid = "hackathonid" + guid();
+    const hackathon_actor = this.context.backendActor;
     // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
-    const add_hackthon = await hackthon_platform.createHackathon({id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
+    const add_hackthon = await hackathon_actor.createHackathon({ id: uuid, name: name, startdate: start_date, sponsor: sponsor, enddate: end_date, intro: intro, teams: [] });
     // console.log(name + sponsor + intro + start_date + end_date)
-    console.log('submit2');
     setOpen(false);
   };
   const handleClose = async () => {
     setOpen(false);
-};
+  };
   //用于生成uuid
   function S4() {
-    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   }
   function guid() {
-      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
   }
 
 
   return (
     <div>
-        <div className='add_button' onClick={handleClickOpen}>
-            <AddHackathon/>
-        </div>
-        <Dialog open={open} onClose={handleClose}>
+      <div className='add_button' onClick={handleClickOpen}>
+        <AddHackathon />
+      </div>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>发起黑客松</DialogTitle>
         <DialogContent>
           {/* <DialogContentText>
@@ -65,7 +62,7 @@ export default function AddDialog() {
             fullWidth
             variant="outlined"
             // onChange={handleNameChange}
-            onChange={(nameValue) => {setName(nameValue.target.value)}}
+            onChange={(nameValue) => { setName(nameValue.target.value) }}
           />
           <TextField
             margin="dense"
@@ -73,7 +70,7 @@ export default function AddDialog() {
             label="主办方"
             fullWidth
             variant="outlined"
-            onChange={(sponsorValue) => {setSponsor(sponsorValue.target.value)}}
+            onChange={(sponsorValue) => { setSponsor(sponsorValue.target.value) }}
           />
           <TextField
             margin="dense"
@@ -82,7 +79,7 @@ export default function AddDialog() {
             fullWidth
             variant="outlined"
             multiline
-            onChange={(introValue) => {setIntro(introValue.target.value)}}
+            onChange={(introValue) => { setIntro(introValue.target.value) }}
           />
           <TextField
             margin="dense"
@@ -92,7 +89,7 @@ export default function AddDialog() {
             variant="outlined"
             fullWidth
             defaultValue={moment().format('YYYY-MM-DD')}
-            onChange={(startDateValue) => {setStartDate(startDateValue.target.value)}}
+            onChange={(startDateValue) => { setStartDate(startDateValue.target.value) }}
           />
           <TextField
             margin="dense"
@@ -102,9 +99,9 @@ export default function AddDialog() {
             variant="outlined"
             fullWidth
             defaultValue={moment().format('YYYY-MM-DD')}
-            onChange={(endDateValue) => {setEndDate(endDateValue.target.value)}}
+            onChange={(endDateValue) => { setEndDate(endDateValue.target.value) }}
           />
-          
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>取消</Button>

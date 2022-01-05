@@ -14,7 +14,6 @@ var usr_addr = localStorage.getItem('id');
 async function handleAuthenticated(authClient) {
   const identity = await authClient.getIdentity();
   window.localStorage.setItem("id", identity.getPrincipal().toString());
-  
 }
 // 需要传入 用户名称 用户国家 手机 邮箱 希望担任的角色
 export default function AccountInfo() {
