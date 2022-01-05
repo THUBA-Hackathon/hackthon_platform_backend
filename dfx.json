@@ -1,7 +1,7 @@
 {
   "canisters": {
     "hackthon_platform": {
-      "build": "./build.sh",
+      "build": "cargo build --target wasm32-unknown-unknown --package hackthon_platform --release",
       "candid": "src/hackthon_platform/src/hackthon_platform.did",
       "wasm": "target/wasm32-unknown-unknown/release/hackthon_platform.wasm",
       "type": "custom"
