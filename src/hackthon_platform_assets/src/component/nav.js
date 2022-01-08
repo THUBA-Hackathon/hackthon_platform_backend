@@ -31,7 +31,7 @@ export default class Nav extends React.Component {
             });
             console.log("backendActor:", backendActor);
             
-            localStorage.setItem("id", identity.getPrincipal().toString());
+            // localStorage.setItem("id", identity.getPrincipal().toString());
             // const [user, setUser] = context
             
             setUser({
@@ -65,8 +65,9 @@ export default class Nav extends React.Component {
             window.location.reload()
         })
         let logIn;
-        if (localStorage.getItem('id')) {
-            logIn = <div className="nav_address" onClick={handleLogInClick}>{localStorage.getItem('id').substring(0, 5) + "-*"}</div>;
+        console.log(user.identity)
+        if (user.identity != null) {
+            logIn = <div className="nav_address" onClick={handleLogInClick}>{user.identity.getPrincipal().toString().substring(0, 5) + "-*"}</div>;
         } else {
             logIn = <div className="nav_address" onClick={handleLogInClick}>log in</div>
         }
