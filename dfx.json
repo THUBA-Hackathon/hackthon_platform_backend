@@ -5,19 +5,6 @@
       "candid": "src/hackthon_platform/src/hackthon_platform.did",
       "wasm": "target/wasm32-unknown-unknown/release/hackthon_platform.wasm",
       "type": "custom"
-    },
-    "hackthon_platform_assets": {
-      "dependencies": [
-        "hackthon_platform"
-      ],
-      "frontend": {
-        "entrypoint": "src/hackthon_platform_assets/src/index.html"
-      },
-      "source": [
-        "src/hackthon_platform_assets/assets",
-        "dist/hackthon_platform_assets/"
-      ],
-      "type": "assets"
     }
   },
   "dfx": "0.8.4",

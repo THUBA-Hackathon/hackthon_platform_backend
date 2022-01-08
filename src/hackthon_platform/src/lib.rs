@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use ic_kit::ic;
+use ic_kit::ic::caller;
 use ic_cdk::export::{candid::{CandidType, Deserialize, Principal}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
@@ -8,13 +8,6 @@ use ic_cdk::api;
 //use candid::Principal;
 
 
-struct Token(Principal);
-
-impl Default for Token {
-    fn default() -> Self {
-        Token(Principal::anonymous())
-    }
-}
 
 type HackathonStore = HashMap<String, Hackathon>;
 type MessageStore = HashMap<String, Message>;
@@ -42,7 +35,6 @@ struct Message {
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
 struct User {
-    pub id: String,
     pub name: String,
     pub area: String,
     pub phone: String,
@@ -88,10 +80,9 @@ fn list_hackathon() -> Vec<Hackathon>{
 
 #[update(name = createUserInfo)]
 fn register_user(user_info: User) {
-    let mut new_info = user_info.clone();
-    new_info.id = ic::caller().to_string();
+    let id = caller();
     let user_store = storage::get_mut::<UserStore>();
-    user_store.insert(new_info.id.clone(),new_info);
+    user_store.insert(id.to_text(),user_info);
 }
 
 #[update(name = createTeam)]
@@ -102,13 +93,16 @@ fn create_group(team_info: Team) {
             .get_mut(&team_info.hackathon_id)
             .unwrap_or_else(||(&mut temp_hackathon));
     hackathon.teams.push(team_info.id.clone());
+    let mut new_team = team_info.clone();
+    new_team.members.push(caller().to_text());
     let team_store = storage::get_mut::<TeamStore>();
-    team_store.insert(team_info.id.clone(), team_info);
+    team_store.insert(team_info.id.clone(), new_team);
     
 }
 
 #[update(name = joinTeam)]
-fn join_group(user_id: String, team_id: String) {
+fn join_group(team_id: String) {
+    let user_id = caller().to_text();
     let team_store = storage::get::<TeamStore>();
     let message_store = storage::get_mut::<MessageStore>();
     let temp_team = Team::default();
@@ -176,12 +170,8 @@ fn get_user_info(id: String) ->  User {
 
 #[update(name = getSelfUserInfo)]
 fn get_self_user_info() ->  User {
-    let id = ic::caller().to_string();
-    let user_store = storage::get::<UserStore>();
-    user_store
-        .get(&id)
-        .cloned()
-        .unwrap_or_else(|| User::default())
+    let id = caller().to_text();
+    get_user_info(id)
 }
 
 fn send_message(message_info: Message) {
@@ -196,7 +186,8 @@ fn get_all_message() -> Vec<Message> {
 }
 
 #[query(name = getMessage)]
-fn get_message(user_id: String) -> Vec<Message> {
+fn get_message() -> Vec<Message> {
+    let user_id = caller().to_text();
     let message_store = storage::get::<MessageStore>();
     let mut message_list: Vec<Message> = Vec::new();
     for message in message_store.values() {
