@@ -23,20 +23,21 @@ export default class Nav extends React.Component {
             // Create an actor to interact with the NNS Canister
             // we pass the NNS Canister id and the interface factory
             const identity = await authClient.getIdentity();
-            const backendActor = await createActor({
-                canisterId,
+            const backendActor = await createActor(canisterId,{
                 agentOptions: {
                     identity,
                 },
             });
             console.log("backendActor:", backendActor);
+            let testlist = await backendActor.getHackathonList()
+            console.log(testlist)
             
             // localStorage.setItem("id", identity.getPrincipal().toString());
             // const [user, setUser] = context
             
             setUser({
                 backendActor: backendActor,
-                identity: identity
+                principal: identity.getPrincipal()
             });
         }
 
@@ -65,9 +66,9 @@ export default class Nav extends React.Component {
             window.location.reload()
         })
         let logIn;
-        console.log(user.identity)
+        console.log(user)
         if (user.identity != null) {
-            logIn = <div className="nav_address" onClick={handleLogInClick}>{user.identity.getPrincipal().toString().substring(0, 5) + "-*"}</div>;
+            logIn = <div className="nav_address" onClick={handleLogInClick}>{user.principal.toString().substring(0, 5) + "-*"}</div>;
         } else {
             logIn = <div className="nav_address" onClick={handleLogInClick}>log in</div>
         }

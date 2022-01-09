@@ -31,6 +31,7 @@ export default function AddDialog(props) {
     var uuid = "hackathonid" + guid();
     console.log(props)
     const hackathon_actor = props.props.user.backendActor;
+    console.log(user)
     console.log(hackathon_actor)
     console.log(hackthon_platform)
     const list2 = await hackthon_platform.getHackathonList()
