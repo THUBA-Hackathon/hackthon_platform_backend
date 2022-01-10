@@ -37,7 +37,9 @@ export default function AccountInfo() {
                 // authClient now has an identity
                 handleAuthenticated(authClient);
             },
-            identityProvider:"https://identity.ic0.app/#authorize",
+            identityProvider: process.env.DFX_NETWORK === "ic"
+              ? "https://identity.ic0.app/#authorize"
+              : process.env.LOCAL_II_CANISTER,
             // Maximum authorization expiration is 8 days
             maxTimeToLive: days * hours * nanoseconds,
         });
