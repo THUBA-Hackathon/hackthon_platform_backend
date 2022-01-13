@@ -29,8 +29,6 @@ export default class Nav extends React.Component {
                 },
             });
             console.log("backendActor:", backendActor);
-            let testlist = await backendActor.getHackathonList()
-            console.log(testlist)
             
             // localStorage.setItem("id", identity.getPrincipal().toString());
             // const [user, setUser] = context

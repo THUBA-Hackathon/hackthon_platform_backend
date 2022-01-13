@@ -8,6 +8,9 @@ import Box from '@mui/material/Box';
 import MessageCenter from './messageCenter';
 import AccountInfo from './accountInfo';
 import MineTeam from './mineTeam';
+import { hackthon_platform } from "../../../../declarations/hackthon_platform";
+
+var usr_addr = localStorage.getItem('id');
 
 // 我的 页面， 需要传入申请加入队伍信息列表applyMesssageList, 用户信息accountInfoData, 用户所在的队伍列表teamList
 function TabPanel(props) {
@@ -45,10 +48,23 @@ function a11yProps(index) {
 
 export default function MineTabs(props) {
   const [value, setValue] = React.useState(0);
+  const [userInfo, setUserInfo] = React.useState({})
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  React.useEffect(async ()=>{
+    try{
+      var user_info = await hackthon_platform.getUserInfo(usr_addr);
+      console.log(JSON.stringify(user_info))
+      setUserInfo(JSON.stringify(user_info))
+      console.log(userInfo)
+    } catch(e) {
+      alert('Please fill your info first!')
+    }
+    
+}, [])
 
 
   return (
@@ -69,7 +85,7 @@ export default function MineTabs(props) {
       </Tabs>
       <TabPanel value={value} index={0}>
         {/* <AccountInfo accountInfoData={props.accountInfoData}/> */}
-        <AccountInfo />
+        <AccountInfo userInfo={userInfo}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         {/* <MessageCenter applyMessageList={props.applyMessageList}/> */}

@@ -9,15 +9,35 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import './team.css'
 
+var usr_addr = localStorage.getItem('id');
+
 export default function JoinTeamDialog() {
   const [open, setOpen] = React.useState(false);
+  const [name, setName] = React.useState('')
+  const [area, setArea] = React.useState('')
+  const [phone, setPhone] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [skills, setSkills] = React.useState('')
+  const [school, setSchool] = React.useState('')
 
-  const handleClickOpen = () => {
+  const handleClickOpen = async () => {
+    var usr_addr = localStorage.getItem('id');
+    try{
+      var userInfo = await hackthon_platform.getUserInfo({id : usr_addr});
+    } catch(e) {
+      alert('Please fill your info first!')
+      history.push('/#/mine/')
+      window.location.reload()
+    }
     setOpen(true);
   };
 
   const handleClose = () => {
-      // 提交表单
+    setOpen(false);
+  };
+
+  const handleSubmit = () => {
+    // 提交表单
     setOpen(false);
   };
 
@@ -30,43 +50,62 @@ export default function JoinTeamDialog() {
         <DialogTitle>个人信息</DialogTitle>
         <DialogContent>
           
-          <TextField
-            margin="dense"
-            id="name"
-            label="昵称"
-            fullWidth
-            variant="outlined"
-          />
-          <TextField
-            margin="dense"
-            id="area"
-            label="来自国家/地区"
-            fullWidth
-            variant="outlined"
-          />
-          <TextField
-            margin="dense"
-            id="phone"
-            label="手机"
-            fullWidth
-            variant="outlined"
-          />
-          <TextField
-            margin="dense"
-            id="email"
-            label="邮箱"
-            variant="outlined"
-            fullWidth
-            type="email"
-          />
-          <TextField
-            margin="dense"
-            id="role_wanted"
-            label="希望担任的角色"
-            fullWidth
-            variant="outlined"
-            multiline
-          />
+        <TextField
+                margin="dense"
+                id="name"
+                label="昵称"
+                fullWidth
+                variant="outlined"
+                value={name}
+                onChange={(nameValue) => {setName(nameValue.target.value)}}
+            />
+            <TextField
+                margin="dense"
+                id="area"
+                label="来自国家/地区"
+                fullWidth
+                variant="outlined"
+                value={area}
+                onChange={(areaValue) => {setArea(areaValue.target.value)}}
+            />
+            <TextField
+                margin="dense"
+                id="school"
+                label="学校"
+                fullWidth
+                variant="outlined"
+                value={school}
+                onChange={(schoolValue) => {setSchool(schoolValue.target.value)}}
+            />
+            <TextField
+                margin="dense"
+                id="phone"
+                label="手机"
+                fullWidth
+                variant="outlined"
+                value={phone}
+                onChange={(phoneValue) => {setPhone(phoneValue.target.value)}}
+            />
+            <TextField
+                margin="dense"
+                id="email"
+                label="邮箱"
+                variant="outlined"
+                fullWidth
+                type="email"
+                value={email}
+                onChange={(emailValue) => {setEmail(emailValue.target.value)}}
+            />
+            <TextField
+                margin="dense"
+                id="role_wanted"
+                label="希望担任的角色"
+                fullWidth
+                variant="outlined"
+                multiline
+                value={skills}
+                onChange={(skillsValue) => {setSkills(skillsValue.target.value)}}
+            />
           
         </DialogContent>
         <DialogActions>

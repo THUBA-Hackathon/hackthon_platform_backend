@@ -14,9 +14,10 @@ var usr_addr = localStorage.getItem('id');
 async function handleAuthenticated(authClient) {
   const identity = await authClient.getIdentity();
   window.localStorage.setItem("id", identity.getPrincipal().toString());
+  
 }
 // 需要传入 用户名称 用户国家 手机 邮箱 希望担任的角色
-export default function AccountInfo() {
+export default function AccountInfo(props) {
   const [name, setName] = React.useState('')
   const [area, setArea] = React.useState('')
   const [phone, setPhone] = React.useState('')
@@ -50,26 +51,20 @@ export default function AccountInfo() {
       console.log(skill_list)
       await hackthon_platform.createUserInfo({id : usr_addr, school: school ,name : name, area : area, phone : phone, email : email, skills : skill_list});
 
-      let sleep= (time)=> new Promise((resolve)=>{
-        setTimeout(resolve,time)
-      })
-      // sleep(2000);
-      // window.location.reload()
       console.log("finish create userinfo")
     }
     
   };
 
-  React.useEffect(async ()=>{
+  React.useEffect(()=>{
     try{
-      var userInfo = await hackthon_platform.getUserInfo(usr_addr);
-      console.log(userInfo)
-      setName(userInfo.name)
-      setArea(userInfo.area)
-      setSchool(userInfo.school)
-      setPhone(userInfo.phone)
-      setEmail(userInfo.email)
-      setSkills(userInfo.skills)
+      console.log(props.userInfo)
+      setName(props.userInfo.name)
+      setArea(props.userInfo.area)
+      setSchool(props.userInfo.school)
+      setPhone(props.userInfo.phone)
+      setEmail(props.userInfo.email)
+      setSkills(props.userInfo.skills)
     } catch(e) {
       alert('Please fill your info first!')
     }
@@ -84,7 +79,8 @@ export default function AccountInfo() {
                 label="昵称"
                 fullWidth
                 variant="outlined"
-                value={name}
+                defaultValue={props.name}
+                // value={name}
                 onChange={(nameValue) => {setName(nameValue.target.value)}}
             />
             <TextField
@@ -98,7 +94,7 @@ export default function AccountInfo() {
             />
             <TextField
                 margin="dense"
-                id="area"
+                id="school"
                 label="学校"
                 fullWidth
                 variant="outlined"
