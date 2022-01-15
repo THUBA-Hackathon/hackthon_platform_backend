@@ -1,17 +1,21 @@
 import React from "react"
 import Nav from "../nav";
 import MineTabs from "./mineTab";
-import './mine.css'
-
+import './mine.css';
+import UserContext from "../../context/user-context";
 
 class Mine extends React.Component{
+    constructor(props) {
+        super(props);
+    }
     
     render(){
         return(
             <div >
-                <Nav />
                 <div className="container">
-                    <MineTabs applyMessageList={this.props.applyMessageList} accountInfoData={this.props.accountInfoData} teamList={this.props.teamList}/>
+                <UserContext.Consumer>
+                    {value => <MineTabs props={value} />}
+                </UserContext.Consumer>
                 </div>
             </div>
         )

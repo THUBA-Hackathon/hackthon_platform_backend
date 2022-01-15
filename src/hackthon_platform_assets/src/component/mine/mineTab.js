@@ -49,6 +49,7 @@ function a11yProps(index) {
 export default function MineTabs(props) {
   const [value, setValue] = React.useState(0);
   const [userInfo, setUserInfo] = React.useState({})
+  const { user, setUser } = props.props;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -56,7 +57,7 @@ export default function MineTabs(props) {
 
   React.useEffect(async ()=>{
     try{
-      var user_info = await hackthon_platform.getUserInfo(usr_addr);
+      var user_info = await user.backendActor.getSelfUsereInfo();
       console.log(JSON.stringify(user_info))
       setUserInfo(JSON.stringify(user_info))
       console.log(userInfo)

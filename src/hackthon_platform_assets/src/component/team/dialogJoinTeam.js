@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import './team.css'
-
+import { useNavigate } from "react-router-dom";
 var usr_addr = localStorage.getItem('id');
 
 export default function JoinTeamDialog() {
@@ -20,14 +20,15 @@ export default function JoinTeamDialog() {
   const [skills, setSkills] = React.useState('')
   const [school, setSchool] = React.useState('')
 
+  let navigate = useNavigate()
+
   const handleClickOpen = async () => {
     var usr_addr = localStorage.getItem('id');
     try{
       var userInfo = await hackthon_platform.getUserInfo({id : usr_addr});
     } catch(e) {
       alert('Please fill your info first!')
-      history.push('/#/mine/')
-      window.location.reload()
+      navigate('/mine/')
     }
     setOpen(true);
   };

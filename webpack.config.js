@@ -120,6 +120,7 @@ module.exports = {
         },
       },
     },
+    historyApiFallback: true,
     hot: true,
     watchFiles: [path.resolve(__dirname, "src", frontendDirectory)],
     liveReload: true,

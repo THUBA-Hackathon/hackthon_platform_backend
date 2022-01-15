@@ -12,6 +12,7 @@ import moment from 'moment'
 import './team.css'
 import { hackthon_platform } from "../../../../declarations/hackthon_platform";
 import { createBrowserHistory } from 'history'
+import { useNavigate } from "react-router-dom";
 const history = createBrowserHistory()
 
 export default function AddProjectDialog(props) {
@@ -21,6 +22,7 @@ export default function AddProjectDialog(props) {
   const [slogan, setSlogan] = React.useState('');
   const [stack, setStack] = React.useState('');
   
+  let navigate = useNavigate()
 
 
   const handleClickOpen = async () => {
@@ -32,8 +34,7 @@ export default function AddProjectDialog(props) {
       var userInfo = await hackthon_platform.getUserInfo({id : usr_addr});
     } catch(e) {
       alert('Please fill your info first!')
-      history.push('/#/mine/')
-      window.location.reload()
+      navigate('/mine')
     }
     setOpen(true);
   };

@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
+  BrowserRouter,
   HashRouter,
   Routes,
   Route
@@ -170,7 +171,9 @@ render(
     //     {/* <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route> */}
     //   </Routes>
     // </HashRouter>,
-    <App />,
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
   rootElement
 );
 

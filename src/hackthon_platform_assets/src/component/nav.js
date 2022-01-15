@@ -6,7 +6,7 @@ const history = createBrowserHistory()
 import { AuthClient } from "@dfinity/auth-client";
 import { createActor, canisterId } from "../../../declarations/hackthon_platform"
 import UserContext from "../context/user-context";
-
+import { useNavigate } from "react-router-dom";
 
 
 const days = BigInt(1);
@@ -14,11 +14,16 @@ const hours = BigInt(24);
 const nanoseconds = BigInt(3600000000000);
 
 
-export default class Nav extends React.Component {
-    static contextType = UserContext;
+export default function Nav (props) {
     
-    render ()  {
-        const {user, setUser} = this.context;
+    let navigate = useNavigate();
+    // constructor(props) {
+    //     super(props)
+    // }
+    // static contextType = UserContext;
+    
+    // render ()  {
+        const {user, setUser} = props.props;
         async function handleAuthenticated(authClient, context) {
             // Create an actor to interact with the NNS Canister
             // we pass the NNS Canister id and the interface factory
@@ -58,16 +63,17 @@ export default class Nav extends React.Component {
         }
     
         const handleOnClick = (() => {
-            history.push('/#/mine')
-            window.location.reload()
+            navigate("/mine");
+            // history.push('/#/mine')
+            // window.location.reload()
         })
         const handleOnClick1 = (() => {
-            history.push('/#/')
-            window.location.reload()
+            navigate("/")
+            // window.location.reload()
         })
         let logIn;
         console.log(user)
-        if (user.identity != null) {
+        if (user.principal != null) {
             logIn = <div className="nav_address" onClick={handleLogInClick}>{user.principal.toString().substring(0, 5) + "-*"}</div>;
         } else {
             logIn = <div className="nav_address" onClick={handleLogInClick}>log in</div>
@@ -85,7 +91,7 @@ export default class Nav extends React.Component {
                 <div className="nav_mine" onClick={handleOnClick}>我的</div>{/* 跳转到账户管理 */}
             </div>
         );
-    }
+    // }
 }
 
 

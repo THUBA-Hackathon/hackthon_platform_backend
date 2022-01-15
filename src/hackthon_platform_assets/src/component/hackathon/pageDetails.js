@@ -10,7 +10,6 @@ class PageDetails extends React.Component{
     render() {
 		return (
             <div>
-                <Nav />
                 <div className="details_line"></div>
                 <img className="hackathon_poster_img" src="header_poster.png" alt=""/>
                 <HackathonDetails url={this.props.url} intro={this.props.intro} startdate={this.props.startdate} enddate={this.props.enddate}/>
