@@ -62,12 +62,12 @@ export default function Nav (props) {
             });
         }
     
-        const handleOnClick = (() => {
+        const handleOnClickMine = (() => {
             navigate("/mine");
             // history.push('/#/mine')
             // window.location.reload()
         })
-        const handleOnClick1 = (() => {
+        const handleOnClickHome = (() => {
             navigate("/")
             // window.location.reload()
         })
@@ -81,14 +81,14 @@ export default function Nav (props) {
     
         return (
             <div className="nav">
-                <img className="nav_logo_img" src="logo.png" alt="" onClick={handleOnClick1} />
-                <div className="nav_logo" onClick={handleOnClick1}>Hacker Valley</div>
-                <div className="nav_hackathon" onClick={handleOnClick1}>黑客松</div>
+                <img className="nav_logo_img" src="logo.png" alt="" onClick={handleOnClickHome} />
+                <div className="nav_logo" onClick={handleOnClickHome}>Hacker Valley</div>
+                <div className="nav_hackathon" onClick={handleOnClickHome}>黑客松</div>
                 {/* <div className="nav_projects">项目展示</div> */}
                 <div className="nav_search"></div> {/* 搜索框 */}
                 {logIn}
                 <img className="nav_img_mine" src="icon_mine.png" alt="" />
-                <div className="nav_mine" onClick={handleOnClick}>我的</div>{/* 跳转到账户管理 */}
+                <div className="nav_mine" onClick={handleOnClickMine}>我的</div>{/* 跳转到账户管理 */}
             </div>
         );
     // }

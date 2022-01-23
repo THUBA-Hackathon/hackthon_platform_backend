@@ -4,7 +4,7 @@ import './team.css';
 import TeamCard from "./team";
 import AddProjectDialog from "./dialogAddProject";
 import JoinTeamDialog from './dialogJoinTeam'
-
+import UserContext from "../../context/user-context";
 
 // 传入的参数包括若干个队伍的数据，分别包括项目简介，队伍名称，队长昵称，队长email,技术栈列表
 class PageTeam extends React.Component{
@@ -17,8 +17,15 @@ class PageTeam extends React.Component{
 		return (
             <div className="page_team">
                 {this.props.teamList.length > 0? dataList: ''}
-                <AddProjectDialog hackathonId={this.props.hackathonId} userId={this.props.userid} setTeamList={this.props.setTeamList}/>
-            </div>
+                
+                <UserContext.Consumer>
+                    {value => <AddProjectDialog 
+                    hackathonId={this.props.hackathonId} 
+                    userId={this.props.userid} 
+                    setTeamList={this.props.setTeamList} 
+                    props={value} />}
+                </UserContext.Consumer>
+                </div>
 		);
 	}
 }

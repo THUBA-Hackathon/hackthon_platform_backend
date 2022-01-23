@@ -29,18 +29,11 @@ export default function AddDialog(props) {
   const handleCommit = async () => {
     // 提交表单
     var uuid = "hackathonid" + guid();
-    console.log(props)
     const hackathon_actor = props.props.user.backendActor;
-    console.log(user)
-    console.log(hackathon_actor)
-    console.log(hackthon_platform)
-    const list2 = await hackthon_platform.getHackathonList()
-    console.log(list2)
-    const list = await hackathon_actor.getHackathonList()
-    console.log(list)
     // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
     const add_hackthon = await hackathon_actor.createHackathon({ id: uuid, name: name, startdate: start_date, sponsor: sponsor, enddate: end_date, intro: intro, teams: [] });
     // console.log(name + sponsor + intro + start_date + end_date)
+    console.log("create result: ", add_hackthon);
     setOpen(false);
   };
   const handleClose = async () => {
