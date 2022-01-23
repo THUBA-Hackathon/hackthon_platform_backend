@@ -86,7 +86,10 @@ export default function MineTabs(props) {
       </Tabs>
       <TabPanel value={value} index={0}>
         {/* <AccountInfo accountInfoData={props.accountInfoData}/> */}
-        <AccountInfo userInfo={userInfo}/>
+        <UserContext.Consumer>
+          {value => <AccountInfo props={value} userInfo={userInfo}/>}
+        </UserContext.Consumer>
+        {/* <AccountInfo userInfo={userInfo}/> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {/* <MessageCenter applyMessageList={props.applyMessageList}/> */}
