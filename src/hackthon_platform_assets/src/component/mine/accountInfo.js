@@ -3,19 +3,13 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import './mine.css'
-import { hackthon_platform } from "../../../../declarations/hackthon_platform";
-import { AuthClient } from "@dfinity/auth-client";
+import { useNavigate } from "react-router-dom";
+import { SingleEntryPlugin } from 'webpack';
 
 const days = BigInt(1);
 const hours = BigInt(24);
 const nanoseconds = BigInt(3600000000000);
 
-// var usr_addr = localStorage.getItem('id');
-// async function handleAuthenticated(authClient) {
-//   const identity = await authClient.getIdentity();
-//   window.localStorage.setItem("id", identity.getPrincipal().toString());
-  
-// }
 // 需要传入 用户名称 用户国家 手机 邮箱 希望担任的角色
 export default function AccountInfo(props) {
   const [name, setName] = React.useState('')
@@ -26,113 +20,116 @@ export default function AccountInfo(props) {
   const [school, setSchool] = React.useState('')
   const { user, setUser } = props.props;
 
+  let navigate = useNavigate();
+
   const handleSubmit = async () => {
     // 提交表单
-    console.log(usr_addr)
-    if(!usr_addr) {
-      const authClient = await AuthClient.create();
-        if (await authClient.isAuthenticated()) {
-            handleAuthenticated(authClient);
-        }
-        authClient.login({
-            onSuccess: async () => {
-                // authClient now has an identity
-                handleAuthenticated(authClient);
-            },
-            identityProvider: process.env.DFX_NETWORK === "ic"
-              ? "https://identity.ic0.app/#authorize"
-              : process.env.LOCAL_II_CANISTER,
-            // Maximum authorization expiration is 8 days
-            maxTimeToLive: days * hours * nanoseconds,
-        });
+    var skill_list = skills.split(",");
+    console.log(name + '\n' + area + '\n' + phone + '\n' + email + '\n' + school + '\n' + skills)
+    var info = {
+      name: name,
+      area: area,
+      phone: phone,
+      email: email,
+      school: school,
+      skills: skill_list
     }
-    else {
-      var skill_list = skills.split(",");
-      console.log(usr_addr + school + name + phone + email + skills + area)
-      console.log(skill_list)
-      await hackthon_platform.createUserInfo({id : usr_addr, school: school ,name : name, area : area, phone : phone, email : email, skills : skill_list});
-
-      console.log("finish create userinfo")
-    }
-    
+    await user.backendActor.createUserInfo(info);
+    setUser({
+      backendActor: user.backendActor, 
+      principal: user.principal, 
+      userInfo: info,
+    });
+    console.log("finish create userinfo: ", info);
   };
 
-  React.useEffect(()=>{
-    try{
-      console.log(props.userInfo)
-      setName(props.userInfo.name)
-      setArea(props.userInfo.area)
-      setSchool(props.userInfo.school)
-      setPhone(props.userInfo.phone)
-      setEmail(props.userInfo.email)
-      setSkills(props.userInfo.skills)
-    } catch(e) {
-      alert('Please fill your info first!')
+  React.useEffect(async () => {
+    if (!user.userInfo) {
+      if (!user.backendActor) {
+        alert('Please connect wallet!');
+        navigate('/');
+      } else {
+        console.log(user.backendActor);
+        var user_info = await user.backendActor.getSelfUserInfo();
+        console.log("get user info from backend: ", user_info);
+        setUser({
+          backendActor: user.backendActor, 
+          principal: user.principal, 
+          userInfo: user_info,
+        });
+      }
     }
-    
-}, [])
+    console.log("current user: ", user);
+    console.log("current userInfo: ", user.userInfo);
+    setName(user.userInfo.name);
+    setArea(user.userInfo.area);
+    setSchool(user.userInfo.school);
+    setPhone(user.userInfo.phone);
+    setEmail(user.userInfo.email);
+    setSkills(user.userInfo.skills);
+  }, [])
 
   return (
     <div>
-            <TextField
-                margin="dense"
-                id="name"
-                label="昵称"
-                fullWidth
-                variant="outlined"
-                defaultValue={props.name}
-                // value={name}
-                onChange={(nameValue) => {setName(nameValue.target.value)}}
-            />
-            <TextField
-                margin="dense"
-                id="area"
-                label="来自国家/地区"
-                fullWidth
-                variant="outlined"
-                value={area}
-                onChange={(areaValue) => {setArea(areaValue.target.value)}}
-            />
-            <TextField
-                margin="dense"
-                id="school"
-                label="学校"
-                fullWidth
-                variant="outlined"
-                value={school}
-                onChange={(schoolValue) => {setSchool(schoolValue.target.value)}}
-            />
-            <TextField
-                margin="dense"
-                id="phone"
-                label="手机"
-                fullWidth
-                variant="outlined"
-                value={phone}
-                onChange={(phoneValue) => {setPhone(phoneValue.target.value)}}
-            />
-            <TextField
-                margin="dense"
-                id="email"
-                label="邮箱"
-                variant="outlined"
-                fullWidth
-                type="email"
-                value={email}
-                onChange={(emailValue) => {setEmail(emailValue.target.value)}}
-            />
-            <TextField
-                margin="dense"
-                id="role_wanted"
-                label="希望担任的角色"
-                fullWidth
-                variant="outlined"
-                multiline
-                value={skills}
-                onChange={(skillsValue) => {setSkills(skillsValue.target.value)}}
-            />
-            {/* <Button onClick={handleClose}>取消</Button> */}
-            <Button onClick={handleSubmit}>提交</Button>
+      <TextField
+        margin="dense"
+        id="name"
+        label="昵称"
+        fullWidth
+        variant="outlined"
+        defaultValue={props.name}
+        // value={name}
+        onChange={(nameValue) => { setName(nameValue.target.value) }}
+      />
+      <TextField
+        margin="dense"
+        id="area"
+        label="来自国家/地区"
+        fullWidth
+        variant="outlined"
+        value={area}
+        onChange={(areaValue) => { setArea(areaValue.target.value) }}
+      />
+      <TextField
+        margin="dense"
+        id="school"
+        label="学校"
+        fullWidth
+        variant="outlined"
+        value={school}
+        onChange={(schoolValue) => { setSchool(schoolValue.target.value) }}
+      />
+      <TextField
+        margin="dense"
+        id="phone"
+        label="手机"
+        fullWidth
+        variant="outlined"
+        value={phone}
+        onChange={(phoneValue) => { setPhone(phoneValue.target.value) }}
+      />
+      <TextField
+        margin="dense"
+        id="email"
+        label="邮箱"
+        variant="outlined"
+        fullWidth
+        type="email"
+        value={email}
+        onChange={(emailValue) => { setEmail(emailValue.target.value) }}
+      />
+      <TextField
+        margin="dense"
+        id="role_wanted"
+        label="希望担任的角色"
+        fullWidth
+        variant="outlined"
+        multiline
+        value={skills}
+        onChange={(skillsValue) => { setSkills(skillsValue.target.value) }}
+      />
+      {/* <Button onClick={handleClose}>取消</Button> */}
+      <Button onClick={handleSubmit}>提交</Button>
     </div>
   )
 }

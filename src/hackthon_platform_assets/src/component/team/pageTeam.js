@@ -13,7 +13,7 @@ class PageTeam extends React.Component{
             return (<div className="team_card_with_join_btn">
                         <TeamCard  key={index} intro={item.intro} name={item.name} members={item.members} skills_needed={item.skills_needed} showJoin={true} />
                     </div>)
-        })
+        });
 		return (
             <div className="page_team">
                 {this.props.teamList.length > 0? dataList: ''}

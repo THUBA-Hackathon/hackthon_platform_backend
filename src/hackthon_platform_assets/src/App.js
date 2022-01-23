@@ -17,7 +17,8 @@ import Nav from './component/nav';
 const App = () => {
   const [user, setUser] = React.useState({
     principal: null,
-    backendActor: null
+    backendActor: null,
+    userInfo: null,
   });
   const userValue = React.useMemo(
     () => ({ user, setUser }), [user, setUser]

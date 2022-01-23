@@ -35,12 +35,10 @@ export default function Nav (props) {
             });
             console.log("backendActor:", backendActor);
             
-            // localStorage.setItem("id", identity.getPrincipal().toString());
-            // const [user, setUser] = context
-            
             setUser({
                 backendActor: backendActor,
-                principal: identity.getPrincipal()
+                principal: identity.getPrincipal(),
+                userInfo: user.userInfo,
             });
         }
 
@@ -72,7 +70,7 @@ export default function Nav (props) {
             // window.location.reload()
         })
         let logIn;
-        console.log(user)
+        console.log(user);
         if (user.principal != null) {
             logIn = <div className="nav_address" onClick={handleLogInClick}>{user.principal.toString().substring(0, 5) + "-*"}</div>;
         } else {
