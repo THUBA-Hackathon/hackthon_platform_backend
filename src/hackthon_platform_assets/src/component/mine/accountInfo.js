@@ -40,18 +40,37 @@ export default function AccountInfo(props) {
       principal: user.principal, 
       userInfo: info,
     });
+    updateTextField();
     console.log("finish create userinfo: ", info);
   };
 
+  const updateTextField = () => {
+    setUser(preUserValue  => { //用于读取之前修改的user中的值
+      console.log(preUserValue)
+      setName(preUserValue.userInfo.name);
+      setArea(preUserValue.userInfo.area);
+      setSchool(preUserValue.userInfo.school);
+      setPhone(preUserValue.userInfo.phone);
+      setEmail(preUserValue.userInfo.email);
+      setSkills(preUserValue.userInfo.skills.join());
+      return preUserValue;
+    }); 
+  }
+
+
   React.useEffect(async () => {
+    console.log(user)
     if (!user.userInfo) {
       if (!user.backendActor) {
         alert('Please connect wallet!');
         navigate('/');
+        return;
       } else {
         console.log(user.backendActor);
         var user_info = await user.backendActor.getSelfUserInfo();
         console.log("get user info from backend: ", user_info);
+        console.log(user_info.name)
+        
         setUser({
           backendActor: user.backendActor, 
           principal: user.principal, 
@@ -59,18 +78,12 @@ export default function AccountInfo(props) {
         });
       }
     }
-    console.log("current user: ", user);
-    console.log("current userInfo: ", user.userInfo);
-    setName(user.userInfo.name);
-    setArea(user.userInfo.area);
-    setSchool(user.userInfo.school);
-    setPhone(user.userInfo.phone);
-    setEmail(user.userInfo.email);
-    setSkills(user.userInfo.skills);
+    updateTextField();
+    
   }, [])
 
   return (
-    <div>
+    <div className="user_info">
       <TextField
         margin="dense"
         id="name"
@@ -78,7 +91,7 @@ export default function AccountInfo(props) {
         fullWidth
         variant="outlined"
         defaultValue={props.name}
-        // value={name}
+        value={name}
         onChange={(nameValue) => { setName(nameValue.target.value) }}
       />
       <TextField

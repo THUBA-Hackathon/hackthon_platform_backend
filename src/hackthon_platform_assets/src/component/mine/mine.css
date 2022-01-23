@@ -3,6 +3,14 @@
     left: 0px;
     top: 104px;
 }
+
+.user_info {
+    position: absolute;
+    left: 300px;
+    top: 10px;
+    width: 886px;
+}
+
 .message_center {
     position: absolute;
     left: 300px;
