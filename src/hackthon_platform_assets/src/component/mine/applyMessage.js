@@ -16,7 +16,7 @@ class ApplyMessage extends React.Component{
     render(){
         return(
             <div className="apply_message">
-                <div className="message">Hi~{this.props.applyer_name} 申请加入你的团队</div>
+                <div className="message">Hi~{this.props.user_info.name} 申请加入你的团队</div>
                 <div>
                     <div className="applyer_name">
                     <TextField
@@ -25,7 +25,7 @@ class ApplyMessage extends React.Component{
                         label="昵称"
                         fullWidth
                         variant="outlined"
-                        defaultValue={this.props.applyer_name}
+                        defaultValue={this.props.user_info.name}
                     />
                     </div>
                     <div className="applyer_area">
@@ -35,7 +35,7 @@ class ApplyMessage extends React.Component{
                         label="来自国家/地区"
                         fullWidth
                         variant="outlined"
-                        defaultValue={this.props.apply_area}
+                        defaultValue={this.props.user_info.area}
                     />
                     </div>
                     <div className="applyer_phone">
@@ -45,7 +45,7 @@ class ApplyMessage extends React.Component{
                         label="手机"
                         fullWidth
                         variant="outlined"
-                        defaultValue={this.props.apply_phone}
+                        defaultValue={this.props.user_info.phone}
                     />
                     </div>
                     <div className="applyer_email">
@@ -56,7 +56,7 @@ class ApplyMessage extends React.Component{
                         variant="outlined"
                         fullWidth
                         type="email"
-                        defaultValue={this.props.apply_email}
+                        defaultValue={this.props.user_info.email}
                     />
                     </div>
                     <div className="applyer_role">
@@ -67,7 +67,7 @@ class ApplyMessage extends React.Component{
                         fullWidth
                         variant="outlined"
                         multiline
-                        defaultValue={this.props.apply_role_wanted}
+                        defaultValue={this.props.user_info.skills}
                     />
                     </div>
 
