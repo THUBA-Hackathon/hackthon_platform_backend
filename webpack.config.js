@@ -5,8 +5,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const LOCAL_II_CANISTER = 
-// "http://rwlgt-iiaaa-aaaaa-aaaaa-cai.localhost:8000/#authorize";
-"https://uwb3sezexv0i.ngrok2.xiaomiqiu.cn/?canisterId=r7inp-6aaaa-aaaaa-aaabq-cai";
+"http://rwlgt-iiaaa-aaaaa-aaaaa-cai.localhost:8000/#authorize";
+// "https://uwb3sezexv0i.ngrok2.xiaomiqiu.cn/?canisterId=r7inp-6aaaa-aaaaa-aaabq-cai";
 
 function initCanisterEnv() {
   let localCanisters, prodCanisters;

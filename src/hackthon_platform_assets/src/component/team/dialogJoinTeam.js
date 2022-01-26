@@ -9,28 +9,33 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import './team.css'
 import { useNavigate } from "react-router-dom";
-var usr_addr = localStorage.getItem('id');
 
-export default function JoinTeamDialog() {
+export default function JoinTeamDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('')
-  const [area, setArea] = React.useState('')
-  const [phone, setPhone] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [skills, setSkills] = React.useState('')
-  const [school, setSchool] = React.useState('')
+  const {user, setUser} = props.props
 
   let navigate = useNavigate()
 
-  const handleClickOpen = async () => {
-    var usr_addr = localStorage.getItem('id');
-    try{
-      var userInfo = await hackthon_platform.getUserInfo({id : usr_addr});
-    } catch(e) {
-      alert('Please fill your info first!')
-      navigate('/mine/')
+  const handleClickJoin = async () => {
+    if (!user.userInfo) {
+      if (!user.backendActor) {
+        alert('Please connect wallet!');
+        navigate('/');
+        return;
+      } else {
+        console.log(user.backendActor);
+        var user_info = await user.backendActor.getSelfUserInfo();
+        console.log("get user info from backend: ", user_info);
+        console.log(user_info.name)
+        
+        setUser({
+          backendActor: user.backendActor, 
+          principal: user.principal, 
+          userInfo: user_info,
+        });
+      }
     }
-    setOpen(true);
+    user.backendActor.joinTeam(teamId)
   };
 
   const handleClose = () => {
@@ -44,10 +49,10 @@ export default function JoinTeamDialog() {
 
   return (
     <div>
-        <div className='join_team_button' onClick={handleClickOpen}>
+        <div className='join_team_button' onClick={handleClickJoin}>
             <div className="join_btn">我要报名</div>
         </div>
-        <Dialog open={open} onClose={handleClose}>
+        {/* <Dialog open={open} onClose={handleClose}>
         <DialogTitle>个人信息</DialogTitle>
         <DialogContent>
           
@@ -113,7 +118,7 @@ export default function JoinTeamDialog() {
           <Button onClick={handleClose}>取消</Button>
           <Button onClick={handleClose}>提交</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }

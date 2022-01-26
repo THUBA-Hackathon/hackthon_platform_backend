@@ -11,13 +11,23 @@ class PageTeam extends React.Component{
     render() {
         var dataList = this.props.teamList.map((item, index) => {
             return (<div className="team_card_with_join_btn">
-                        <TeamCard  key={index} intro={item.intro} name={item.name} members={item.members} skills_needed={item.skills_needed} showJoin={true} />
+                        {value => <TeamCard 
+                        key={index} 
+                        intro={item.intro} 
+                        name={item.name} 
+                        // memberInfos={item.members.map((item, index) => {
+                        //     memberInfo = user.backendActor.getUserInfo(item);
+                        //     console.log(memberInfo);
+                        // })}
+                        memberInfos={item.memberInfos}
+                        skills_needed={item.skills_needed} 
+                        showJoin={true} 
+                        props={value} />}
                     </div>)
         });
 		return (
             <div className="page_team">
                 {this.props.teamList.length > 0? dataList: ''}
-                
                 <UserContext.Consumer>
                     {value => <AddProjectDialog 
                     hackathonId={this.props.hackathonId} 

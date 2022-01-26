@@ -49,9 +49,9 @@ export default function HackathonDetails(props) {
                 break;
             }
         }
-
         var list_team = await hackthon_platform.getTeamList(id);
-        setTeamList(list_team)
+        console.log(list_team);
+        setTeamList(list_team);
     }, [])
         
 
