@@ -3,37 +3,9 @@ import React from "react";
 import './hackathon.css';
 import Tabs from '@uiw/react-tabs';
 import PageTeam from "../team/pageTeam";
-import footer from "../footer"
-import Footer from "../footer";
 import { useParams } from "react-router-dom";
 import { hackthon_platform } from "../../../../declarations/hackthon_platform";
 
-let list = [
-    {
-        intro: "一个Web 3.0下的社区项目",
-        team_name: 'NFit',
-        cap_name: '马克',
-        email: '2568198278@qq.com',
-        techList: ["Rust", "Mokoto", "数据结构", "前端设计"],
-        showJoin: true,
-    },
-    {
-        intro: "Web 3.0下的学校项目",
-        team_name: 'NFit',
-        cap_name: '皮特',
-        email: '2583026353@qq.com',
-        techList: ["Vue", "Typescript", "数据结构", "网络"],
-        showJoin: true,
-    },
-    {
-        intro: "NFT项目",
-        team_name: 'NFit',
-        cap_name: '华飞',
-        email: '2568198278@qq.com',
-        techList: ["Rust", "Mokoto", "数据结构", "前端设计"],
-        showJoin: true,
-    },
-]
 // 传入的参数包括黑客松的海报图片url,赛事介绍详细内容words
 export default function HackathonDetails(props) {
     const [ hackathon,  setHackathon ] = React.useState({})
@@ -53,7 +25,6 @@ export default function HackathonDetails(props) {
         console.log(list_team);
         setTeamList(list_team);
     }, [])
-        
 
 	return (
         <Tabs className="tabs" activeKey="1" type="line">
