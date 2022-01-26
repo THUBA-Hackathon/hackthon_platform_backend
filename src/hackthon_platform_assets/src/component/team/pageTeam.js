@@ -10,19 +10,19 @@ import UserContext from "../../context/user-context";
 class PageTeam extends React.Component{
     render() {
         var dataList = this.props.teamList.map((item, index) => {
+            console.log(item);
             return (<div className="team_card_with_join_btn">
-                        {value => <TeamCard 
+                        <TeamCard 
                         key={index} 
                         intro={item.intro} 
-                        name={item.name} 
+                        name={item.name}
                         // memberInfos={item.members.map((item, index) => {
                         //     memberInfo = user.backendActor.getUserInfo(item);
                         //     console.log(memberInfo);
                         // })}
-                        memberInfos={item.memberInfos}
+                        memberInfos={item.members}
                         skills_needed={item.skills_needed} 
-                        showJoin={true} 
-                        props={value} />}
+                        showJoin={true}/>
                     </div>)
         });
 		return (
