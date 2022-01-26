@@ -15,7 +15,7 @@ class MessageCenter extends React.Component{
         }
     }
     async componentDidMount() {
-        var message_list = await this.context.backendActor.getMessage();
+        var message_list = await this.context.user.backendActor.getMessage();
         this.setState({applyMessageList:message_list});
         console.log(message_list);
     }
@@ -25,7 +25,7 @@ class MessageCenter extends React.Component{
         })
 		return (
             <div className="message_center">
-                {/* {dataList} */}
+                {dataList}
             </div>
 		);
 	    

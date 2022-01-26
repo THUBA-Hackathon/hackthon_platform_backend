@@ -35,7 +35,7 @@ export default function JoinTeamDialog(props) {
         });
       }
     }
-    user.backendActor.joinTeam(teamId)
+    user.backendActor.joinTeam(props.teamId)
   };
 
   const handleClose = () => {
