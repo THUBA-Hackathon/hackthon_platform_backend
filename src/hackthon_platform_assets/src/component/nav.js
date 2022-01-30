@@ -33,7 +33,7 @@ export default function Nav (props) {
                     identity,
                 },
             });
-            console.log("backendActor:", backendActor);
+            // console.log("backendActor:", backendActor);
             
             setUser({
                 backendActor: backendActor,
@@ -70,7 +70,7 @@ export default function Nav (props) {
             // window.location.reload()
         })
         let logIn;
-        console.log(user);
+        // console.log(user);
         if (user.principal != null) {
             logIn = <div className="nav_address" onClick={handleLogInClick}>{user.principal.toString().substring(0, 5) + "-*"}</div>;
         } else {

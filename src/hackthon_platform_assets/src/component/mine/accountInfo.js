@@ -46,7 +46,7 @@ export default function AccountInfo(props) {
 
   const updateTextField = () => {
     setUser(preUserValue  => { //用于读取之前修改的user中的值
-      console.log(preUserValue)
+      // console.log(preUserValue)
       setName(preUserValue.userInfo.name);
       setArea(preUserValue.userInfo.area);
       setSchool(preUserValue.userInfo.school);
@@ -59,17 +59,17 @@ export default function AccountInfo(props) {
 
 
   React.useEffect(async () => {
-    console.log(user)
+    // console.log(user)
     if (!user.userInfo) {
       if (!user.backendActor) {
         alert('Please connect wallet!');
         navigate('/');
         return;
       } else {
-        console.log(user.backendActor);
+        // console.log(user.backendActor);
         var user_info = await user.backendActor.getSelfUserInfo();
         console.log("get user info from backend: ", user_info);
-        console.log(user_info.name)
+        // console.log(user_info.name)
         
         setUser({
           backendActor: user.backendActor, 

@@ -4,14 +4,23 @@ import './mine.css'
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import UserContext from "../../context/user-context";
 
 // 申请加入团队 需要传入 申请者姓名 申请者来自国家 申请者手机 申请者邮箱 申请者想担任的角色
 class ApplyMessage extends React.Component{
-    handleAccept() {
+    static contextType = UserContext;
+    constructor(props) {
+        super(props);
+    }
+    async handleAccept() {
         // 接受队员
+        let ac_res = await this.context.user.backendActor.applyMessage(this.props.id, true);
+        console.log(ac_res)
     };
-    handleReject() {
+    async handleReject() {
         // 拒绝队员
+        let rj_res = await this.context.user.backendActor.applyMessage(this.props.id, false);
+        console.log(rj_res)
     }
     render(){
         return(
