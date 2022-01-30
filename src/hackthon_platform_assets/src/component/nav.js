@@ -38,7 +38,7 @@ export default function Nav (props) {
             setUser({
                 backendActor: backendActor,
                 principal: identity.getPrincipal(),
-                userInfo: user.userInfo,
+                userInfo: null,
             });
         }
 

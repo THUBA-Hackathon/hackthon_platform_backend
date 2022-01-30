@@ -1,30 +1,54 @@
-import { title } from "process";
 import React from "react"
 import './mine.css'
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Snackbar from '@mui/material/Snackbar'
 import UserContext from "../../context/user-context";
 
+let vertical = 'top';
+let horizontal = 'center';
 // 申请加入团队 需要传入 申请者姓名 申请者来自国家 申请者手机 申请者邮箱 申请者想担任的角色
 class ApplyMessage extends React.Component{
     static contextType = UserContext;
     constructor(props) {
         super(props);
+        this.state={
+            open:false,
+            message:'',
+        }
+    }
+    handleClose() {
+        this.setState({open:false, message:''})
+    }
+    handleOpen(msg) {
+        this.setState({open:true, message:msg})
+    }
+    componentDidMount() {
+        
     }
     async handleAccept() {
         // 接受队员
-        let ac_res = await this.context.user.backendActor.applyMessage(this.props.id, true);
-        console.log(ac_res)
+        await this.context.user.backendActor.applyMessage(this.props.id, true);
+        this.handleOpen("成功接收队员!")        
     };
     async handleReject() {
         // 拒绝队员
-        let rj_res = await this.context.user.backendActor.applyMessage(this.props.id, false);
-        console.log(rj_res)
+        await this.context.user.backendActor.applyMessage(this.props.id, false);
+        this.handleOpen("成功拒绝队员!")
     }
+
     render(){
         return(
             <div className="apply_message">
+                <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    autoHideDuration={2000}
+                    onClose={this.handleClose.bind(this)}
+                    message={this.state.message}
+                    key={vertical + horizontal}
+                    open={this.state.open}
+                />
                 <div className="message">Hi~{this.props.user_info.name} 申请加入你的团队</div>
                 <div>
                     <div className="applyer_name">
