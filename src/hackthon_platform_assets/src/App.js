@@ -13,7 +13,7 @@ import PageTeam from './component/team/pageTeam';
 import AddTeam from './component/team/newTeam';
 import Mine from './component/mine/mine';
 import Nav from './component/nav';
-import PageTeamDetails from './component/team/pageTeamDetails';
+import TeamDetails from './component/team/teamDetails';
 
 const App = () => {
   const [user, setUser] = React.useState({
@@ -37,7 +37,7 @@ const App = () => {
             <Route path={"" + "/cap"} element={<PageTeam  />}></Route>
             {/* <Route path={"" + "/add"} element={<AddTeam />}></Route> */}
             <Route path={"" + "/mine"} element={<Mine  />}></Route>
-            <Route path={"" + "/teamDetails"} element={<PageTeamDetails />}></Route>
+            <Route path={"" + "/teamDetails/*"} element={<TeamDetails />}></Route>
           </Routes>
       </UserContext.Provider>
       {/* </UserContext.Provider> */}

@@ -22,6 +22,9 @@ class PageTeam extends React.Component{
                         skills_needed={item.skills_needed} 
                         showJoin={true}
                         teamId={item.id}
+                        hackathonId={this.props.hackathonId}
+                        code_link={item.code_link}
+                        video_link={item.video_link}
                     props={value} />}
                     </UserContext.Consumer>
                 </div>)

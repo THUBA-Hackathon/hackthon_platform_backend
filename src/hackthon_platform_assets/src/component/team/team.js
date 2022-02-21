@@ -9,6 +9,7 @@ const history = createBrowserHistory()
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/user-context";
 import { hackthon_platform } from '../../../../declarations/hackthon_platform/index';
+import { Link } from '../../../../../node_modules/react-router-dom/index';
 
 
 // 传入的参数包括项目简介，队伍名称，队长昵称，队长email,技术栈列表
@@ -19,7 +20,23 @@ export default function TeamCard(props) {
 
     let navigate = useNavigate()
     const handleOnClick = (() => {
-        navigate('/teamDetails')
+        navigate('/teamDetails/' , {state : 
+            {
+                
+                teamInfo: {
+                    team_id: props.teamId, 
+                    hackathon_id: props.hackathonId, 
+                    name: props.name, 
+                    intro: props.intro, 
+                    skills_needed: props.skills_needed,
+                    cap_name: capName,
+                    cap_email: capEmail,
+                    code_link: props.code_link,
+                    video_link: props.video_link
+                }
+            
+                
+            }, replace: true})
     })
     React.useEffect(async () => {
         var capInfo = await hackthon_platform.getUserInfo(props.memberInfos[0]).then(result => { return result });
