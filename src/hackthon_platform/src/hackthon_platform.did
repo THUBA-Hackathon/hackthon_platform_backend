@@ -58,4 +58,6 @@ service : {
     "getAllMessage" : () -> (vec Message_2);
     "submit" : (text, text, text) -> ();
     "getSelfUserInfo" : () -> (User_2);
+    "getMyTeams" : () -> (vec Team_2);
+    "clearStorage" : () -> ();
 }

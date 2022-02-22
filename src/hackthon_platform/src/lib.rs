@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use ic_kit::ic::caller;
-use ic_cdk::export::{candid::{CandidType, Deserialize, Principal}};
+use ic_cdk::{export::{candid::{CandidType, Deserialize, Principal}}, api::call};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
 use ic_cdk::api;
@@ -58,7 +58,13 @@ struct Team {
 type UserStore = HashMap<String, User>;
 type TeamStore = HashMap<String, Team>;
 
-
+#[allow(unused)]
+#[update(name = clearStorage)]
+fn clear_storage() {
+    let b = storage::delete::<HackathonStore>();
+    let b = storage::delete::<TeamStore>();
+    let b = storage::delete::<UserStore>();
+}
 
 #[update(name = createHackathon)]
 async fn add_hackathon(hackathon_info: Hackathon){
@@ -216,6 +222,19 @@ fn apply_message(message_id: String, ans: bool) {
 
     }
 }   
+
+#[update(name = getMyTeams)]
+fn get_my_teams() -> Vec<Team> {
+    let team_store = storage::get::<TeamStore>();
+    let user_id = caller().to_text();
+    let mut team_list: Vec<Team> = Vec::new();
+    for team in team_store.values() {
+        if team.members.contains(&user_id) {
+            team_list.push(team.clone());
+        }
+    }
+    team_list
+}
 
 
 #[update(name = submit)]
