@@ -88,10 +88,21 @@
 
 .swipper_temp {
     position: absolute;
-    width: 1465px;
+    width: 1437px;
     height: 763px;
     left: 0px;
     top: 104px;
+    text-align: center;
+}
+
+.swipper_img {
+    position: absolute;
+    width: 1437px;
+    height: 763px;
+    left: 0px;
+    top: 104px;
+    text-align: center;
+    object-fit: fill;
 }
 
 .phase_on {
@@ -144,7 +155,7 @@
     position: absolute;
     width: 60px;
     height: 0px;
-    left: 132px;
+    left: 124px;
     top: 958px;
 
     border: 5px solid #06E1FF;

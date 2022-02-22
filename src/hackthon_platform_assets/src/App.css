@@ -147,6 +147,10 @@
 
   cursor: pointer;
 
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+
 }
 .nav_img_mine{
   position: absolute;

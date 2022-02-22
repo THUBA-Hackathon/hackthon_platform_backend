@@ -35,7 +35,14 @@ export default function JoinTeamDialog(props) {
         });
       }
     }
-    user.backendActor.joinTeam(props.teamId)
+    try {
+      await user.backendActor.joinTeam(props.teamId);
+      alert("Join team successfully!")
+    }
+    catch(e) {
+      alert("Error occurred, fail to join team!")
+    }
+
   };
 
   const handleClose = () => {

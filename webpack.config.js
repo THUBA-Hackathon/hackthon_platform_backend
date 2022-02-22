@@ -46,6 +46,8 @@ const frontendDirectory = "hackthon_platform_assets";
 
 const asset_entry = path.join("src", frontendDirectory, "src", "index.html");
 
+const px2rem = require('postcss-px2rem-exclude');
+
 module.exports = {
   target: "web",
   mode: isDevelopment ? "development" : "production",
@@ -82,8 +84,22 @@ module.exports = {
   module: {
     rules: [
       { test: /\.(js|ts)x?$/, loader: "ts-loader" },
-      { test: /\.css$/, use: ['style-loader','css-loader'] },
-      { test: /\.(png|jpe?g|gif|svg|ico|json)$/i, type: "asset/resource", }
+      { test: /\.css$/, use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: require.resolve('postcss-loader'),
+          options : {
+              plugins: () => [
+                //在postcss-loader的插件中加入这个插件
+                //px2rem({ remUnit: 75 }) 的意思就是1rem = 75px 这个是根据750px设计稿来的，如果是620 的就写 62
+                px2rem({ remUnit: 145.11 , exclude: /node-modules/i,})
+            ]
+          }
+        }
+
+    ] },
+      { test: /\.(png|jpe?g|gif|svg|ico|json)$/i, type: "asset/resource", },
     ]
   },
   plugins: [

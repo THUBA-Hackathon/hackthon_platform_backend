@@ -29,11 +29,13 @@ export default function AddProjectDialog(props) {
   const handleClickOpen = async () => {
     // setOpen(true);
     //检查用户是否填写过个人信息，没有的话先填写个人信息,个人信息也存入localstorage
-    console.log(user.principal);
-    if (user.principal == null) {
-      alert('Please fill your info first!')
-      navigate('/mine')
+    if (user == null) {
+      alert('Please connect wallet first!')
     }
+    else if (user.userInfo == null) {
+      alert('Please fill in your info first!')
+    }
+    else
     setOpen(true);
   };
 

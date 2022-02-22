@@ -42,6 +42,7 @@ export default function AccountInfo(props) {
     });
     updateTextField();
     console.log("finish create userinfo: ", info);
+    alert("Submit info successfully!")
   };
 
   const updateTextField = () => {
