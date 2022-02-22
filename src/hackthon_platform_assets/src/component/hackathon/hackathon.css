@@ -235,7 +235,7 @@
     color: #06E1FF;
 }
 
-.join_btn {
+/* .join_btn {
     position: absolute;
     width: 80px;
     height: 30px;
@@ -248,7 +248,6 @@
     font-weight: 900;
     font-size: 20px;
     line-height: 30px;
-    /* identical to box height, or 150% */
 
     display: flex;
     align-items: center;
@@ -256,7 +255,7 @@
 
     color: #999999;
 
-}
+} */
 
 .details_line {
     position: absolute;

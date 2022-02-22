@@ -51,7 +51,7 @@ export default function TeamDetails (){
     });
     return (
         <div className="team_details">
-            {/* <div className="team_declaration">{this.props.data.team_declaration}</div> */}
+            <div className="team_title">{name}</div>
             <Captain team_name={name} name={capName} email={capEmail}/>
             <div className="divider">项目介绍</div>
             <div className="details_project_intro">{intro}</div>
@@ -59,10 +59,10 @@ export default function TeamDetails (){
             <div className="divider1">团队成员</div>
             {memberList}
             <UserContext.Consumer>
-                {value => <SubmitCodeDialog props={value} teamId={teamId}/>}
+                {value => <SubmitCodeDialog props={value} teamId={teamId} setCodeLink={setCodeLink} setVideoLink={setVideoLink} capName={capName}/>}
             </UserContext.Consumer>
-            项目链接: {codeLink}
-            演示视频: {videoLink}
+            <div className="details_project_intro">项目链接: {codeLink}</div>
+            <div className="details_project_intro">演示视频: {videoLink}</div>
         </div>
     );
     

@@ -9,6 +9,9 @@ import UserContext from "../../context/user-context";
 // 传入的参数包括若干个队伍的数据，分别包括项目简介，队伍名称，队长昵称，队长email,技术栈列表
 class PageTeam extends React.Component{
     static contextType = UserContext;
+    constructor(props) {
+        super(props)
+    }
     render() {
         var dataList = this.props.teamList.map((item, index) => {
             return (
