@@ -28,12 +28,24 @@ export default function AddDialog(props) {
 
   const handleCommit = async () => {
     // 提交表单
-    var uuid = "hackathonid" + guid();
-    const hackathon_actor = props.props.user.backendActor;
-    // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
-    const add_hackthon = await hackathon_actor.createHackathon({ id: uuid, name: name, startdate: start_date, sponsor: sponsor, enddate: end_date, intro: intro, teams: [] });
-    // console.log(name + sponsor + intro + start_date + end_date)
-    console.log("create result: ", add_hackthon);
+      if(user != null && user.userInfo != null && user.userInfo.name != null) {
+
+      var uuid = "hackathonid" + guid();
+      const hackathon_actor = props.props.user.backendActor;
+      // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
+      const add_hackthon = await hackathon_actor.createHackathon({ id: uuid, name: name, startdate: start_date, sponsor: sponsor, enddate: end_date, intro: intro, teams: [] });
+      // console.log(name + sponsor + intro + start_date + end_date)
+      console.log("create result: ", add_hackthon);
+      let newHackathon = { id: uuid, name: name, startdate: start_date, sponsor: sponsor, enddate: end_date, intro: intro, teams: [] }
+      let hackathonListNew = props.hackathonList;
+      console.log(hackathonListNew);
+      hackathonListNew.push(newHackathon);
+      props.setHackathonList(hackathonListNew)
+      
+    }
+    else {
+      alert("请先连接钱包并填写个人信息!")
+    }
     setOpen(false);
   };
   const handleClose = async () => {

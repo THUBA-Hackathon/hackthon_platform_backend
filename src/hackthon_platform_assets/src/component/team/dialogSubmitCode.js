@@ -26,7 +26,7 @@ export default function SubmitCodeDialog(props) {
 
   const handleSubmit = () => {
       // 提交表单
-      if(user.userInfo != null && user.userInfo.name == props.capName) {
+      if(user != null && user.userInfo != null && user.userInfo.name == props.capName) {
         user.backendActor.submit(props.teamId, code_link, video_link);
         props.setCodeLink(code_link);
         props.setVideoLink(video_link)

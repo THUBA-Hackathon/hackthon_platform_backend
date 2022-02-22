@@ -6,8 +6,8 @@ import Footer from "../footer"
 
 // 每个HackathonInfo传入的参数包括黑客松的图片url,名称name,主办方sponsor,开始日期startdate和结束日期enddate,格式为上方list的格式
 class HackathonList extends React.Component{
-    constructor(props) {
-        super(props);
+    componentDidMount(){
+        console.log(this.props)
     }
     render() {
         let dataList = this.props.hackathonList.map((item, index) => {
