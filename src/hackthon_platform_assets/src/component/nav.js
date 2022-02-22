@@ -35,10 +35,14 @@ export default function Nav (props) {
             });
             // console.log("backendActor:", backendActor);
             
+            var user_info = await backendActor.getSelfUserInfo();
+            console.log("get user info from backend: ", user_info);
+            // console.log(user_info.name)
+            
             setUser({
                 backendActor: backendActor,
                 principal: identity.getPrincipal(),
-                userInfo: null,
+                userInfo: user_info,
             });
         }
 

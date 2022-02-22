@@ -24,6 +24,7 @@ class Hackathon extends React.Component{
     constructor(props) {
         super(props);
         this.state={hackathon_list:[]}
+        this.setState = this.setState.bind(this);
     }
     async componentDidMount() {
         var list_hackathon = await hackthon_platform.getHackathonList();
@@ -39,7 +40,7 @@ class Hackathon extends React.Component{
                 <Phase />
                 {/* <AddDialog /> */}
                 <UserContext.Consumer>
-                    {value => <AddDialog props={value} />}
+                    {value => <AddDialog props={value} hackathonList={this.state.hackathon_list} setHackathonList={this.setState}/>}
                 </UserContext.Consumer>
                 <HackathonList hackathonList={this.state.hackathon_list} />
             </div>
