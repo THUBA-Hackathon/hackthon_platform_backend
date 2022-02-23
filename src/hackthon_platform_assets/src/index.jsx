@@ -20,7 +20,6 @@ import MineTabs from './component/mine/mineTab';
 import VerticalTabs from './component/mine/mineTab'
 import PageTeamDetails from './component/team/pageTeamDetails';
 import UserContext from "./context/user-context";
-import 'lib-flexible'; 
 const rootElement = document.getElementById("root");
 
 render(

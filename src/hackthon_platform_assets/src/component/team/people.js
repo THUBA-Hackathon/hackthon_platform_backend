@@ -11,8 +11,10 @@ class People extends React.Component{
 		return (
             <div className="people">
                 <div className="icon1"><img src="cap_icon.png" alt=""/></div>
-                <div className="people_name">姓名:{this.props.name}</div>
-                <div className="people_email">Email:{this.props.email}</div>
+                <div className="people_info">
+                    <div className="people_name">姓名:{this.props.name}</div>
+                    <div className="people_email">Email:{this.props.email}</div>
+                </div>
             </div>
 		);
 	}

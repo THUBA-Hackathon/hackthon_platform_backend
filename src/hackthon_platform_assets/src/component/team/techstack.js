@@ -12,7 +12,8 @@ class TechStack extends React.Component{
         })
         return (
             <div className="tech_stack">
-                所需技术栈:{dataList}
+                <div className="tech_stack_title">所需技术栈:</div>
+                {dataList}
             </div>
 		);
 

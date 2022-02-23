@@ -30,6 +30,11 @@ export default function AddDialog(props) {
     // 提交表单
       if(user != null && user.userInfo != null && user.userInfo.name != null) {
 
+        if(name == '' || start_date == '' || sponsor == '' || intro == '' || end_date == '') {
+          alert('请填写所有字段！')
+          return;
+        }
+
       var uuid = "hackathonid" + guid();
       const hackathon_actor = props.props.user.backendActor;
       // const add_hackthon = await hackthon_platform.createHacktahon(Principal.fromText("f3rmm-6y3ry-4uwth-wextp-r7dir-mihfe-yymvh-wwhst-ziegh-27byc-qqe"),{id : uuid, name : name, startdate: start_date, sponsor :  sponsor, enddate : end_date, intro : intro, teams: []});
@@ -40,8 +45,14 @@ export default function AddDialog(props) {
       let hackathonListNew = props.hackathonList;
       console.log(hackathonListNew);
       hackathonListNew.push(newHackathon);
-      props.setHackathonList(hackathonListNew)
-      
+      props.setHackathonList(hackathonListNew);
+
+      setName('')
+      setSponsor('')
+      setIntro('');
+      setStartDate(moment().format('YYYY-MM-DD'))
+      setEndDate(moment().format('YYYY-MM-DD'))
+      alert("黑客松添加成功!")
     }
     else {
       alert("请先连接钱包并填写个人信息!")
@@ -58,7 +69,6 @@ export default function AddDialog(props) {
   function guid() {
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
   }
-
 
   return (
     <div>
@@ -78,6 +88,7 @@ export default function AddDialog(props) {
             label="名称"
             fullWidth
             variant="outlined"
+            defaultValue={name}
             // onChange={handleNameChange}
             onChange={(nameValue) => { setName(nameValue.target.value) }}
           />
@@ -87,6 +98,7 @@ export default function AddDialog(props) {
             label="主办方"
             fullWidth
             variant="outlined"
+            defaultValue={sponsor}
             onChange={(sponsorValue) => { setSponsor(sponsorValue.target.value) }}
           />
           <TextField
@@ -96,6 +108,7 @@ export default function AddDialog(props) {
             fullWidth
             variant="outlined"
             multiline
+            defaultValue={intro}
             onChange={(introValue) => { setIntro(introValue.target.value) }}
           />
           <TextField

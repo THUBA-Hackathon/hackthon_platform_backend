@@ -11,22 +11,36 @@ class MineTeam extends React.Component {
         this.state = {
             teamList: []
         }
+        this.setState = this.setState.bind(this);
 
     }
     async componentDidMount() {
 
         let team_list = await this.context.user.backendActor.getMyTeams();
         console.log(team_list)
-        this.setState({teamList: team_list})
-        
+        this.setState({ teamList: team_list })
+
     }
     render() {
-        let dataList = this.state.teamList.map((item, index) => {
-            //console.log(dataList)
-            return (<div className="team_card_with_join_btn">
-                        <TeamCard key={index} {...item} />
-                    </div>)
-        })
+        var dataList = this.state.teamList.map((item, index) => {
+            return (
+                <div className="team_card_with_join_btn">
+                    <UserContext.Consumer>
+                    {value => <TeamCard 
+                        key={index} 
+                        intro={item.intro} 
+                        name={item.name}
+                        memberInfos={item.members}
+                        skills_needed={item.skills_needed} 
+                        showJoin={false}
+                        teamId={item.id}
+                        hackathonId={item.hackathon_id}
+                        code_link={item.code_link}
+                        video_link={item.video_link}
+                    props={value} />}
+                    </UserContext.Consumer>
+                </div>
+        )})
         return (
             <div className="mine_team">
                 {dataList}

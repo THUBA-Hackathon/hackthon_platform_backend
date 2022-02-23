@@ -17,12 +17,17 @@ export default function JoinTeamDialog(props) {
   let navigate = useNavigate()
 
   const handleClickJoin = async () => {
-    if (!user.userInfo) {
+    
       if (!user.backendActor) {
-        alert('Please connect wallet!');
-        navigate('/');
+        alert('请您连接钱包!');
         return;
-      } else {
+      } 
+      else if (user.userInfo.name == '') {
+        alert('请填写个人信息后再加入队伍!');
+        navigate('/mine');
+        return;
+      }
+      else {
         console.log(user.backendActor);
         var user_info = await user.backendActor.getSelfUserInfo();
         console.log("get user info from backend: ", user_info);
@@ -34,13 +39,13 @@ export default function JoinTeamDialog(props) {
           userInfo: user_info,
         });
       }
-    }
+    
     try {
       await user.backendActor.joinTeam(props.teamId);
-      alert("Join team successfully!")
+      alert("成功提交申请，请等待队长审核!")
     }
     catch(e) {
-      alert("Error occurred, fail to join team!")
+      alert("入队申请提交失败!")
     }
 
   };

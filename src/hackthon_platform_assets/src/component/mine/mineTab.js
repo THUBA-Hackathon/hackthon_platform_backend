@@ -9,6 +9,7 @@ import MessageCenter from './messageCenter';
 import AccountInfo from './accountInfo';
 import MineTeam from './mineTeam';
 import UserContext from "../../context/user-context";
+import './mine.css';
 
 var usr_addr = localStorage.getItem('id');
 
@@ -64,6 +65,7 @@ export default function MineTabs(props) {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
+        className="tabsTitle"
       // sx={{ borderRight: 1, borderColor: 'divider' }}
       >
         <Tab label="帐号信息" {...a11yProps(0)} />

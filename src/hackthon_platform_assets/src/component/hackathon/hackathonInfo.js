@@ -18,7 +18,7 @@ export default function HackathonInfo(props){
         })
 		return (
             <div className="hackathon_info" onClick={handleClick}>
-                <div className="hackathon_img"><img src={props.url} alt=""/></div>
+                <img className="hackathon_img" src={props.url} alt=""/>
                 <HackathonBrief id={props.id} name={props.name} sponsor={props.sponsor} startdate={props.startdate} enddate={props.enddate}/>
                 <div className="hackathon_card_arrow"><img className="card_arrow_img" src="arrow.svg" alt=""/></div>
             </div>

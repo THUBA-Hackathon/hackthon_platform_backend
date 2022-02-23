@@ -29,11 +29,13 @@ export default function AddProjectDialog(props) {
   const handleClickOpen = async () => {
     // setOpen(true);
     //检查用户是否填写过个人信息，没有的话先填写个人信息,个人信息也存入localstorage
-    if (user == null) {
-      alert('Please connect wallet first!')
+    if (user.backendActor == null) {
+      alert('请您连接钱包!')
+      console.log(user)
     }
-    else if (user.userInfo == null) {
-      alert('Please fill in your info first!')
+    else if (user.userInfo.name == '') {
+      alert('请您填写个人信息!')
+      navigate('/mine')
     }
     else
     setOpen(true);
@@ -41,14 +43,25 @@ export default function AddProjectDialog(props) {
 
   const handleSubmit = async () => {
     // 提交表单
+    if(name == '' || intro == '' || stack == '') {
+      alert('字段填写不完整！')
+      return;
+    }
     var uuid = "teamid" + guid();
     var hackathon_id = props.hackathonId;
     var stack_list = stack.split(" ");
     console.log(name + intro + stack)
     await user.backendActor.createTeam({id : uuid, name : name, intro: intro, members: [], skills_needed:stack_list, hackathon_id:hackathon_id, video_link:'', code_link:''});
-    setOpen(false);
+    
     var list_team = await hackthon_platform.getTeamList(hackathon_id);
     props.setTeamList(list_team);
+
+    alert('创建队伍成功！');
+    setName('');
+    setIntro('');
+    setStack('');
+
+    setOpen(false);
   };
 
   const handleClose = () => {
@@ -79,6 +92,7 @@ export default function AddProjectDialog(props) {
             label="队伍名称"
             fullWidth
             variant="outlined"
+            defaultValue={name}
             onChange={(nameValue) => {setName(nameValue.target.value)}}
           />
           {/* <TextField
@@ -96,14 +110,16 @@ export default function AddProjectDialog(props) {
             fullWidth
             variant="outlined"
             multiline
+            defaultValue={intro}
             onChange={(introValue) => {setIntro(introValue.target.value)}}
           />
           <TextField
             margin="dense"
             id="techstack"
-            label="所需技术栈"
+            label="所需技术栈 空格分隔"
             variant="outlined"
             fullWidth
+            defaultValue={stack}
             onChange={(stackValue) => {setStack(stackValue.target.value)}}
           />
           

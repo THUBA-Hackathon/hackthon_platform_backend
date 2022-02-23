@@ -42,7 +42,7 @@ export default function AccountInfo(props) {
     });
     updateTextField();
     console.log("finish create userinfo: ", info);
-    alert("Submit info successfully!")
+    alert("提交成功!")
   };
 
   const updateTextField = () => {
@@ -60,26 +60,32 @@ export default function AccountInfo(props) {
 
 
   React.useEffect(async () => {
-    // console.log(user)
-    if (!user.userInfo) {
-      if (!user.backendActor) {
-        alert('Please connect wallet!');
+    console.log(user)
+    if (!user.backendActor) {
+      alert('请连接钱包!');
         navigate('/');
         return;
-      } else {
-        // console.log(user.backendActor);
-        var user_info = await user.backendActor.getSelfUserInfo();
-        console.log("get user info from backend: ", user_info);
-        // console.log(user_info.name)
-        
-        setUser({
-          backendActor: user.backendActor, 
-          principal: user.principal, 
-          userInfo: user_info,
-        });
       }
-    }
-    updateTextField();
+      else {
+        // console.log(user.backendActor);
+        setName(user.userInfo.name);
+        setArea(user.userInfo.area);
+        setSchool(user.userInfo.school);
+        setPhone(user.userInfo.phone);
+        setEmail(user.userInfo.email);
+        setSkills(user.userInfo.skills.join());
+        // var user_info = await user.backendActor.getSelfUserInfo();
+        // console.log("get user info from backend: ", user_info);
+        // // console.log(user_info.name)
+        
+        // setUser({
+        //   backendActor: user.backendActor, 
+        //   principal: user.principal, 
+        //   userInfo: user_info,
+        // });
+      // updateTextField();
+      }
+    
     
   }, [])
 

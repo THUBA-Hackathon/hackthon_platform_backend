@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import UserContext from "../../context/user-context";
 
 // 传入的参数包括队伍口号，队伍简介，队伍成员list，项目链接,队长信息
-export default function TeamDetails (){
+export default function TeamDetails (props){
     const [teamId, setTeamId] = React.useState('')
     const [hackathonId, setHackathonId] = React.useState('')
     const [name, setName] = React.useState('')
@@ -21,6 +21,7 @@ export default function TeamDetails (){
     const [codeLink, setCodeLink] = React.useState('')
     const [videoLink, setVideoLink] = React.useState('')
     const [members, setMembers] = React.useState([])
+    const { user, setUser } = props.props;
 
     var teamInfo= useLocation().state.teamInfo;
     console.log(teamInfo);
@@ -40,9 +41,24 @@ export default function TeamDetails (){
 
         console.log(capName)
         
-        var members = await hackthon_platform.getTeamMembers(teamId);
-        setMembers(members);
-        console.log(members)
+        // var memberList = await user.backendActor.getTeamMembers(teamId);
+        // setMembers(memberList);
+        // console.log(memberList);
+
+        var teamList = await hackthon_platform.getTeamList(teamInfo.hackathon_id);
+        console.log(teamList);
+        let teamMembers = [];
+        for( let i = 0; i < teamList.length; i++) {
+            if(teamList[i].id == teamInfo.team_id) {
+                for( let j = 0; j < teamList[i].members.length; j++) {
+                    let member = await hackthon_platform.getUserInfo(teamList[i].members[j]);
+                    teamMembers.push(member);
+                }
+            }
+        }
+        setMembers(teamMembers)
+
+
 
     }, [])
 
@@ -61,6 +77,7 @@ export default function TeamDetails (){
             <UserContext.Consumer>
                 {value => <SubmitCodeDialog props={value} teamId={teamId} setCodeLink={setCodeLink} setVideoLink={setVideoLink} capName={capName}/>}
             </UserContext.Consumer>
+            <div className="divider1"></div>
             <div className="details_project_intro">项目链接: {codeLink}</div>
             <div className="details_project_intro">演示视频: {videoLink}</div>
         </div>

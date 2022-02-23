@@ -37,7 +37,10 @@ const App = () => {
             <Route path={"" + "/cap"} element={<PageTeam  />}></Route>
             {/* <Route path={"" + "/add"} element={<AddTeam />}></Route> */}
             <Route path={"" + "/mine"} element={<Mine  />}></Route>
-            <Route path={"" + "/teamDetails/*"} element={<TeamDetails />}></Route>
+            <Route path={"" + "/teamDetails/*"} element={
+            <UserContext.Consumer>
+            {value => <TeamDetails props={value} />}
+          </UserContext.Consumer>}></Route>
           </Routes>
       </UserContext.Provider>
       {/* </UserContext.Provider> */}

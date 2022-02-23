@@ -5,21 +5,14 @@
     left: 80px;
     /* top: 148px; */
 }
-.icon1 {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    left: 50px;
-    top: 20px;
-
-}
 
 .add_icon_team {
     position: absolute;
-    left:569px;
+    left:50px;
     top: 70px;
-    width: 20px;
-    height: 20px;
+    width: 1208px;
+    height: 200px;
+    text-align: center;
 }
 
 .join_btn {
@@ -63,7 +56,7 @@
     position: relative;
     width: 284px;
     height: 24px;
-    left: 190px;
+    left: 210px;
     margin-top: 60px;
     font-family: Helvetica;
     font-style: normal;
@@ -84,7 +77,7 @@
     position: relative;
     width: 346px;
     height: 56px;
-    left: 190px;
+    left: 210px;
     margin-top: 20px;
     font-family: Helvetica;
     font-style: normal;
@@ -100,7 +93,7 @@
     position: relative;
     width: 346px;
     height: 56px;
-    left: 190px;
+    left: 210px;
     margin-top: 0px;
     font-family: Helvetica;
     font-style: normal;
@@ -116,7 +109,7 @@
     position: relative;
     width: 1208px;
     height: 350px;
-    left: 115px;
+    left: 71.5px;
     margin-top:10px;
     /*background: rgba(0, 87, 254, 0.08);*/
 }
@@ -162,7 +155,7 @@
 
 .tech_stack{
     position: relative;
-    width: 650px;
+    width: 1000px;
     height: 24px;
     left: 100px;
     margin-top: 0px;
@@ -175,15 +168,22 @@
     color: #000000;
 }
 
+.tech_stack_title {
+    margin-right: 20px;
+    display: inline-block;
+}
+
 .one_tech{
     position: relative;
-    float: right;
+    /* float: right; */
     margin-left: 20px;
     right: 20px;
     top: 0px;
     bottom: 20px;
-    width: 100px;
+    width: auto;
     text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
 
     background: rgba(187, 196, 253, 0.2);
     border: 1px solid #0057FE;
@@ -198,6 +198,8 @@
 
 
     color: #0057FE;
+
+    display: inline-block;
 }
 
 .team_declaration{
@@ -220,7 +222,7 @@
 
 .details_project_intro {
     position: relative;
-    width: 1242px;
+    width: 100%;
     height: auto;
     left: 50px;
     margin-top: 30px;
@@ -296,10 +298,25 @@
 
     color: #000000;
 }
+
+.icon1 {
+    position: relative;
+    width: 150px;
+    height: 150;
+    left: 50px;
+    top: 20px;
+
+    display: inline-block;
+
+}
+
 .people{
     position: relative;
     margin-left: 00px;
     float: left;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
 }
 .people_email{
     position: relative;
@@ -318,6 +335,12 @@
 
     color: #000000;
 }
+.people_info {
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+
 .team_details {
     position: absolute;
     width: 1208px;

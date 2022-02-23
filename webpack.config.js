@@ -46,7 +46,7 @@ const frontendDirectory = "hackthon_platform_assets";
 
 const asset_entry = path.join("src", frontendDirectory, "src", "index.html");
 
-const px2rem = require('postcss-px2rem-exclude');
+// const screenWidth = /Android|webOS|iPhone|iPad|BlackBerry|iPad/i.test(navigator.userAgent) ? 750 : 1366 
 
 module.exports = {
   target: "web",
@@ -75,6 +75,12 @@ module.exports = {
     filename: "index.js",
     path: path.join(__dirname, "dist", frontendDirectory),
   },
+  // 'plugins': {
+  //   'px2rem-ui-exclude': {
+  //     remUnit: 145.11,
+  //     exclude: /node_modules|folder_name/i
+  //   }
+  // },
 
   // Depending in the language or framework you are using for
   // front-end development, add module loaders to the default
@@ -90,11 +96,30 @@ module.exports = {
         {
           loader: require.resolve('postcss-loader'),
           options : {
-              plugins: () => [
-                //在postcss-loader的插件中加入这个插件
-                //px2rem({ remUnit: 75 }) 的意思就是1rem = 75px 这个是根据750px设计稿来的，如果是620 的就写 62
-                px2rem({ remUnit: 145.11 , exclude: /node-modules/i,})
-            ]
+            plugins: () => [
+              require("postcss-flexbugs-fixes"),
+              require("postcss-preset-env")({
+                  autoprefixer: {
+                      flexbox: "no-2009",
+                  },
+                  stage: 3,
+              }),
+              require('postcss-px-to-viewport')({
+                viewportWidth: 1454, // (Number) The width of the viewport.
+                // viewportHeight: 1440, // (Number) The height of the viewport.
+                unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to.
+                viewportUnit: "vw", // (String) Expected units.
+                selectorBlackList: [], // (Array) The selectors to ignore and leave as px.
+                minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
+                mediaQuery: false // (Boolean) Allow px to be converted in media queries.
+              }),
+              
+              //关键:设置px2rem
+              // px2rem({
+              //     remUnit: 145.11,//这里最开始写的是75，但是antd的样式变的可小，查询后看人家设置的是37.5，然后试了下确实好了
+              //     exclude: /node_modules|folder_name/i,
+              // }),
+          ],
           }
         }
 

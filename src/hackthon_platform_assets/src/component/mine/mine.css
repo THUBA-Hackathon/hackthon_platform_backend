@@ -138,16 +138,18 @@
 
 }
 
-.mine_team {
-    position: absolute;
-    width: 302px;
-    height: 36px;
-    left: 42px;
-    top: 23px;
-}
+
 
 .mine_team {
     position:absolute;
-    left: 200px;
+    left: 0;
     top:51px;
+}
+
+.tabsTitle {
+    z-index: 3;
+}
+
+.css-1g4ac1o-MuiTabs-root {
+    z-index: 3;
 }
