@@ -5,8 +5,9 @@ const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const LOCAL_II_CANISTER =
-"http://rkp4c-7iaaa-aaaaa-aaaca-cai.localhost:8000/#authorize";
-//"https://uwb3sezexv0i.ngrok2.xiaomiqiu.cn/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai";
+  //"http://rkp4c-7iaaa-aaaaa-aaaca-cai.localhost:8000/#authorize";
+  //"https://uwb3sezexv0i.ngrok2.xiaomiqiu.cn/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai";
+  "https://identity.ic0.app/#authorize"
 
 function initCanisterEnv() {
   let localCanisters, prodCanisters;
@@ -90,40 +91,42 @@ module.exports = {
   module: {
     rules: [
       { test: /\.(js|ts)x?$/, loader: "ts-loader" },
-      { test: /\.css$/, use: [
-        'style-loader',
-        'css-loader',
-        {
-          loader: require.resolve('postcss-loader'),
-          options : {
-            plugins: () => [
-              require("postcss-flexbugs-fixes"),
-              require("postcss-preset-env")({
+      {
+        test: /\.css$/, use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              plugins: () => [
+                require("postcss-flexbugs-fixes"),
+                require("postcss-preset-env")({
                   autoprefixer: {
-                      flexbox: "no-2009",
+                    flexbox: "no-2009",
                   },
                   stage: 3,
-              }),
-              require('postcss-px-to-viewport')({
-                viewportWidth: 1454, // (Number) The width of the viewport.
-                // viewportHeight: 1440, // (Number) The height of the viewport.
-                unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to.
-                viewportUnit: "vw", // (String) Expected units.
-                selectorBlackList: [], // (Array) The selectors to ignore and leave as px.
-                minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
-                mediaQuery: false // (Boolean) Allow px to be converted in media queries.
-              }),
-              
-              //关键:设置px2rem
-              // px2rem({
-              //     remUnit: 145.11,//这里最开始写的是75，但是antd的样式变的可小，查询后看人家设置的是37.5，然后试了下确实好了
-              //     exclude: /node_modules|folder_name/i,
-              // }),
-          ],
-          }
-        }
+                }),
+                require('postcss-px-to-viewport')({
+                  viewportWidth: 1454, // (Number) The width of the viewport.
+                  // viewportHeight: 1440, // (Number) The height of the viewport.
+                  unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to.
+                  viewportUnit: "vw", // (String) Expected units.
+                  selectorBlackList: [], // (Array) The selectors to ignore and leave as px.
+                  minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
+                  mediaQuery: false // (Boolean) Allow px to be converted in media queries.
+                }),
 
-    ] },
+                //关键:设置px2rem
+                // px2rem({
+                //     remUnit: 145.11,//这里最开始写的是75，但是antd的样式变的可小，查询后看人家设置的是37.5，然后试了下确实好了
+                //     exclude: /node_modules|folder_name/i,
+                // }),
+              ],
+            }
+          }
+
+        ]
+      },
       { test: /\.(png|jpe?g|gif|svg|ico|json)$/i, type: "asset/resource", },
     ]
   },

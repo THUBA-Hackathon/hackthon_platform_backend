@@ -1,24 +1,14 @@
 .container {
-    position: absolute;
-    left: 0px;
-    top: 104px;
 }
 
 .user_info {
-    position: absolute;
-    left: 300px;
-    top: 10px;
     width: 886px;
 }
 
 .message_center {
-    position: absolute;
-    left: 300px;
-    top: 10px;
 }
 
 .apply_message {
-    position: relative;
     margin-top: 60px;
     width: 800px;
     height: 476px;
@@ -32,11 +22,9 @@
 }
 
 .message {
-    position: relative;
     width: 302px;
     height: 36px;
     margin-left: 42px;
-    top: 23px;
 
     font-family: DQHT Helvetica;
     font-style: normal;
@@ -52,55 +40,40 @@
 
 .applyer_name {
 
-    position: absolute;
     width: 356px;
     height: 32px;
-    left: 25px;
-    top:129px;
 /*
     background: #F7FAFC; */
     border-radius: 2px;
 }
 
 .applyer_area {
-    position: absolute;
     width: 356px;
     height: 32px;
-    left: 402px;
-    top:129px;
 
     /* background: #F7FAFC; */
     border-radius: 2px;
 }
 
 .applyer_phone {
-    position: absolute;
     width: 356px;
     height: 32px;
-    left: 27px;
-    top:207px;
 
     /* background: #F7FAFC; */
     border-radius: 2px;
 }
 
 .applyer_email {
-    position: absolute;
     width: 356px;
     height: 32px;
-    left: 402px;
-    top:207px;
 
     /* background: #F7FAFC; */
     border-radius: 2px;
 }
 
 .applyer_role {
-    position: absolute;
     width: 732px;
     height: 32px;
-    left: 26px;
-    top:302px;
 
     /* background: #F7FAFC; */
     border-radius: 2px;
@@ -111,10 +84,6 @@
     flex-direction: row;
     align-items: center;
     padding: 7px 20px;
-
-    position: absolute;
-    left: 690px;
-    top: 408px;
     width: 68px;
     height: 36px;
 
@@ -127,10 +96,6 @@
     flex-direction: row;
     align-items: center;
     padding: 7px 20px;
-
-    position: absolute;
-    left: 630px;
-    top: 408px;
     width: 68px;
     height: 36px;
 
@@ -140,11 +105,19 @@
 
 
 
-.mine_team {
-    position:absolute;
-    left: 0;
-    top:51px;
+.mine_team input::-webkit-input-placeholder{ /*WebKit browsers*/
+    color: #86909C;
+    }
+    
+.mine_team input::-moz-input-placeholder{ /*Mozilla Firefox*/
+    color: #86909C;
 }
+
+.mine_team input::-ms-input-placeholder{ /*Internet Explorer*/ 
+    color: #86909C;
+}
+    
+    
 
 .tabsTitle {
     z-index: 3;

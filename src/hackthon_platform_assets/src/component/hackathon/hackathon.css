@@ -1,117 +1,59 @@
 .hackathon_info {
-    position: relative;
-    left:68px;
-    margin-top:37px;
-    width: 1300px;
-    height: 360px;
     background: #FFFFFF;
-    border: 1px solid #DEE1E9;
-    border-right: 10px solid #0057FE;
+    border-top: 20px solid #F8F8F8;
+    padding-top: 40px;
     box-sizing: border-box;
-    cursor: pointer;
-
 }
 
 .hackathon_img {
-    position: absolute;
     width: 500px;
     height: 360px;
-    left:0px;
-    top:0px;
-    object-fit: fill;
-
 }
 
 .hackathon_name{
-    position: relative;
-    width: 608px;
-    height: 32px;
-    left: 600px;
-    top: 50px;
-
     font-family: DQHT;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 700;
     font-size: 35px;
-    line-height: 32px;
-    /* identical to box height, or 91% */
-
+    line-height: 50px;
+    margin-bottom: 40px;
     text-transform: capitalize;
-
     /* MRT App / Headline */
-
     color: #1B1C57;
-
 }
 
 .hackathon_sponsor{
-    position: absolute;
-    width: 408px;
-    height: 77px;
-    left: 609px;
-    top: 210px;
-
     font-family: DQHT Helvetica ;
     font-style: normal;
     font-weight: normal;
-    font-size: 25px;
-    line-height: 30px;
-
+    font-size: 18px;
     text-align: left;
     /* or 120% */
-
-
     color: #666666;
 }
 
 
 .hackathon_card_arrow {
-    position: relative;
     width: 100px;
     height: 100px;
-    left: 1138px;
-    top:150px;
 }
 .card_arrow_img {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    left: 0px;
-    top:0px;
-}
-
-
-.hackathon_list{
-    position: absolute;
-    left: 0;
-    top: 1180px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
 
 .swipper_temp {
-    position: absolute;
-    width: 1437px;
-    height: 763px;
-    left: 0px;
-    top: 104px;
     text-align: center;
 }
 
 .swipper_img {
-    position: absolute;
-    width: 1437px;
-    height: 763px;
-    left: 0px;
-    top: 104px;
     text-align: center;
-    object-fit: fill;
 }
 
 .phase_on {
-    position: absolute;
     width: 63px;
     height: 30px;
-    left: 129px;
-    top: 922px;
 
     font-family: DQHT;
     font-style: normal;
@@ -124,11 +66,8 @@
 }
 
 .phase_upcoming {
-    position: absolute;
     width: 84px;
     height: 30px;
-    left: 283px;
-    top: 922px;
 
     font-family: DQHT;
     font-style: normal;
@@ -199,7 +138,7 @@
     font-weight: 600;
     font-size: 25px;
     line-height: 37px;
-    letter-spacing: 0.3em;
+    letter-spacing: 5px;
     text-transform: capitalize;
 
     color: #0057FE;
@@ -270,11 +209,8 @@
 } */
 
 .details_line {
-    position: absolute;
     width: 1437px;
     height: 0px;
-    left: -6px;
-    top: 659px;
 
     /* Grey/Gray/1 */
 
@@ -282,36 +218,18 @@
 
 }
 
-.details_words {
-    position: absolute;
-    left: 120px;
-    top:724px;
-}
 
 .add_button {
     cursor: pointer;
 }
 
 .tabs {
-    position: absolute;
-    width: 163px;
-    height: 30px;
-    left: 0px;
-    top: 623px;
-}
-
-.w-tabs-bar {
-    position: absolute;
-    left:127px;
+    height: 50px;
 }
 
 .hackathon_date {
-    position: absolute;
     width: 476px;
     height: 25px;
-    left: 0px;
-    top: 50px;
-
     font-family: Helvetica;
     font-style: normal;
     font-weight: normal;
@@ -324,9 +242,6 @@
 }
 
 .hackathon_words {
-    position: absolute;
-    left: 0px;
-    top: 102px;
     width: 1193px;
     white-space: pre-wrap;
 }
