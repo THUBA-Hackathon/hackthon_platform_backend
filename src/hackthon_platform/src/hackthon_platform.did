@@ -1,4 +1,5 @@
 type User_2 = record{
+    "id": text;
     "name": text;
     "area": text;
     "phone": text;
@@ -13,7 +14,7 @@ type Team_2 = record{
     "hackathon_id" : text;
     "name": text;
     "intro": text;
-    "members": vec text;
+    "members": vec User_2;
     "skills_needed": vec text;
     "code_link": text;
     "video_link" : text;
@@ -21,6 +22,7 @@ type Team_2 = record{
 
 type Hackathon_2 = record{
     "id" : text;
+    "image_id" : text;
     "name" : text;
     "intro" : text;
     "sponsor" : text;
@@ -35,6 +37,7 @@ type Message_2 = record{
     "sender_id" : text;
     "user_info" : User_2;
     "team_id" : text;
+    "team_name" : text;
     "finished" : bool;
 };
 
