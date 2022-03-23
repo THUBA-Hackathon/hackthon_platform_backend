@@ -14,7 +14,8 @@ type Team_2 = record{
     "hackathon_id" : text;
     "name": text;
     "intro": text;
-    "members": vec User_2;
+    "slogan" : text;
+    "members": vec text;
     "skills_needed": vec text;
     "code_link": text;
     "video_link" : text;
@@ -63,4 +64,6 @@ service : {
     "getSelfUserInfo" : () -> (User_2);
     "getMyTeams" : () -> (vec Team_2);
     "clearStorage" : () -> ();
+    "getTeamInfo" : (text) -> (Team_2, vec User_2);
+    "deleteMessage" : (text) -> ();
 }

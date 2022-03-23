@@ -33,6 +33,7 @@ struct Message {
     pub team_id: String,
     pub team_name: String,
     pub finished: bool,
+    pub accepted: bool,
 }
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
@@ -52,7 +53,8 @@ struct Team {
     pub hackathon_id: String,
     pub name: String,
     pub intro: String,
-    pub members: Vec<User>,
+    pub slogan: String,
+    pub members: Vec<String>,
     pub skills_needed: Vec<String>,
     pub code_link: String,
     pub video_link: String,
@@ -103,7 +105,7 @@ fn create_group(team_info: Team) {
             .unwrap_or_else(||(&mut temp_hackathon));
     hackathon.teams.push(team_info.id.clone());
     let mut new_team = team_info.clone();
-    new_team.members.push(get_user_info(caller().to_text()));
+    new_team.members.push(caller().to_text());
     let team_store = storage::get_mut::<TeamStore>();
     team_store.insert(team_info.id.clone(), new_team);
     
@@ -118,7 +120,7 @@ fn join_group(team_id: String) {
     let team_info = team_store
             .get(&team_id)
             .unwrap_or_else(||(&temp_team));
-    let team_leader = team_info.members[0].id.clone();
+    let team_leader = team_info.members[0].clone();
     
     let message = Message {
         id: message_store.keys().len().to_string(),
@@ -127,7 +129,8 @@ fn join_group(team_id: String) {
         team_id : team_id.clone(),
         team_name : team_info.name.clone(), 
         user_info : get_user_info(user_id),
-        finished : false
+        finished : false,
+        accepted: false
     };
     send_message(message);
     // team_info.members.push(user_id);
@@ -153,6 +156,24 @@ fn get_team_list(hackathon_id: String) ->  Vec<Team>{
 
 
 
+#[query(name = getTeamInfo)]
+fn get_team_info(team_id: String) -> (Team, Vec<User>) {
+    let team_store = storage::get::<TeamStore>();
+    let user_store = storage::get::<UserStore>();
+    let team = team_store
+            .get(&team_id)
+            .cloned()
+            .unwrap_or_else(||(Team::default()));
+    let mut user_list: Vec<User> = Vec::new();
+    for user in team.members.iter() {
+        user_list.push(user_store
+            .get(user)
+            .cloned()
+            .unwrap_or_else(||(User::default())));
+    }
+    (team, user_list)
+}
+
 #[query(name = getTeamMembers)]
 fn get_team_members(team_id: String) -> Vec<User> {
     let team_store = storage::get::<TeamStore>();
@@ -164,7 +185,7 @@ fn get_team_members(team_id: String) -> Vec<User> {
     let mut user_list: Vec<User> = Vec::new();
     for user in team.members.iter() {
         user_list.push(user_store
-            .get(&user.id)
+            .get(user)
             .cloned()
             .unwrap_or_else(||(User::default())));
     }
@@ -210,6 +231,12 @@ fn get_message() -> Vec<Message> {
     message_list
 }
 
+#[update(name = deleteMessage)]
+fn delete_message(message_id: String) {
+    let message_store = storage::get_mut::<MessageStore>();
+    message_store.remove(&message_id);
+}
+
 #[update(name = applyMessage)]
 fn apply_message(message_id: String, ans: bool) {
     let message_store = storage::get_mut::<MessageStore>();
@@ -219,12 +246,13 @@ fn apply_message(message_id: String, ans: bool) {
             .unwrap_or_else(||&mut temp_message);
     message.finished = true;
     if ans == true {
+        message.accepted = true;
         let team_store = storage::get_mut::<TeamStore>();
         let mut temp_team = Team::default();
         let team_info = team_store
                 .get_mut(&message.team_id)
                 .unwrap_or_else(||(&mut temp_team));
-        team_info.members.push(get_user_info(message.sender_id.clone()));
+        team_info.members.push(message.sender_id.clone());
 
     }
 }   
@@ -236,7 +264,7 @@ fn get_my_teams() -> Vec<Team> {
     let mut team_list: Vec<Team> = Vec::new();
     for team in team_store.values() {
         for user in team.members.iter() {
-            if user.id.eq(&user_id) {
+            if user.eq(&user_id) {
                 team_list.push(team.clone());
             }
         }
