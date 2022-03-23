@@ -15,7 +15,7 @@ const nanoseconds = BigInt(3600000000000);
 
 
 export default function Nav (props) {
-    
+
     let navigate = useNavigate();
     // constructor(props) {
     //     super(props)
@@ -56,9 +56,7 @@ export default function Nav (props) {
                     // authClient now has an identity
                     handleAuthenticated(authClient);
                 },
-                identityProvider: process.env.DFX_NETWORK === "ic"
-                  ? "https://identity.ic0.app/#authorize"
-                  : process.env.LOCAL_II_CANISTER,
+                identityProvider: "https://identity.ic0.app/#authorize",
                 // Maximum authorization expiration is 8 days
                 maxTimeToLive: days * hours * nanoseconds,
             });

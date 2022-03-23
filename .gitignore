@@ -29,6 +29,7 @@ Cargo.lock
 
 # dfx temporary files
 .dfx/
+canister_ids.json
 
 
 # frontend code
