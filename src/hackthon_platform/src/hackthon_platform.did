@@ -40,6 +40,8 @@ type Message_2 = record{
     "team_id" : text;
     "team_name" : text;
     "finished" : bool;
+    "accepted" : bool;
+    "msg_type" : nat8;
 };
 
 type Hackathon = Hackathon_2;

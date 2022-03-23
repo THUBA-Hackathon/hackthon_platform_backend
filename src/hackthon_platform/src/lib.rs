@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use ic_kit::ic::caller;
+use ic_kit::ic::{caller, time};
 use ic_cdk::{export::{candid::{CandidType, Deserialize, Principal}}};
 use ic_cdk::storage;
 use ic_cdk_macros::*;
@@ -11,6 +11,7 @@ use ic_cdk::api;
 
 type HackathonStore = HashMap<String, Hackathon>;
 type MessageStore = HashMap<String, Message>;
+
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
 struct Hackathon {
@@ -34,6 +35,8 @@ struct Message {
     pub team_name: String,
     pub finished: bool,
     pub accepted: bool,
+    pub msg_type: u8
+    // msg type, 0 for request join, 1 for response 
 }
 
 #[derive(Clone, Default, CandidType, Debug, Deserialize)]
@@ -69,6 +72,7 @@ fn clear_storage() {
     let b = storage::delete::<HackathonStore>();
     let b = storage::delete::<TeamStore>();
     let b = storage::delete::<UserStore>();
+    let _ = storage::delete::<MessageStore>();
 }
 
 #[update(name = createHackathon)]
@@ -115,22 +119,22 @@ fn create_group(team_info: Team) {
 fn join_group(team_id: String) {
     let user_id = caller().to_text();
     let team_store = storage::get::<TeamStore>();
-    let message_store = storage::get_mut::<MessageStore>();
     let temp_team = Team::default();
     let team_info = team_store
             .get(&team_id)
             .unwrap_or_else(||(&temp_team));
     let team_leader = team_info.members[0].clone();
-    
+    let s: String = time().to_string();
     let message = Message {
-        id: message_store.keys().len().to_string(),
+        id: s,
         sender_id : user_id.clone(),
         user_id : team_leader,
         team_id : team_id.clone(),
         team_name : team_info.name.clone(), 
         user_info : get_user_info(user_id),
         finished : false,
-        accepted: false
+        accepted: false,
+        msg_type: 0
     };
     send_message(message);
     // team_info.members.push(user_id);
@@ -255,6 +259,19 @@ fn apply_message(message_id: String, ans: bool) {
         team_info.members.push(message.sender_id.clone());
 
     }
+    let s: String = time().to_string();
+    let response_message = Message {
+        id: s,
+        sender_id : message.user_id.clone(),
+        user_id : message.sender_id.clone(),
+        team_id : message.team_id.clone(),
+        team_name : message.team_name.clone(), 
+        user_info : get_user_info(message.sender_id.clone()),
+        finished : true,
+        accepted: ans,
+        msg_type: 1
+    };
+    send_message(response_message);
 }   
 
 #[update(name = getMyTeams)]

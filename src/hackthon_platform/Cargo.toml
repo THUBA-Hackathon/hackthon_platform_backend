@@ -9,9 +9,10 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-ic-cdk = "0.3"
-ic-cdk-macros = "0.3"
-candid = "0.3"
+ic-cdk = "0.4.0"
+ic-cdk-macros = "0.4.0"
+candid = "0.7.12"
 time = "0.3"
 serde = "1.0"
 ic-kit = "0.4"
+
