@@ -8,16 +8,16 @@ const FooterData = [
         list: [
             {
                 name: "About",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Features",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Works",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Career",
-                herf: "https://www.baidu.com"
+                herf: ""
             }
         ]
     },{
@@ -25,16 +25,16 @@ const FooterData = [
         list: [
             {
                 name: "Customer Support",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Delivery Details",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Terms & Conditions",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Privacy Policy",
-                herf: "https://www.baidu.com"
+                herf: ""
             }
         ]
     },{
@@ -42,13 +42,13 @@ const FooterData = [
         list: [
             {
                 name: "Free eBooks",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "How to - Blog",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Youtube Playlist",
-                herf: "https://www.baidu.com"
+                herf: ""
             }
         ]
     },{
@@ -56,10 +56,10 @@ const FooterData = [
         list: [
             {
                 name: "How to - Blog",
-                herf: "https://www.baidu.com"
+                herf: ""
             },{
                 name: "Youtube Playlist",
-                herf: "https://www.baidu.com"
+                herf: ""
             }
         ]
     }
@@ -88,8 +88,8 @@ const Footer = () => {
                                         return (
                                             <a
                                                 key={i}
-                                                href={ite.herf}
-                                                target="_blank"
+                                                href={ite.herf || "/#/"}
+                                                //target="_blank"
                                                 style={{ color: textColor, display: "block", textDecoration: "none", marginTop: i === 0 ? 20 : 10 }}
                                             >{ite.name}</a>
                                         )

@@ -22,7 +22,7 @@ const HackathonRouters = () => {
       <Route path="/cap" element={<PageTeam />}></Route>
       {/* <Route path={"" + "/add"} element={<AddTeam />}></Route> */}
       <Route path="/mine" element={<Mine />}></Route>
-      <Route path="/teamDetails/*" element={<TeamDetails />}></Route>
+      <Route path="/teamDetails/:hackathonID/:teamID" element={<TeamDetails />}></Route>
     </Routes>
   )
 }

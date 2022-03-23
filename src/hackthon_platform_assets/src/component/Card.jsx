@@ -17,13 +17,13 @@ export const BtnGroup = (props) => {
             }}
                 onClick={close}
             >{"Fold"}</div>}
-            <div className='flex-center' style={{
+            { onCancel && <div className='flex-center' style={{
                 cursor: "pointer",
                 color: mainColor,
             }}
                 onClick={onCancel}
-            >{clickType === "cancel" && smallLoading ? <SmallLoading size={22} color={mainColor} /> : (cancelText || "Cancel")}</div>
-            <div className='flex-center' style={{
+            >{clickType === "cancel" && smallLoading ? <SmallLoading size={22} color={mainColor} /> : (cancelText || "Cancel")}</div> }
+            { onOk && <div className='flex-center' style={{
                 background: mainColor,
                 borderRadius: 2,
                 padding: "5px 10px",
@@ -33,18 +33,18 @@ export const BtnGroup = (props) => {
                 width: 80
             }}
                 onClick={onOk}
-            >{clickType === "ok" && smallLoading ? <SmallLoading size={22} color={"white"} /> : (okText || "Submit")}</div>
+            >{clickType === "ok" && smallLoading ? <SmallLoading size={22} color={"white"} /> : (okText || "Submit")}</div> }
         </div>
     )
 }
 
 export const Input = (props) => {
-    const { width, placeholder, value, setValue, type, maxLength, disabled } = props;
+    const { width, placeholder, value, setValue, type, maxLength, disabled, inputType } = props;
 
     return (
-        <div style={{ marginTop: 5, width:"100%" }}>
+        <div style={{ marginTop: 5, width: "100%" }}>
             <input
-                type="text"
+                type={inputType || "text"}
                 placeholder={placeholder}
                 value={value}
                 onChange={(val) => {

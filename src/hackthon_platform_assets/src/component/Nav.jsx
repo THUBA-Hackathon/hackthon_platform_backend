@@ -21,7 +21,7 @@ export default function Nav() {
         if (user.principal !== null) {
             navigate("/mine");
         } else {
-            message("warning", "Please login")
+            message("warning", "Please log in")
         }
         // history.push('/#/mine')
         // window.location.reload()
@@ -45,10 +45,8 @@ export default function Nav() {
                 height: 70
             }}>
             <Message />
-            <div className="flex-y-center">
-                <img style={{
-                    height: 50
-                }} src="logo.jpg" alt="" onClick={handleOnClickHome} />
+            <div className="flex-y-center" style={{ cursor: "pointer", }} onClick={handleOnClickHome}>
+                <div><img style={{ height: 50 }} src="logo.jpg" alt="" /></div>
                 <div
                     style={{
                         fontFamily: 'Quantico',
@@ -56,10 +54,8 @@ export default function Nav() {
                         fontWeight: 700,
                         marginLeft: 20,
                         color: "#2D2E36",
-                        cursor: "pointer",
                         fontSize: 24
                     }}
-                    onClick={handleOnClickHome}
                 >
                     Hacker Valley
                 </div>
@@ -70,22 +66,23 @@ export default function Nav() {
             <div className="flex-y-center">
                 <div className="flex-center"
                     style={{
-                        cursor: smallLoading ? "default" : "pointer",
+                        cursor: (smallLoading || user.principal) ? "default" : "pointer",
                         padding: "9px 30px",
-                        width: 130,
+                        width: 150,
                         height: 40,
                         border: "1px solid #C4C4C4",
                         borderRadius: "10px",
                         fontWeight: 700,
                         position: "relative"
                     }} onClick={() => {
-                        if (!smallLoading) {
+                        if (!smallLoading && !user.principal) {
                             connect()
+                            close()
                         }
                     }}
                     onMouseEnter={open}
                     onMouseLeave={close}
-                    >
+                >
                     {user.principal !== null
                         ? user.principal.toString().substring(0, 5) + "-*"
                         : (smallLoading ? <SmallLoading size={20} /> : "log in")}
@@ -93,16 +90,17 @@ export default function Nav() {
                         position: "absolute",
                         top: 36,
                         left: 0,
-                        width: 130,
+                        width: 150,
                         height: 40,
                         borderRadius: "10px",
                         background: "white",
                         boxShadow: "0px 2px 3px rgba(0,0,0,0.7)",
+                        cursor: "pointer",
                     }}
-                    onClick={(e)=>{
-                        e.stopPropagation();
-                        logout()
-                    }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            logout()
+                        }}
                     >log out</div>}
                 </div>
 
@@ -114,7 +112,7 @@ export default function Nav() {
                             cursor: "pointer"
                         }}
                         onClick={handleOnClickMine}
-                    >我的</div>
+                    >Mine</div>
                 </>
             </div>
         </div >

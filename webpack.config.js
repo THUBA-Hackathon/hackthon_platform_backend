@@ -4,8 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
+// https://ic0.app/api/v2/canister/cy4dw-nqaaa-aaaai-qhy3a-cai/query
 const LOCAL_II_CANISTER =
-  //"http://rkp4c-7iaaa-aaaaa-aaaca-cai.localhost:8000/#authorize";
+  //"http://rrkah-fqaaa-aaaaa-aaaaq-cai.localhost:8000/#authorize";
   //"https://uwb3sezexv0i.ngrok2.xiaomiqiu.cn/?canisterId=ryjl3-tyaaa-aaaaa-aaaba-cai";
   "https://identity.ic0.app/#authorize"
 

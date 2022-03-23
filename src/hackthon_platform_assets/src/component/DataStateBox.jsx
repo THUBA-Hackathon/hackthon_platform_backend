@@ -10,7 +10,7 @@ export const DataStateBox = ({
   css,
   loading,
   SkeletonCSS,
-  emptyDesc = "请链接钱包"
+  emptyDesc = "Please connect wallet"
 }) => {
   const { user } = useUser()
 
@@ -42,7 +42,7 @@ export const DataStateBox = ({
             <Skeleton animation="wave" height={50} />
           </div>)
         : <div style={{ color: "rgba(0,0,0,0.7)" }}>
-          Please login
+          Please log in
         </div>}
     </div>
   );

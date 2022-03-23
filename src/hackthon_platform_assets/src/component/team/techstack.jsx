@@ -27,6 +27,7 @@ class OneTech extends React.Component {
 class TechStack extends React.Component {
     render() {
         let dataList = this.props.techList.map((item, index) => {
+            if(!item) return null
             return (<OneTech key={index} tech={item} />);
         })
         return (

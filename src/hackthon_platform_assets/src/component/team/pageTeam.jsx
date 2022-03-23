@@ -4,7 +4,7 @@ import AddProjectDialog from "./dialogAddProject";
 import { mainWidth } from "../../style";
 
 const PageTeam = (props) => {
-    const { teamList, hackathonId, userid, setTeamList } = props
+    const { teamList, hackathonId, getTeams } = props
 
     return (
         <div style={{ width: mainWidth, margin: "auto" }}>
@@ -16,7 +16,6 @@ const PageTeam = (props) => {
                             name={item.name}
                             memberInfos={item.members}
                             skills_needed={item.skills_needed}
-                            showJoin={true}
                             teamId={item.id}
                             hackathonId={hackathonId}
                             code_link={item.code_link}
@@ -27,8 +26,7 @@ const PageTeam = (props) => {
             })}
             <AddProjectDialog
                 hackathonId={hackathonId}
-                userId={userid}
-                setTeamList={setTeamList}
+                getTeams={getTeams}
             />
         </div>
     );

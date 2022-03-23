@@ -28,6 +28,8 @@ export const UserProvider = ({ children }) => {
             },
         });
 
+        console.log("userId: ", identity.getPrincipal().toString());
+
         var user_info = await backendActor.getSelfUserInfo();
         console.log("get user info from backend: ", user_info);
 
@@ -35,8 +37,8 @@ export const UserProvider = ({ children }) => {
             backendActor: backendActor,
             principal: identity.getPrincipal(),
             userInfo: user_info,
+            userId: identity.getPrincipal().toString()
         });
-        console.log(identity.getPrincipal().toString())
         setLoading(false)
     }, [canisterId, createActor])
 

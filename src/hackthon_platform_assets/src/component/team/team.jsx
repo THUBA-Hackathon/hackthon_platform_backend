@@ -4,44 +4,15 @@ import Captain from "./captain"
 import TechStack from "./techstack"
 import JoinTeamDialog from "./dialogJoinTeam";
 import { useNavigate } from "react-router-dom";
-import { hackthon_platform } from '../../../../declarations/hackthon_platform/index';
 import { mainColor } from "../../style"
-import { useLoading } from "../Loading"
 
 // 传入的参数包括项目简介，队伍名称，队长昵称，队长email,技术栈列表
 export default function TeamCard(props) {
-    const [capName, setCapName] = React.useState("");
-    const [capEmail, setCapEmail] = React.useState("");
-    const { closeLoading, openLoading } = useLoading();
     const navigate = useNavigate()
 
     const handleOnClick = React.useCallback(() => {
-        navigate('/teamDetails/', {
-            state:
-            {
-                teamInfo: {
-                    team_id: props.teamId,
-                    hackathon_id: props.hackathonId,
-                    name: props.name,
-                    intro: props.intro,
-                    skills_needed: props.skills_needed,
-                    cap_name: capName,
-                    cap_email: capEmail,
-                    code_link: props.code_link,
-                    video_link: props.video_link,
-                    members: props.members
-                }
-            }, replace: true
-        })
-    }, [props, capName, capEmail])
-
-    React.useEffect(async () => {
-        openLoading()
-        var capInfo = await hackthon_platform.getUserInfo(props.memberInfos[0]).then(result => { return result });
-        closeLoading()
-        setCapName(capInfo.name)
-        setCapEmail(capInfo.email)
-    }, [])
+        navigate(`/teamDetails/${props.hackathonId}/${props.teamId}`);
+    }, [props])
 
     return (
         <div style={{
@@ -64,15 +35,14 @@ export default function TeamCard(props) {
                 </svg>
             </div>
             <div style={{ padding: 40 }}>
-                <Captain team_name={props.name} name={capName} email={capEmail} />
+                <Captain team_name={props.name} name={props.members ? props.members[0].name : ""} email={props.members ? props.members[0].email : ""} />
             </div>
             <div className="flex-between" style={{
                 padding: "0px 40px 40px 40px"
             }}>
                 <TechStack techList={props.skills_needed} />
-                {props.showJoin && <JoinTeamDialog teamId={props.teamId} />}
+                <JoinTeamDialog teamId={props.teamId} teamInfo={props}/>
             </div>
-
         </div>
     );
 }

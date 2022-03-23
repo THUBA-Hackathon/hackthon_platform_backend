@@ -8,7 +8,7 @@ const Captain = (props) => {
     const width = props?.width || (mainWidth - 200)
     return (
         <div className="flex-y-center" style={{ width: width, ...props?.css }}>
-            <img src="cap_icon.png" alt="" />
+            <img src="avater.png" alt="" style={{width: 80 }}/>
             <div style={{
                 marginLeft: 20,
                 fontFamily: 'Helvetica',
