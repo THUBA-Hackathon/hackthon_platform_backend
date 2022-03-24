@@ -1,12 +1,11 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { AuthClient } from "@dfinity/auth-client";
 import { createActor, canisterId } from "../../../declarations/hackthon_platform"
-import { createActorPictureBed, canisterIdPictureBed } from "../../../declarations/picture-bed"
+import { createActorPictureBed, canisterIdPictureBed } from "../../../declarations/picture_bed"
 
 const UserContext = createContext(null);
 
 export const useUser = () => React.useContext(UserContext);
-
 
 const days = BigInt(1);
 const hours = BigInt(24);
@@ -17,6 +16,7 @@ export const UserProvider = ({ children }) => {
         principal: null,
         backendActor: null,
         userInfo: null,
+        backendActorPictureBed: null
     });
     const [authClient, setAuthClient] = useState()
     const [loading, setLoading] = React.useState(false);

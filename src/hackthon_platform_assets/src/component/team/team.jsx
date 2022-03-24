@@ -6,20 +6,20 @@ import JoinTeamDialog from "./dialogJoinTeam";
 import { useNavigate } from "react-router-dom";
 import { mainColor } from "../../style"
 import { useUser } from '../../context/user-context';
+import { hackthon_platform } from "../../../../declarations/hackthon_platform";
 
 // 传入的参数包括项目简介，队伍名称，队长昵称，队长email,技术栈列表
 export default function TeamCard(props) {
-    const navigate = useNavigate()
-    const [captain, setCaptain] = React.useState({})
-    const {user} = useUser()
+    const navigate = useNavigate();
+    const [captain, setCaptain] = React.useState({});
 
     const handleOnClick = React.useCallback(() => {
         navigate(`/teamDetails/${props.hackathonId}/${props.teamId}`);
     }, [props])
 
-    React.useEffect(async() => {
+    React.useEffect(async () => {
         if (props.members && props.members[0].id === undefined) {
-            const captain = await user.backendActor.getUserInfo(props.members[0]);
+            const captain = await hackthon_platform.getUserInfo(props.members[0]);
             setCaptain(captain)
             return
         }

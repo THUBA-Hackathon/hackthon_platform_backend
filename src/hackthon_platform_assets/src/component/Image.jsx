@@ -1,31 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../context/user-context";
-import { mainColor } from "../style";
 import { uint8ArrayToBase64 } from "./handleImg"
-import { useSmallLoading, useSwitch } from "./Loading";
+import { useSwitch } from "./Loading";
 import Skeleton from '@mui/material/Skeleton';
-
+import { pictureBed } from "../../../declarations/picture_bed";
 
 export const LoadImage = (props) => {
     const [url, setUrl] = useState("")
     const [src, setSrc] = useState("")
     const { isOpen, open, close } = useSwitch()
-    const { user } = useUser()
 
     useEffect(async () => {
-        if (!user.backendActorPictureBed || !props?.src) return
+        if (!pictureBed || !props?.src) return
         open()
         let url = ''
         /* if (props?.src?.includes("http")) {
             url = props?.src;
         } else { */
-        var test00 = await user.backendActorPictureBed.getImg(props?.src)
+        var test00 = await pictureBed.getImg(props?.src)
         if (!test00?.ok[0]) return
         url = uint8ArrayToBase64(test00?.ok[0]);
         //}
 
         setUrl(url);
-    }, [props.src, user.backendActorPictureBed])
+    }, [props.src, pictureBed])
 
     useEffect(() => {
         if (!url) return
