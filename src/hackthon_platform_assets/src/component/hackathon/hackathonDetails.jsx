@@ -7,6 +7,7 @@ import { mainColor, textColor, bgColor, mainWidth } from "../../style"
 import { useLoading, useSwitch } from "../Loading"
 import { DataStateBox } from "../DataStateBox"
 import { Time } from "./hackathonList"
+import { LoadImage } from "../Image";
 
 export const Tab = ({ title, setTab, tab, index, css }) => {
     const [_, setSearchParams] = useSearchParams();
@@ -65,7 +66,7 @@ const HackathonDetails = () => {
 
     return (
         <div>
-            {hackathon?.image_id && <img src={hackathon?.image_id} alt="" style={{ width: "100%", height: "auto" }} /> }
+            {hackathon?.image_id && <LoadImage src={hackathon?.image_id} css={{ width: "100%", height: "auto" }} SkeletonCSS={{ width: "100%", height: 300 }} /> }
             <div style={{ background: bgColor, paddingTop: 20, width: "100%" }}>
                 <div style={{
                     display: "flex",
@@ -87,7 +88,7 @@ const HackathonDetails = () => {
                             padding: "50px 0",
                             width: "100%"
                         }}>
-                            <div style={{ width: mainWidth, margin: "auto", fontSize: 16 }} dangerouslySetInnerHTML={{ __html: hackathon.intro }}></div>
+                            <div style={{ width: mainWidth, margin: "auto", fontSize: 16 }} dangerouslySetInnerHTML={{ __html: hackathon.intro?.replace(/\t/g,'<span style="color: transparent !important">空</span>') }}></div>
                         </div>
                     </div>
                 </DataStateBox>}

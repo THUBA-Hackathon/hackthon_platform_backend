@@ -40,13 +40,13 @@ export const AccountInfoCore = (props) => {
       skills: skill_list,
       id: user?.userId
     }
-    if (name == '' || area == '' || phone == '' || email == "" || skill_list == '') {
+    if (name == '' || area == '' || phone == '' || email == "" || skills == '' || school == "") {
       //alert('字段填写不完整！')
       message("warning", "Incomplete field filling!")
       return;
     }
 
-    var myPhoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    var myPhoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
     if (!myPhoneReg.test(phone)) {
       message("warning", "Please enter the correct mobile phone number!")
       return
@@ -62,7 +62,7 @@ export const AccountInfoCore = (props) => {
     await user.backendActor.createUserInfo(info);
     var user_info = await user.backendActor.getSelfUserInfo();
     setUser((pre) => ({ ...pre, userInfo: user_info }));
-    
+
     setSmallLoading(false)
     message("success", 'Submitted successfully');
     onCancel && onCancel()
@@ -86,7 +86,7 @@ export const AccountInfoCore = (props) => {
     }}>
       <Message />
       <LabelBox title="What should i call you ?">
-        <Input maxLength={20} placeholder="Please enter name" type="name" value={name} setValue={setValue} />
+        <Input maxLength={30} placeholder="Please enter name" type="name" value={name} setValue={setValue} />
       </LabelBox>
       <LabelBox title="Where do you come from ?">
         <Input maxLength={100} placeholder="Please enter area" type="area" value={area} setValue={setValue} />

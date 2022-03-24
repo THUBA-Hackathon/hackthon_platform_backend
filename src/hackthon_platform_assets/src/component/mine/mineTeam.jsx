@@ -30,7 +30,7 @@ const MineTeam = () => {
                 cursor: "pointer"
             }} onClick={() => {
                 navigate("/")
-            }}>暂无团队，加入或创建团队</div>
+            }}>No team, join or create a team</div>
         }>
             {teamList?.length > 0 && teamList.map((item, index) => {
                 return (
@@ -46,6 +46,7 @@ const MineTeam = () => {
                         code_link={item.code_link}
                         video_link={item.video_link}
                         members={item.members}
+                        slogan={item.slogan}
                     />
                 )
             })}

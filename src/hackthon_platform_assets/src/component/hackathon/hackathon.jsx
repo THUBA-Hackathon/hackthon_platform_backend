@@ -7,16 +7,7 @@ import { useSwitch } from "../Loading"
 import { DataStateBox } from "../DataStateBox"
 import { HackathonInfo } from "./hackathonList";
 import { useUser } from "../../context/user-context";
-
-// 此处添加可以创建黑客松的白名单id
-const CREATE_HACKATHON_USER = [
-    "z2ypx-3zr5b-ocpje-wruch-2azmi-pfpl6-ghdc2-g3zhl-3dcwa-zsa6r-3ae",
-    "qmkmb-2k4p3-chw76-nd7bu-qqxwg-d3u3s-3p5ev-5oxk6-hkwf2-4d4gb-pae",
-    "xysqw-zrknq-575sn-w3ymw-35dei-hr5vb-5ud7b-sxtkx-penhp-w5nna-fae",
-    "wn2fq-v47jv-hrydn-v5hea-pcpbc-nuemw-4g5wb-qecas-bxqv3-xzc3w-7ae",
-    "oixhp-z3mef-rkr2e-4yfan-46jc7-6sji2-ulxz5-javyd-uga3l-dq3sh-nae",
-    "5aslw-f3cet-fakwv-7hs7s-3qxjt-tavec-ohgsm-orz5l-bpkmn-zinek-yqe"
-]
+import { CREATE_HACKATHON_USER } from "../createHackathonUserID";
 
 const HomeInfo = () => {
     return (
@@ -68,6 +59,7 @@ const Hackathon = () => {
         open()
         try {
             var list_hackathon = await hackthon_platform.getHackathonList();
+            console.log(list_hackathon)
             setHackathon_list(list_hackathon);
             close()
         } catch (error) {
@@ -84,10 +76,10 @@ const Hackathon = () => {
             <HomeInfo />
             {/* <Swipper /> */}
             {/* <Phase /> */}
-            {CREATE_HACKATHON_USER?.includes(user?.userInfo?.id) && <AddHackathon getHackathonList={getHackathonList} />}
+            {CREATE_HACKATHON_USER?.includes(user?.userId) && <AddHackathon getHackathonList={getHackathonList} />}
             <DataStateBox notNeedUser data={hackathonList} loading={isOpen} emptyDesc="No Hackathon Data" SkeletonCSS={{ width: mainWidth }}>
                 {hackathonList.map((item, index) => {
-                    return (<HackathonInfo key={index} {...item} url={item.image_id || "example-hackathon.png"} />)
+                    return (<HackathonInfo key={index} {...item} />)
                 })}
             </DataStateBox>
         </div>

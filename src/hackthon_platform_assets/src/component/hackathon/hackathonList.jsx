@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { bgColorShallow, mainIndigoColor, mainWidth, textColor } from "../../style"
 import moment from "moment"
+import { LoadImage } from "../Image"
 
 export const Time = (props) => {
     const { startdate, enddate, css } = props;
@@ -74,7 +75,7 @@ const HackathonBrief = (props) => {
                 fontSize: "30px",
                 color: textColor,
                 marginTop: 15
-            }}>{name}</div>
+            }}>{name?.length > 80 ? name?.slice(0, 80) + "..." : name}</div>
             <div style={{ marginBottom: 15 }}>
                 <div style={{ marginBottom: "5px", color: "#0057FE" }}>Bonus: {sponsor}</div>
                 <Time {...props} />
@@ -97,7 +98,7 @@ export const HackathonInfo = (props) => {
         <div style={{ width: "100%" }}>
             <div style={{ height: 20, background: bgColorShallow, margin: "20px auto" }}></div>
             <div className="flex-y-center" style={{ width: mainWidth, margin: "auto" }}>
-                <img className="hackathon_img" src={ props?.url || require("../../../assets/hackathon.jpg")} alt="" style={{ width: 500, height: 240 }} />
+                <LoadImage src={props.image_id} css={{ width: 500, height: 240 }} SkeletonCSS={{ width: 500, height: 240 }} />
                 <div className="flex-between" style={{ marginLeft: 60, width: "calc(100% - 560px)" }}>
                     <HackathonBrief id={props.id} name={props.name} sponsor={props.sponsor} startdate={props.startdate} enddate={props.enddate} intro={props?.intro} />
                     <img style={{ width: 50, cursor: "pointer", }} src="arrow.svg" alt="" onClick={handleClick} />

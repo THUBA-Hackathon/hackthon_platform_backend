@@ -16,9 +16,14 @@ export default function TeamDetails() {
 
     const getTeams = async () => {
         open()
-        var list_team = await hackthon_platform.getTeamList(params.hackathonID);
-        const teamInfo = list_team?.find(item => item.id === params.teamID);
-        setTeamInfo(teamInfo);
+        //var list_team = await hackthon_platform.getTeamList(params.hackathonID);
+        //const teamInfo = list_team?.find(item => item.id === params.teamID);
+        const teamInfo = await hackthon_platform.getTeamInfo(params.teamID);
+        console.log(teamInfo)
+        setTeamInfo({
+            ...teamInfo[0],
+            members: teamInfo[1]
+        });
         close();
     }
 
@@ -39,7 +44,7 @@ export default function TeamDetails() {
                         fontFamily: "Helvetica",
                         fontSize: 30,
                         color: mainColor
-                    }}>“Hacker Valley，在交流中，实现创意；在实践中，进行创新。”</div>
+                    }}>{teamInfo?.slogan}</div>
                     <div style={{ width: 80, height: 5, background: mainIndigoColor, margin: "30px 0" }}></div>
                     <div className='flex-between'>
                         <Captain team_name={teamInfo?.name} name={teamInfo?.members ? teamInfo?.members[0]?.name : ""} email={teamInfo?.members ? teamInfo?.members[0]?.email : ""} />
@@ -56,7 +61,7 @@ export default function TeamDetails() {
                         margin: "auto"
                     }}>
                         <div style={{ color: mainColor, fontSize: 30, fontWeight: 700, marginBottom: 20 }}>Project Introduction</div>
-                        <div dangerouslySetInnerHTML={{ __html: teamInfo?.intro }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: teamInfo?.intro?.replace(/\t/g,'<span style="color: transparent">空</span>') }}></div>
                     </div>
                 </div>
                 {teamInfo?.members?.length > 0 && <div style={{

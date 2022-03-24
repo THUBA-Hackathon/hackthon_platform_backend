@@ -84,7 +84,7 @@ export const useMessage = () => {
         const { type, text } = msg;
         return (
             <Snackbar open={show} autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "center" }} onClose={() => { setShow(false) }} >
-                <Alert onClose={() => { setShow(false) }} severity={type} sx={{ width: '100%' }}>
+                <Alert onClose={() => { setShow(false) }} severity={type} sx={{ width: '100%', zIndex: 10000 }}>
                     {text}
                 </Alert>
             </Snackbar>

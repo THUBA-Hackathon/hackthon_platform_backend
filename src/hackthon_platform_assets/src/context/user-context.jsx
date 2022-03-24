@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { AuthClient } from "@dfinity/auth-client";
 import { createActor, canisterId } from "../../../declarations/hackthon_platform"
+import { createActorPictureBed, canisterIdPictureBed } from "../../../declarations/picture-bed"
 
 const UserContext = createContext(null);
 
@@ -28,17 +29,27 @@ export const UserProvider = ({ children }) => {
             },
         });
 
-        console.log("userId: ", identity.getPrincipal().toString());
+        const backendActorPictureBed = await createActorPictureBed(canisterIdPictureBed, {
+            agentOptions: {
+                identity,
+            },
+        });
+
+        setUser((pre) => ({
+            ...pre,
+            backendActor: backendActor,
+            backendActorPictureBed,
+        }));
 
         var user_info = await backendActor.getSelfUserInfo();
         console.log("get user info from backend: ", user_info);
 
-        setUser({
-            backendActor: backendActor,
+        setUser((pre) => ({
+            ...pre,
             principal: identity.getPrincipal(),
             userInfo: user_info,
             userId: identity.getPrincipal().toString()
-        });
+        }));
         setLoading(false)
     }, [canisterId, createActor])
 

@@ -5,11 +5,12 @@ import { useUser } from "../../context/user-context";
 import { DataStateBox } from "../DataStateBox";
 import Collapse from '@mui/material/Collapse';
 import { useSwitch } from "../Loading";
-import { bgColorShallow, mainColor } from "../../style";
+import { bgColorShallow, mainColor, textColor } from "../../style";
 
 const ApplyMessage = (props) => {
     const { isOpen, open, close } = useSwitch()
-    const { finished, id, user_info: { name,
+    const { finished, accepted, id, user_info: {
+        name,
         area,
         phone,
         email,
@@ -29,7 +30,6 @@ const ApplyMessage = (props) => {
         setSmallLoading(false)
         getMessage()
     };
-    const [isopen, setOpen] = useState();
 
     const handleReject = async () => {
         // 拒绝队员
@@ -38,6 +38,14 @@ const ApplyMessage = (props) => {
         setSmallLoading(true)
         await user.backendActor.applyMessage(id, false);
         message("success", "Team member rejected successfully!")
+        setSmallLoading(false)
+        getMessage()
+    }
+
+    const deleteMsg = async () => {
+        setSmallLoading(true)
+        await user.backendActor.deleteMessage(id);
+        message("success", "Delete message success!")
         setSmallLoading(false)
         getMessage()
     }
@@ -73,13 +81,24 @@ const ApplyMessage = (props) => {
                         width: "100%",
                         background: bgColorShallow,
                         outline: "none",
-                    }}  value={school} disabled></textarea>
+                    }} value={school} disabled></textarea>
                 </LabelBox>
                 <BtnGroup onOk={!finished ? handleAccept : undefined} onCancel={!finished ? handleReject : undefined} okText="Accept" cancelText="Refuse" SmallLoading={SmallLoading} smallLoading={smallLoading} clickType={clickType} close={close} />
             </Collapse>
-            {!isOpen && <div style={{ cursor: "pointer", fontSize: 20 }} onClick={open}>
-                <strong>{name}</strong> apply to join the team <strong>{team_name}</strong> {finished && <strong>✅</strong>}
-            </div>}
+            <div className="flex-between">
+                {!isOpen && <div className="ellipsis" style={{ cursor: user?.userId !== props?.user_info?.id ? "pointer" : "default", fontSize: 20 }} onClick={() => {
+                    if (user?.userId !== props?.user_info?.id) {
+                        open()
+                    }
+                }}>
+                    {user?.userId !== props?.user_info?.id
+                        ? <>{finished ? <strong style={{ color: accepted ? "green" : "red" }}>[{accepted ? "Accepted" : "Rejected"}] </strong> : <strong style={{ color: "gray" }}>[Untreated] </strong>}<strong> {name?.length > 20 ? name?.slice(0, 20) + "..." : name}</strong> apply to join the team <strong>{team_name}</strong></>
+                        : <><strong>{team_name}</strong> {accepted ? "accepted" : "refused"} your request to join</>}
+                </div>}
+                {!isOpen && <div style={{ cursor: "pointer" }} onClick={deleteMsg}>
+                    {smallLoading ? <SmallLoading size={22} color={mainColor} /> : "❌"}
+                </div>}
+            </div>
         </CardBox>
     )
 }
@@ -93,7 +112,6 @@ const MessageCenter = () => {
         if (!user.backendActor) return
         open()
         let message_list = await user.backendActor.getMessage();
-        console.log(message_list)
         setApplyMessageList(message_list);
         close()
     }, [user])
@@ -105,9 +123,11 @@ const MessageCenter = () => {
 
     return (
         <DataStateBox data={applyMessageList} loading={isOpen} emptyDesc={"No Message Data"}>
-            {applyMessageList.map((item, index) => {
-                return (<ApplyMessage key={index}  {...item} getMessage={getMessage} />);
-            })}
+            <div style={{ width: "100%", height: "100%" }}>
+                {applyMessageList.map((item, index) => {
+                    return (<ApplyMessage key={index}  {...item} getMessage={getMessage} />);
+                })}
+            </div>
         </DataStateBox>
     );
 }

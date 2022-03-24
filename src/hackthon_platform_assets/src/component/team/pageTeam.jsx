@@ -21,6 +21,7 @@ const PageTeam = (props) => {
                             code_link={item.code_link}
                             video_link={item.video_link}
                             members={item.members}
+                            slogan={item.slogan}
                         />
                     </div>)
             })}

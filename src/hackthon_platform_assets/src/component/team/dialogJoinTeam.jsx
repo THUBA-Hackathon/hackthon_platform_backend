@@ -18,8 +18,8 @@ export default function JoinTeamDialog(props) {
     let isMember, isCaptain;
     const members = props?.teamInfo?.members
     if (members?.length > 0) {
-      isCaptain = members[0]?.id === user?.userInfo?.id;
-      isMember = !!members?.find(item => item?.id === user?.userInfo?.id)
+      isCaptain = (members[0]?.id || members[0]) === user?.userInfo?.id;
+      isMember = !!members?.find(item => (item?.id || item) === user?.userInfo?.id)
     }
     return {
       isMember,
@@ -30,11 +30,11 @@ export default function JoinTeamDialog(props) {
 
   const handleClickJoin = async () => {
 
-    if (user.backendActor == null) {
+    if (!user.backendActor) {
       message("warning", "Please login!");
       connect()
     }
-    else if (user.userInfo.name == '') {
+    else if (!user?.userInfo?.name) {
       message("warning", "Please add your personal information!");
       openAccount()
     }

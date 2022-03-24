@@ -19,6 +19,11 @@ export default function SubmitCodeDialog(props) {
 
   const handleSubmit = async () => {
     // 提交表单
+    if (code_link == '' || video_link == "") {
+      message("warning", "Incomplete field filling!")
+      return;
+    }
+
     setSmallLoading(true)
     try {
       await user.backendActor.submit(props?.teamInfo?.id || props?.teamInfo?.teamId, code_link, video_link);

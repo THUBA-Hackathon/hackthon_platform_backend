@@ -34,11 +34,11 @@ export default function AddProjectDialog(props) {
 
   const handleClickOpen = async () => {
     //检查用户是否填写过个人信息，没有的话先填写个人信息,个人信息也存入localstorage
-    if (user.backendActor == null) {
+    if (!user.backendActor) {
       message("warning", "Please login!");
       connect()
     }
-    else if (user.userInfo.name == '') {
+    else if (!user?.userInfo?.name) {
       message("warning", "Please add your personal information!");
       openAccount()
     }
@@ -55,17 +55,18 @@ export default function AddProjectDialog(props) {
     var uuid = "teamid" + guid();
     var hackathon_id = props.hackathonId;
     var stack_list = stack.split(" ");
-    console.log(name + intro + stack)
     const data = {
       id: uuid,
       name,
       intro,
+      slogan,
       members: [],
       skills_needed: stack_list,
       hackathon_id,
       video_link: '',
       code_link: ''
     }
+
     await user.backendActor.createTeam(data);
 
     message("success", 'Team created successfully!');
