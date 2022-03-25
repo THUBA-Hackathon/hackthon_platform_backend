@@ -20,9 +20,9 @@ export default function MineTabs() {
           margin: 'auto',
           fontSize: 20
         }}>
-          <Tab title="My Information" setTab={setTab} tab={tab} index="1"/>
-          <Tab title="Message" setTab={setTab} tab={tab} index="2"/>
-          <Tab title="My Team" setTab={setTab} tab={tab} index="3"/>
+          <Tab title="My Information" setTab={setTab} tab={tab} index="1" css={{ width: 260, textAlign: "center" }}/>
+          <Tab title="Message" setTab={setTab} tab={tab} index="2" css={{ width: 260, textAlign: "center" }}/>
+          <Tab title="My Team" setTab={setTab} tab={tab} index="3" css={{ width: 260, textAlign: "center" }}/>
         </div>
       </div>
       <div style={{ width: mainWidth, margin: '60px auto' }}>

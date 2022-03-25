@@ -1,8 +1,6 @@
 // 添加项目对话框
 import * as React from 'react';
 import AddTeam from './newTeam';
-import { hackthon_platform } from "../../../../declarations/hackthon_platform";
-import { useNavigate } from "react-router-dom";
 import { mainWidth } from '../../style';
 import { useUser } from '../../context/user-context';
 import { CardBox, Input, LabelBox, BtnGroup } from '../Card';
@@ -30,8 +28,6 @@ export default function AddProjectDialog(props) {
   const { SmallLoading, smallLoading, setSmallLoading } = useSmallLoading()
   const { isOpen, open: openAccount, close } = useSwitch();
 
-  let navigate = useNavigate()
-
   const handleClickOpen = async () => {
     //检查用户是否填写过个人信息，没有的话先填写个人信息,个人信息也存入localstorage
     if (!user.backendActor) {
@@ -47,7 +43,7 @@ export default function AddProjectDialog(props) {
   };
 
   const handleSubmit = async () => {
-    if (name == '' || intro?.length <= 6 || stack == '' || slogan == "") {
+    if (name == '' || intro?.length <= 6 || intro === "<p><br></p>" || stack == '' || slogan == "") {
       message("warning", "Incomplete field filling!")
       return;
     }

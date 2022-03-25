@@ -7,7 +7,7 @@ export const BraftEditor = (props) => {
 
     return (
         <ReactQuill theme="snow" style={{ color: "black" }} value={value} onChange={(val) => {
-            console.log(val)
+            //console.log(val)
             setValue((pre) => ({ ...pre, [type]: val }))
         }} />
     );

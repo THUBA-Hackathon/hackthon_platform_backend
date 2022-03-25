@@ -1,6 +1,5 @@
 // 添加项目对话框
 import * as React from 'react';
-import { useNavigate } from "react-router-dom";
 import { mainWidth } from '../../style';
 import { useUser } from '../../context/user-context';
 import { CardBox, Input, LabelBox, BtnGroup } from '../Card';
@@ -60,12 +59,7 @@ export const AddHackathon = (props) => {
   })
   const { Message, message } = useMessage()
   const { SmallLoading, smallLoading, setSmallLoading } = useSmallLoading()
-  const [{
-    img,
-    imgBlob
-  }, setImg] = React.useState({})
-
-  let navigate = useNavigate()
+  const [{ img, imgBlob }, setImg] = React.useState({})
 
   const handleClickOpen = async () => {
     //检查用户是否填写过个人信息，没有的话先填写个人信息,个人信息也存入localstorage
@@ -130,10 +124,6 @@ export const AddHackathon = (props) => {
   };
 
   const handleClose = () => {
-    /* if (smallLoading) {
-      message("warning", '正在创建中，无法关闭！');
-      return
-    } */
     setOpen(false);
   };
 
@@ -158,6 +148,7 @@ export const AddHackathon = (props) => {
         message("warning", "The size of the uploaded image should not exceed 1M");
         return false;
       }
+
       if (!/\.(jpg|jpeg|png|JPG|PNG|webp)$/.test(e.target.value)) {
         message("warning", 'The image type must be JPEG, JPG, or PNG');
         return false;
@@ -188,7 +179,6 @@ export const AddHackathon = (props) => {
       readerImg.onload = e => {
         let data;
         data = e.target.result;
-        console.log(data)
         setImg((pre) => ({
           ...pre,
           img: data

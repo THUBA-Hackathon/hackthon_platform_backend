@@ -33,7 +33,7 @@ export const Time = (props) => {
 
     const timeStr = useMemo(() => {
         if (time <= 0) {
-            return `Ended: ${moment(startdate).format("yyyy/MM/DD")}-${moment(enddate).format("yyyy/MM/DD")} UTC+8`
+            return `Ended: ${moment(startdate).format("yyyy/MM/DD")}-${moment(enddate).format("yyyy/MM/DD HH:mm")} UTC+8`
         } else {
             const day = Math.floor(time / d);
             const hour = Math.floor((time - day * d) / h);
@@ -53,7 +53,7 @@ export const Time = (props) => {
 }
 
 const HackathonBrief = (props) => {
-    const { name, sponsor, intro } = props;
+    const { name, sponsor } = props;
 
     return (
         <div

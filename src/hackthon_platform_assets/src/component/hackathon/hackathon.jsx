@@ -59,7 +59,6 @@ const Hackathon = () => {
         open()
         try {
             var list_hackathon = await hackthon_platform.getHackathonList();
-            console.log(list_hackathon)
             setHackathon_list(list_hackathon);
             close()
         } catch (error) {

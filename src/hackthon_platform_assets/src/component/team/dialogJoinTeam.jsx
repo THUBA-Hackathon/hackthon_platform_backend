@@ -49,7 +49,7 @@ export default function JoinTeamDialog(props) {
           getTeams && getTeams()
         }
         catch (e) {
-          console.log(e)
+          //console.log(e)
           message("warning", "Team entry application failed to submit!");
           setSmallLoading(false)
         }

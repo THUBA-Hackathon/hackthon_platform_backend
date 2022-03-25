@@ -5,7 +5,7 @@ import { useUser } from "../../context/user-context";
 import { DataStateBox } from "../DataStateBox";
 import Collapse from '@mui/material/Collapse';
 import { useSwitch } from "../Loading";
-import { bgColorShallow, mainColor, textColor } from "../../style";
+import { bgColorShallow, mainColor } from "../../style";
 
 const ApplyMessage = (props) => {
     const { isOpen, open, close } = useSwitch()

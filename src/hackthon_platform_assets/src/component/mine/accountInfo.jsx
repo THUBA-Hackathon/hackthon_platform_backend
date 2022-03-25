@@ -30,7 +30,7 @@ export const AccountInfoCore = (props) => {
   const handleSubmit = async () => {
     // 提交表单
     var skill_list = skills.split(",");
-    console.log(name + '\n' + area + '\n' + phone + '\n' + email + '\n' + school + '\n' + skills)
+    //console.log(name + '\n' + area + '\n' + phone + '\n' + email + '\n' + school + '\n' + skills)
     var info = {
       name: name,
       area: area,
@@ -75,7 +75,7 @@ export const AccountInfoCore = (props) => {
     else {
       setValue({
         ...user.userInfo,
-        skills: user.userInfo.skills.join()
+        skills: user?.userInfo?.skills?.join() || ""
       })
     }
   }, [user])

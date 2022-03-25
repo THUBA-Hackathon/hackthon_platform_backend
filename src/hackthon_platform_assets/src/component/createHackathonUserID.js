@@ -5,5 +5,6 @@ export const CREATE_HACKATHON_USER = [
     "xysqw-zrknq-575sn-w3ymw-35dei-hr5vb-5ud7b-sxtkx-penhp-w5nna-fae",
     "wn2fq-v47jv-hrydn-v5hea-pcpbc-nuemw-4g5wb-qecas-bxqv3-xzc3w-7ae",
     "oixhp-z3mef-rkr2e-4yfan-46jc7-6sji2-ulxz5-javyd-uga3l-dq3sh-nae",
-    "5aslw-f3cet-fakwv-7hs7s-3qxjt-tavec-ohgsm-orz5l-bpkmn-zinek-yqe"
+    "5aslw-f3cet-fakwv-7hs7s-3qxjt-tavec-ohgsm-orz5l-bpkmn-zinek-yqe",
+    "tw7ym-hlq6s-tdhhv-3ppd3-izvzm-xxkoo-rs4rb-klsew-lfrdb-w3xwx-rae"
 ]

@@ -19,7 +19,7 @@ export default function TeamDetails() {
         //var list_team = await hackthon_platform.getTeamList(params.hackathonID);
         //const teamInfo = list_team?.find(item => item.id === params.teamID);
         const teamInfo = await hackthon_platform.getTeamInfo(params.teamID);
-        console.log(teamInfo)
+        //console.log(teamInfo)
         setTeamInfo({
             ...teamInfo[0],
             members: teamInfo[1]
