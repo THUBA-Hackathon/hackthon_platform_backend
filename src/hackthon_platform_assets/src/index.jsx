@@ -10,7 +10,7 @@ import {
   Routes,
   Route
 } from "react-router-dom"
-import PageDetails from './component/hackathon/pageDetails';
+import PageDetails from './component/hackathon/hackathonDetails';
 import TeamCard from './component/team/team';
 import PageTeam from './component/team/pageTeam';
 import AddTeam from './component/team/newTeam';
@@ -20,22 +20,28 @@ import MineTabs from './component/mine/mineTab';
 import VerticalTabs from './component/mine/mineTab'
 import PageTeamDetails from './component/team/pageTeamDetails';
 import UserContext from "./context/user-context";
+import { LoadingProvider } from "./component/Loading"
+import { UserProvider } from "./context/user-context"
 const rootElement = document.getElementById("root");
 
 render(
-    // <HashRouter>
-    //   <Routes>
-    //     <Route path={"" + "/"} element={<App />} />
-    //     <Route path={"" + "/details/:id"} element={<PageDetails />} />
-    //     <Route path={"" + "/cap"} element={<PageTeam teamList={list} />}></Route>
-    //     <Route path={"" + "/add"} element={<AddTeam />}></Route>
-    //     <Route path={"" + "/mine"} element={<Mine applyMessageList={list1} accountInfoData={data1} teamList={list2} />}></Route>
-    //     {/* <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route> */}
-    //   </Routes>
-    // </HashRouter>,
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
+  // <HashRouter>
+  //   <Routes>
+  //     <Route path={"" + "/"} element={<App />} />
+  //     <Route path={"" + "/details/:id"} element={<PageDetails />} />
+  //     <Route path={"" + "/cap"} element={<PageTeam teamList={list} />}></Route>
+  //     <Route path={"" + "/add"} element={<AddTeam />}></Route>
+  //     <Route path={"" + "/mine"} element={<Mine applyMessageList={list1} accountInfoData={data1} teamList={list2} />}></Route>
+  //     {/* <Route path={"" + "/teamDetails"} element={<PageTeamDetails data = {teamDetail}/>}></Route> */}
+  //   </Routes>
+  // </HashRouter>,
+  <HashRouter>
+    <LoadingProvider>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </LoadingProvider>
+  </HashRouter>,
   rootElement
 );
 

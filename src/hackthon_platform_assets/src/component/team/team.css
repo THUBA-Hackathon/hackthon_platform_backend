@@ -7,20 +7,14 @@
 }
 
 .add_icon_team {
-    position: absolute;
-    left:50px;
-    top: 70px;
     width: 1208px;
     height: 200px;
     text-align: center;
 }
 
 .join_btn {
-    position: absolute;
     width: 98px;
     height: 23px;
-    left: 46px;
-    top: 19px;
     cursor: pointer;
 
     font-family: DQHT Helvetica;
@@ -39,24 +33,17 @@
 }
 
 .join_team_button {
-    position: absolute;
     width: 190px;
     height: 60.32px;
-    left: 944px;
-    top: 131px;
-
     background: #06E1FF;
-    border-radius: 30px;
-
+    border-radius: 15px;
     cursor: pointer;
     text-align: center;
 }
 
 .team_name{
-    position: relative;
     width: 284px;
     height: 24px;
-    left: 210px;
     margin-top: 60px;
     font-family: Helvetica;
     font-style: normal;
@@ -74,10 +61,8 @@
 }
 
 .cap_name{
-    position: relative;
     width: 346px;
     height: 56px;
-    left: 210px;
     margin-top: 20px;
     font-family: Helvetica;
     font-style: normal;
@@ -90,10 +75,8 @@
 }
 
 .cap_email{
-    position: relative;
     width: 346px;
     height: 56px;
-    left: 210px;
     margin-top: 0px;
     font-family: Helvetica;
     font-style: normal;
@@ -103,15 +86,6 @@
     /* or 140% */
     color: #666666;
 
-}
-
-.team_card{
-    position: relative;
-    width: 1208px;
-    height: 350px;
-    left: 71.5px;
-    margin-top:10px;
-    /*background: rgba(0, 87, 254, 0.08);*/
 }
 
 .project_intro{
@@ -126,16 +100,12 @@
 }
 
 .project_intro_btn{
-    position: relative;
-    width: 1208px;
+    padding: 0 40px ;
     height:80px;
     line-height: 80px;
-    left: 50px;
-    margin-top: 40px;
-    text-align: center;
     background: rgba(0, 87, 254, 0.08);
     cursor: pointer;
-    
+    font-size: 20;
 }
 
 .intro_font {
@@ -153,38 +123,13 @@
     color: #0057FE;
 }
 
-.tech_stack{
-    position: relative;
-    width: 1000px;
-    height: 24px;
-    left: 100px;
-    margin-top: 0px;
-    font-family: Helvetica;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 24px;
-    /* identical to box height, or 120% */
-    color: #000000;
-}
-
-.tech_stack_title {
-    margin-right: 20px;
-    display: inline-block;
-}
-
 .one_tech{
-    position: relative;
     /* float: right; */
     margin-left: 20px;
-    right: 20px;
-    top: 0px;
-    bottom: 20px;
+    margin-bottom: 10px;
     width: auto;
     text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
-
+    padding: 3px 15px;
     background: rgba(187, 196, 253, 0.2);
     border: 1px solid #0057FE;
     border-radius: 19.5px;
@@ -203,10 +148,8 @@
 }
 
 .team_declaration{
-    position: relative;
     width: 1208px;
     height: 81px;
-    left: 50px;
     margin-top: 40px;
     /*background: rgba(0, 87, 254, 0.08);*/
 
@@ -221,10 +164,8 @@
 }
 
 .details_project_intro {
-    position: relative;
     width: 100%;
     height: auto;
-    left: 50px;
     margin-top: 30px;
 
     font-family: Helvetica;
@@ -239,42 +180,26 @@
 }
 
 .divider{
-    position: relative;
-    width: 109px;
-    height: 60px;
-    left: 50px;
-    margin-top:20px;
-
     font-family: Helvetica;
     font-style: normal;
     font-weight: bold;
-    font-size: 25px;
-    line-height: 60px;
-    /* identical to box height, or 240% */
-
-
-    color: #06E1FF;
-
-    border: 0px solid #06E1FF;
-    box-sizing: border-box;
+    font-size: 30;
+    margin-bottom: 40px;
 }
 
 
 .divider1{
-    position: relative;
     width: 109px;
     height: 60px;
-    left: 50px;
     margin-top:230px;
-
     font-family: Helvetica;
     font-style: normal;
     font-weight: bold;
     font-size: 25px;
     line-height: 60px;
     /* identical to box height, or 240% */
-
-
+    overflow: hidden;
+    
     color: #06E1FF;
 
     border: 0px solid #06E1FF;
@@ -282,10 +207,8 @@
 }
 
 .people_name {
-    position: relative;
     width: 346px;
     height: 56px;
-    left: 45px;
     margin-top: 50px;
 
     font-family: Helvetica;
@@ -300,18 +223,14 @@
 }
 
 .icon1 {
-    position: relative;
     width: 150px;
     height: 150;
-    left: 50px;
-    top: 20px;
 
     display: inline-block;
 
 }
 
 .people{
-    position: relative;
     margin-left: 00px;
     float: left;
     width: 100%;
@@ -319,10 +238,8 @@
     margin-top: 20px;
 }
 .people_email{
-    position: relative;
     width: 346px;
     height: 56px;
-    left: 45px;
     margin-top: 00px;
 
     font-family: Helvetica;
@@ -336,22 +253,13 @@
     color: #000000;
 }
 .people_info {
-    position: relative;
     display: inline-block;
     width: auto;
-}
+} 
 
-.team_details {
-    position: absolute;
-    width: 1208px;
-    left: 115px; 
-    top:104px;
-}
 .submit_btn{
-    position: relative;
     width: 109px;
     height: 60px;
-    left: 50px;
     margin-top:280px;
     cursor: pointer;
 
@@ -376,15 +284,12 @@
 }
 
 .team_title {
-    position: relative;
-    top: 65px;
     height: auto;
     font-family: Helvetica;
     font-style: normal;
     font-weight: normal;
-    font-size: 50px;
-    line-height: 60px;
-    text-align: center;
+    font-size: 30;
+    line-height: 20;
 
     color: #0057FE;
 
