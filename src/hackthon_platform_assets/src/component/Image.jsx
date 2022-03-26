@@ -12,13 +12,17 @@ export const LoadImage = (props) => {
     useEffect(async () => {
         if (!pictureBed || !props?.src) return
         open()
-        let url = ''
+        let url;
         /* if (props?.src?.includes("http")) {
             url = props?.src;
         } else { */
-        var test00 = await pictureBed.getImg(props?.src)
-        if (!test00?.ok[0]) return
-        url = uint8ArrayToBase64(test00?.ok[0]);
+        try {
+            var test00 = await pictureBed.getImg(props?.src)
+            if (!test00?.ok[0]) return
+            url = uint8ArrayToBase64(test00?.ok[0]);
+        } catch (error) {
+            url = ""
+        }
         //}
 
         setUrl(url);
