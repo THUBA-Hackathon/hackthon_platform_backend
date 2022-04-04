@@ -76,7 +76,7 @@ export const AddHackathon = (props) => {
   };
 
   const handleSubmit = async () => {
-    if (name == '' || intro == '' || startdate == '' || enddate == "" || sponsor == "" || !image_id) {
+    if (name == '' || intro?.length <= 6 || intro === "<p><br></p>" || startdate == '' || enddate == "" || sponsor == "" || !image_id) {
       message("warning", "Incomplete field filling!")
       return;
     }

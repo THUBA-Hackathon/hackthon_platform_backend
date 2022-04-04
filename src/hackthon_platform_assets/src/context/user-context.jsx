@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { AuthClient } from "@dfinity/auth-client";
 import { createActor, canisterId } from "../../../declarations/hackthon_platform"
-import { createActorPictureBed, canisterIdPictureBed } from "../../../declarations/picture_bed"
+import { createActor as createActorPictureBed, canisterId as canisterIdPictureBed } from "../../../declarations/picture_bed"
 
 const UserContext = createContext(null);
 
