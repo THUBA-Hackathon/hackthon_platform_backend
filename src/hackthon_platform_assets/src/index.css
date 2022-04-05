@@ -6,9 +6,9 @@
   -webkit-box-sizing:border-box; /* Safari */
 }
 
-/* *::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
-} */
+}
 
 body {
   margin: 0;
