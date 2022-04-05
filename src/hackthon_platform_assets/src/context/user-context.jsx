@@ -50,6 +50,7 @@ export const UserProvider = ({ children }) => {
             userInfo: user_info,
             userId: identity.getPrincipal().toString()
         }));
+        console.log(identity.getPrincipal().toString())
         setLoading(false)
     }, [canisterId, createActor])
 
