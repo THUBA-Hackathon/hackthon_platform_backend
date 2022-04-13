@@ -303,6 +303,16 @@ fn submit_work(team_id: String, code_link: String, video_link: String) {
 }
 
 
+#[update(name = deleteHackathon)]
+fn delete_hackathon(hackathon_id: String) {
+    let hackathon_store = storage::get_mut::<HackathonStore>();
+    let team_store = storage::get_mut::<TeamStore>();
+    let hackathon = hackathon_store.remove(&hackathon_id).unwrap();
+    for team in hackathon.teams {
+        team_store.remove(&team);
+    }
+}
+
 // async fn send_award(user_info: &User) {
 //     let user_store = storage::get::<UserStore>();
 //     let token_addr = storage::get::<Token>().0;
